@@ -1,0 +1,86 @@
+﻿@inherits CmsPageBase
+
+@page "/tags"
+
+<PageTitle>Tags - @Cms.System?.SystemName</PageTitle>
+
+<div class="content-item width75 header-center triple-padding">
+
+    <h1>Tags <Icon Name="tag" /></h1>
+
+    <div id="tags-container" class="center-content">
+        @if (_allTags.Count == 0)
+        {
+            <p>Tags not found.</p>
+        }
+        else
+        {
+            foreach (var tag in _allTags)
+            {
+                <div class="tag @(_selectedTags.Contains(tag) ? "selected-tag" : "")" @onclick="@(() => SelectTag(tag))">
+                    #@tag
+                </div>
+            }
+        }
+    </div>
+
+        <button id="tags-button" class="normal-button triple-padding"
+                disabled="@(!CanProceed)"
+                @onclick="@Submit">
+        Show (count: @_selectedTags.Count) <Icon Name="arrow_forward" />
+        </button>
+
+</div>
+
+@code {
+    private List<string> _allTags = new List<string>();
+    private List<string> _selectedTags = new List<string>();
+
+    private bool CanProceed => _selectedTags.Count != 0;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            var getTags = await PostModel.GetTags();
+
+            if (getTags is { Status: true, Result: List<string> })
+            {
+                _allTags = (List<string>)getTags.Result;
+                await InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                await Error();
+            }
+        }
+    }
+
+    private async Task SelectTag(string tag)
+    {
+        if (_selectedTags.Contains(tag))
+        {
+            _selectedTags.Remove(tag);
+        }
+        else
+        {
+            _selectedTags.Add(tag);
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task Submit()
+    {
+        if (CanProceed)
+        {
+            string uri = "/tag";
+            foreach (var selectedTag in _selectedTags)
+            {
+                uri += $"/{selectedTag}";
+            }
+            Navigation?.NavigateTo(uri, true);
+        }
+    }
+}

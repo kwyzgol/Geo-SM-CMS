@@ -1,0 +1,83 @@
+﻿@inherits CmsPageBase
+
+@page "/user/change-phone"
+
+<PageTitle>Change phone number - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn())
+{
+    <div class="content-item width75 triple-padding column">
+        <EditForm Model="@PhoneValidation" OnValidSubmit="@Change">
+            <label>
+                New phone number:
+                <div class="grid phone-container">
+                    <InputText class="phone-country"
+                           @bind-Value="PhoneValidation.PhoneCountry"
+                               Placeholder="+00"
+                               type="tel" />
+                    <InputText class="phone-number"
+                           @bind-Value="PhoneValidation.PhoneNumber"
+                               Placeholder="Your number"
+                               type="tel" />
+                </div>
+            </label>
+
+
+            <button type="submit" class="normal-button triple-padding">
+                Change
+            </button>
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+        </EditForm>
+    </div>
+}
+
+@code {
+    private PhoneValidation PhoneValidation { get; set; } = new PhoneValidation();
+
+    private async Task Change()
+    {
+        if (UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken) && await ReCaptchaOrContinue())
+        {
+            bool canUse = Cms.Auth!.CheckNumber($"{PhoneValidation.PhoneCountry}{PhoneValidation.PhoneNumber}");
+
+            if (canUse.Equals(false))
+            {
+                if (Modal != null)
+                {
+                    var parameters = new ModalParameters()
+                        .Add("Message", "" + 
+                                        "The format or country code of your phone number is not supported.");
+                    Modal.Show<InfoModal>("", parameters);
+                }
+                return;
+            }
+
+            var changePhone = await UserAccessModel
+                .UpdatePhone(CurrentPage?.LoginInfo.AccessToken, PhoneValidation.PhoneCountry, PhoneValidation.PhoneNumber);
+
+            if (changePhone.Status)
+            {
+                if (Modal != null)
+                {
+                    var parameters = new ModalParameters()
+                        .Add("Message", "Phone number changed.");
+                    var modal = Modal.Show<InfoModal>("", parameters);
+                    var getResponse = await modal.Result;
+                }
+                Navigation?.NavigateTo("/settings", true);
+                return;
+            }
+            else
+            {
+                await Error();
+            }
+        }
+    }
+}

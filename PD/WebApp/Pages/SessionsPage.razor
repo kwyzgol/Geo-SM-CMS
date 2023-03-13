@@ -1,0 +1,98 @@
+﻿@inherits CmsPageBase
+
+@page "/user/sessions"
+
+<PageTitle>Login history - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn())
+{
+    <div class="content-item width75 triple-padding column">
+
+        <h1>Latest login history <Icon Name="history" /></h1>
+        <span class="center-content">
+            <button class="normal-button triple-padding" @onclick="@RevokeAll">
+                Log out of all sessions
+            </button>
+        </span>
+
+
+        <br />
+        
+        <div class="login-records-list">
+            @foreach (var record in _loginHistory)
+        {
+            <div class="content-item-2 @(record.Item2 ? "message-sender-color" : "")">
+                <p>@record.Item1 UTC @(record.Item2 ? "(current)": "")</p>
+            </div>
+        }
+        </div>
+    </div>
+}
+
+@code {
+    private bool _init = true;
+
+    private List<(DateTime, bool)> _loginHistory = new List<(DateTime, bool)>();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_init && IsLoggedIn())
+        {
+            _init = false;
+
+            var getUser = await UserModel.GetFromAccessToken(CurrentPage?.LoginInfo.AccessToken);
+
+            if (getUser.Status.Equals(false) || getUser.Result == null)
+            {
+                await Error();
+                return;
+            }
+
+            var user = (UserModel)getUser.Result;
+
+            var getLoginHistory = user.GetLoginHistory(CurrentPage?.LoginInfo.AccessToken);
+
+            if (getLoginHistory.Status.Equals(false) || getLoginHistory.Result == null)
+            {
+                await Error();
+                return;
+            }
+
+            _loginHistory = (List<(DateTime, bool)>)getLoginHistory.Result;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    public async Task RevokeAll()
+    {
+        if (IsLoggedIn())
+        {
+            var getUser = await UserModel.GetFromAccessToken(CurrentPage?.LoginInfo.AccessToken);
+
+            if (getUser.Status.Equals(false) || getUser.Result == null)
+            {
+                await Error();
+                return;
+            }
+
+            var user = (UserModel)getUser.Result;
+
+            var revokeAll = UserModel.RevokeAllAccessTokens(user.UserId);
+
+            if (revokeAll.Status.Equals(false))
+            {
+                await Error();
+            }
+
+            await Logout();
+        }
+    }
+
+}

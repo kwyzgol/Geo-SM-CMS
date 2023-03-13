@@ -1,0 +1,143 @@
+﻿@inherits CmsPageBase
+
+@page "/user/change-avatar"
+
+<PageTitle>Change avatar - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn())
+{
+    <div class="content-item width75 triple-padding column">
+        
+        <label>
+            New avatar:
+            <InputFile @bind-Value="@_file"
+                       OnChange="ImageSelected"
+                       accept=".png, .jpg, .jpeg" />
+        </label>
+
+        <button class="normal-button triple-padding" @onclick="@Change">
+            Change
+        </button>
+    </div>
+}
+
+@code {
+
+    private long _maxfileSize = 50 * 1024 * 1024;
+    private IBrowserFile? _file;
+
+    private async Task Change()
+    {
+        if (UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken) && await ReCaptchaOrContinue())
+        {
+            if (_file != null)
+            {
+                try
+                {
+                    string filename = Guid.NewGuid().ToString();
+                    filename += $"-{CurrentPage?.LoginInfo.UserId}";
+                    filename = Path.ChangeExtension(filename, Path.GetExtension(_file.Name));
+                    string path = Path.Combine("./wwwroot/img/user", filename);
+
+                    await using FileStream fs = new FileStream(path, FileMode.Create);
+                    await _file.OpenReadStream(_maxfileSize).CopyToAsync(fs);
+
+                    var newAvatar = $"user/{filename}";
+
+                    var getUser = await UserModel.GetFromAccessToken(CurrentPage?.LoginInfo.AccessToken);
+
+                    if(getUser.Status.Equals(false) || getUser.Result == null)
+                    {
+                        string pathDelete = Path.Combine("./wwwroot/img", newAvatar);
+                        if (File.Exists(pathDelete))
+                        {
+                            File.Delete(pathDelete);
+                        }
+                        await Error();
+                        return;
+                    }
+
+                    var user = (UserModel)getUser.Result;
+
+                    var changeAvatar = 
+                        await UserModel.UpdateAvatar(CurrentPage?.LoginInfo.AccessToken, newAvatar);
+
+                    if (changeAvatar.Status.Equals(false))
+                    {
+                        string pathDelete = Path.Combine("./wwwroot/img", newAvatar);
+                        if (File.Exists(pathDelete))
+                        {
+                            File.Delete(pathDelete);
+                        }
+
+                        await Error();
+                        return;
+                    }
+
+                    if (Modal != null)
+                    {
+                        var parameters = new ModalParameters()
+                            .Add("Message", "Avatar changed.");
+                        var modal = Modal.Show<InfoModal>("", parameters);
+                        var getResponse = await modal.Result;
+                    }
+
+                    if (user.Avatar != "core/user.png" && user.Avatar != null)
+                    {
+                        string pathDelete = Path.Combine("./wwwroot/img", user.Avatar);
+                        if (File.Exists(pathDelete))
+                        {
+                            File.Delete(pathDelete);
+                        }
+                    }
+
+                    Navigation?.NavigateTo("/settings", true);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+
+                    var parameters = new ModalParameters()
+                        .Add("Message",
+                            "Error occurred during the file upload.");
+                    var modal = Modal?.Show<ErrorModal>("", parameters);
+
+                    _file = null;
+                    await InvokeAsync(StateHasChanged);
+                    return;
+                }
+            }
+        }
+    }
+
+    private async Task ImageSelected(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            if (e.FileCount == 1)
+            {
+                string fileType = Path.GetExtension(e.File.Name).ToLower();
+                if (fileType.Equals(".png") || fileType.Equals(".jpg") || fileType.Equals(".jpeg"))
+                {
+                    _file = e.File;
+                }
+                else
+                {
+                    var parameters = new ModalParameters()
+                        .Add("Message", "Invalid file type. The file won't be uploaded.");
+                    var modal = Modal?.Show<InfoModal>("", parameters);
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}

@@ -1,0 +1,26 @@
+﻿@inherits CmsPageBase
+
+@page "/moderator/check-reports"
+
+<PageTitle>Moderator reports - @Cms.System?.SystemName</PageTitle>
+
+@if (IsLoggedIn(Role.Moderator))
+{
+    <ReportLoader @ref="@ReportLoader" 
+                  ReportType="ReportType.Moderator" 
+                  BanPanel="@BanPanel" />
+    <br />
+    <span class="width100 center-content @(ReportLoader != null && ReportLoader.ShowPanel ? "" : "display-none")">
+        <BanPanel @ref="@BanPanel" 
+                  ReportLoader="@ReportLoader"/>
+    </span>
+} 
+else if (IsLoggedIn() || IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@code {
+    public ReportLoader? ReportLoader { get; set; }
+    public BanPanel? BanPanel { get; set; }
+}

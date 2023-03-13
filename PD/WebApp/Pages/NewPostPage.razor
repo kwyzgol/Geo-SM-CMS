@@ -1,0 +1,216 @@
+﻿@inherits CmsPageBase
+
+@page "/new-post"
+
+<PageTitle>New post - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn())
+{
+    @if (Stage == FormStage.Form)
+    {
+        <div class="content-item width75 header-center paragraph-center triple-padding">
+
+            <h1>New post <Icon Name="post_add" /></h1>
+
+            <label>
+                Title:
+                <input type="text"
+                       autofocus
+                       disabled="@(!_canProceed)"
+               @bind="@Post.Title" />
+            </label>
+
+            <label>
+                Content:
+                <textarea rows=4
+                          disabled="@(!_canProceed)"
+                  @bind="@Post.Content"></textarea>
+            </label>
+
+            <label>
+                Image:
+                <InputFile @bind-Value="@_file"
+                   OnChange="ImageSelected"
+                           accept=".png, .jpg, .jpeg" />
+            </label>
+
+            <label>
+                Location:
+                <LocationButton @ref="@_location" />
+            </label>
+
+            <br />
+
+            <span class="center-content">
+                <button class="normal-button triple-padding"
+                        disabled="@(!_canProceed)"
+                @onclick="@Submit">
+                    Create
+                </button>
+            </span>
+
+        </div>
+    }
+    @if (Stage == FormStage.Processing)
+    {
+        <div class="paragraph-center">
+            <p>Please, wait. Operation in progress.</p>
+        </div>
+    }
+}
+
+
+@code {
+    private bool _canProceed = true;
+    private long _maxfileSize = 50 * 1024 * 1024;
+    private IBrowserFile? _file;
+    private LocationButton? _location;
+
+    public FormStage Stage { get; set; } = FormStage.Form;
+    public PostModel Post { get; set; } = new PostModel();
+
+    public async Task Submit()
+    {
+        if (IsLoggedIn() && _canProceed)
+        {
+            _canProceed = false;
+            Stage = FormStage.Processing;
+            await InvokeAsync(StateHasChanged);
+
+            if (string.IsNullOrWhiteSpace(Post.Content) || string.IsNullOrWhiteSpace(Post.Title))
+            {
+                var parameters = new ModalParameters()
+                    .Add("Message", "Title and content cannot be empty.");
+                var modal = Modal?.Show<InfoModal>("", parameters);
+                _canProceed = true;
+                Stage = FormStage.Form;
+                await InvokeAsync(StateHasChanged);
+                return;
+            }
+
+            if (Post.Content.Length > 2000 || Post.Title.Length > 200)
+            {
+                var parameters = new ModalParameters()
+                    .Add("Message",
+                        "The title max length is 200 and the content max length is 2000.");
+                var modal = Modal?.Show<InfoModal>("", parameters);
+                _canProceed = true;
+                Stage = FormStage.Form;
+                await InvokeAsync(StateHasChanged);
+                return;
+            }
+
+            if (_file != null)
+            {
+                try
+                {
+                    string filename = Guid.NewGuid().ToString();
+                    filename += $"-{CurrentPage?.LoginInfo.UserId}";
+                    filename = Path.ChangeExtension(filename, Path.GetExtension(_file.Name));
+                    string path = Path.Combine("./wwwroot/img/content", filename);
+
+                    await using FileStream fs = new FileStream(path, FileMode.Create);
+                    await _file.OpenReadStream(_maxfileSize).CopyToAsync(fs);
+                    Post.Img = $"content/{filename}";
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+
+                    var parameters = new ModalParameters()
+                        .Add("Message",
+                            "Error occurred during the file upload.");
+                    var modal = Modal?.Show<ErrorModal>("", parameters);
+
+                    _file = null;
+                    _canProceed = true;
+                    Stage = FormStage.Form;
+                    await InvokeAsync(StateHasChanged);
+                    return;
+                }
+            }
+            else
+            {
+                Post.Img = Post.Img = $"core/content.png";
+            }
+
+            List<string> tags = Post.Content
+                .Split(' ', '\n')
+                .ToList()
+                .Where(x => x.StartsWith("#"))
+                .Where(y => y.Contains("?").Equals(false) && y.Contains("/").Equals(false)
+                            && y.Contains("<").Equals(false) && y.Contains(">").Equals(false))
+                .Select(z => z.Remove(0, 1))
+                .ToList();
+
+            var reCaptcha = await ReCaptchaOrContinue();
+
+            OperationResult createPost = new OperationResult(false, "Error");
+
+            if (reCaptcha)
+            {
+                createPost = await PostModel
+                    .Create(CurrentPage?.LoginInfo.AccessToken, Post, tags, _location?.GeoPoint);
+            }
+            
+
+            if (reCaptcha && createPost is { Status: true, Result: ulong })
+            {
+                Navigation?.NavigateTo($"/post/{createPost.Result}", true);
+            }
+            else
+            {
+                try
+                {
+                    if (Post.Img.Equals("core/content.png").Equals(false))
+                    {
+                        string path = Path.Combine("./wwwroot/img", Post.Img);
+                        if (File.Exists(path))
+                        {
+                            File.Delete(path);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                finally
+                {
+                    await Error();
+                }
+            }
+        }
+    }
+
+    private async Task ImageSelected(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            if (e.FileCount == 1)
+            {
+                string fileType = Path.GetExtension(e.File.Name).ToLower();
+                if (fileType.Equals(".png") || fileType.Equals(".jpg") || fileType.Equals(".jpeg"))
+                {
+                    _file = e.File;
+                }
+                else
+                {
+                    var parameters = new ModalParameters()
+                        .Add("Message", "Invalid file type. The file won't be uploaded.");
+                    var modal = Modal?.Show<InfoModal>("", parameters);
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}

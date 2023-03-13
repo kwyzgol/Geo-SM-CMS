@@ -1,0 +1,61 @@
+﻿@inherits CmsPageBase
+
+@page "/user/change-email"
+
+<PageTitle>Change email - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn())
+{
+    <div class="content-item width75 triple-padding column">
+        <EditForm Model="@EmailValidation" OnValidSubmit="@Change">
+            <label>
+                New email:
+                <InputText @bind-Value="@EmailValidation.Email"
+                           type="text"
+                           Placeholder="Your new email" />
+            </label>
+
+
+            <button type="submit" class="normal-button triple-padding">
+                Change
+            </button>
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+        </EditForm>
+    </div>
+}
+
+@code {
+    private EmailValidation EmailValidation { get; set; } = new EmailValidation();
+
+    private async Task Change()
+    {
+        if (UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken) && await ReCaptchaOrContinue())
+        {
+            var changeEmail = await UserAccessModel.UpdateEmail(CurrentPage?.LoginInfo.AccessToken, EmailValidation.Email);
+
+            if (changeEmail.Status)
+            {
+                if (Modal != null)
+                {
+                    var parameters = new ModalParameters()
+                        .Add("Message", "Email changed.");
+                    var modal = Modal.Show<InfoModal>("", parameters);
+                    var getResponse = await modal.Result;
+                }
+                Navigation?.NavigateTo("/settings", true);
+                return;
+            }
+            else
+            {
+                await Error();
+            }
+        }
+    }
+}

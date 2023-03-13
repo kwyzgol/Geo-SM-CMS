@@ -1,0 +1,174 @@
+﻿@inherits CmsModalBase
+
+@if (IsLoggedIn(Role.Admin) && User != null)
+{
+    <div class="edit-user-modal">
+        <div class="center-content column user-info">
+            <div>
+                <UserPlate Username="@User.Username" Avatar="@User.Avatar"/>
+                <p><b>ID:</b> @User.UserId</p>
+                <p><b>Role:</b> @(User.Role != null ? CmsUtilities.RoleToString((Role)User.Role) : "")</p>
+                <p><b>Reputation:</b> @User.Reputation</p>
+            </div>
+
+            <br/>
+            <NavigationItem IconName="engineering"
+                            Text="Make admin"
+                            @onclick="@(async () => await ChangeRole(Role.Admin))"
+                            UriPath="javascript:void(0)"/>
+            <NavigationItem IconName="manage_accounts"
+                            Text="Make moderator"
+                            @onclick="@(async () => await ChangeRole(Role.Moderator))"
+                            UriPath="javascript:void(0)"/>
+            <NavigationItem IconName="person_search"
+                            Text="Make fact checker"
+                            @onclick="@(async () => await ChangeRole(Role.FactChecker))"
+                            UriPath="javascript:void(0)"/>
+            <NavigationItem IconName="person"
+                            Text="Make user"
+                            @onclick="@(async () => await ChangeRole(Role.User))"
+                            UriPath="javascript:void(0)"/>
+            <NavigationItem IconName="delete"
+                            Text="Delete"
+                            @onclick="@(async () => await Delete())"
+                            UriPath="javascript:void(0)"/>
+
+        </div>
+        
+        @if (BanHistory.Count > 0)
+        {
+            <div class="center-content column ban-history">
+                <h3>Ban history</h3>
+                @foreach (var ban in BanHistory)
+                {
+                    <div class="content-item-2">
+                        <p><b>Reason:</b> @ban.Reason</p>
+                        <p><b>Date start:</b> @ban.DateStart UTC</p>
+                        <p><b>Date end:</b> @ban.DateEnd UTC</p>
+                        <p><b>Moderator name:</b> @ban.ModeratorName</p>
+                        <p><b>Moderator ID:</b> @ban.ModeratorId</p>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+}
+
+@code
+{
+    [Parameter]
+    public UserModel? User { get; set; }
+
+    public List<BanModel> BanHistory { get; set; } = new List<BanModel>();
+
+    private bool _init = true;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_init && User != null)
+        {
+            _init = false;
+
+            var getBanHistory = await User.GetBanHistory();
+
+            if (getBanHistory is { Status: true, Result: List<BanModel> })
+            {
+                var banList = (List<BanModel>)getBanHistory.Result;
+                banList.Reverse();
+                BanHistory = banList;
+            }
+            else
+            {
+                await Error();
+            }
+
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private async Task ChangeRole(Role role)
+    {
+        if (await UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken, Role.Admin))
+        {
+            var changeRole = 
+                await UserModel.ChangeRole(CurrentPage?.LoginInfo.AccessToken, User?.UserId, role);
+
+            if (changeRole.Status)
+            {
+                if(User != null) User.Role = role;
+                var parameters = new ModalParameters()
+                    .Add("Message", "Role successfully changed.");
+                Modal?.Show<InfoModal>("", parameters);
+                await InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                await Error(false);
+            }
+        }
+        else
+        {
+            await Error();
+        }
+    }
+
+    private async Task Delete()
+    {
+        if (await UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken, Role.Admin))
+        {
+            if (Modal == null)
+            {
+                await Error(false);
+            }
+
+            var confirmation = Modal.Show<ConfirmModal>("");
+            var confirmationResult = await confirmation.Result;
+
+            if (confirmationResult.Cancelled)
+            {
+                return;
+            }
+
+            if (User == null)
+            {
+                return;
+            }
+
+            var deleteAccount = await UserModel.Delete(CurrentPage?.LoginInfo.AccessToken, User.UserId);
+
+            if (deleteAccount.Status.Equals(false))
+            {
+                await Error();
+                return;
+            }
+
+            if (deleteAccount.Result is List<string>)
+            {
+                List<string> filesToDelete = (List<string>)deleteAccount.Result;
+                foreach (var file in filesToDelete)
+                {
+                    try
+                    {
+                        File.Delete(Path.Combine("wwwroot/img", file));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+            }
+
+            var parameters = new ModalParameters()
+                .Add("Message", "User deleted successfully.");
+            Modal?.Show<InfoModal>("", parameters);
+            await BlazoredModal.CloseAsync(ModalResult.Ok("Deleted"));
+        }
+        else
+        {
+            await Error();
+        }
+    }
+}

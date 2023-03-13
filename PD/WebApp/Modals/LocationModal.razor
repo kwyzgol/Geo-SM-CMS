@@ -1,0 +1,197 @@
+﻿@inherits CmsModalBase
+
+<h1 class="font-color-map"><Icon Name="map" /> Choose a location</h1>
+
+<div class="center-content" id="localization-search">
+    <form onsubmit="@Search">
+
+        <span class="one-row">
+            <input @bind="@SearchedPlace"
+                   Placeholder="Search for a place"
+                   disabled="@IsSearching"
+                   type="search"
+                   class="search-input" />
+            <button class="search-button"
+                    type="submit"
+                    disabled="@IsSearching">
+                Search
+            </button>
+        </span>
+
+    </form>
+    @if (Places.Count != 0)
+    {
+        <div class="places-list">
+            @foreach (var place in Places)
+            {
+                <div class="place" @onclick="() => ChoosePlace(place)">
+                    <p><b>Place:</b> @place.Description</p>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@if (Type == LocationType.Distance)
+{
+    <span class="center-content">
+        <div class="content-item width90">
+            <label>
+                Distance: @($"{Distance / 1000.0} km")
+                <input type="range"
+                       min="100"
+                       max="500000"
+                       class="distance-range-input"
+                       @bind="Distance"
+                       @bind:event="oninput" />
+            </label>
+        </div>
+    </span>
+
+
+}
+
+<div class="center-content">
+    <div id="map"></div>
+</div>
+
+<input type="hidden" id="latitudeModalMap" @bind="LatitudeModalMap" />
+<input type="hidden" id="longitudeModalMap" @bind="LongitudeModalMap " />
+
+<br />
+
+<div class="grid">
+    <button onclick="@Confirm" disabled="@(!_selected)">
+        <Icon Name="done" Class="icon-font-header" /> Confirm
+    </button>
+    <button onclick="@Cancel">
+        <Icon Name="close" Class="icon-font-header" /> Cancel
+    </button>
+</div>
+
+@code
+{
+    [Parameter] public LocationType Type { get; set; } = LocationType.Normal;
+
+    private string SearchedPlace { get; set; } = "";
+    private List<PlaceModel> Places { get; set; } = new List<PlaceModel>();
+    private bool IsSearching { get; set; } = false;
+    private bool CanSearch => string.IsNullOrWhiteSpace(SearchedPlace).Equals(false);
+
+    private string _latitudeModalMap = "";
+    private string _longitudeModalMap = "";
+
+    private string LatitudeModalMap
+    {
+        get => _latitudeModalMap;
+        set
+        {
+            _latitudeModalMap = value;
+            _selected = true;
+            try
+            {
+                _geoPoint.Latitude = Convert.ToDouble(value, CultureInfo.InvariantCulture);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+    private string LongitudeModalMap
+    {
+        get => _longitudeModalMap;
+        set
+        {
+            _longitudeModalMap = value;
+            _selected = true;
+            try
+            {
+                _geoPoint.Longitude = Convert.ToDouble(value, CultureInfo.InvariantCulture);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+
+    private int _distance = 0;
+    private int Distance
+    {
+        get => _distance;
+        set
+        {
+            try
+            {
+                if (value >= 100 && value <= 500000)
+                {
+                    _distance = value;
+                    _geoPoint.Meters = value;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+
+    private GeoPointModel _geoPoint = new GeoPointModel();
+    private bool _selected = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender && CurrentPage != null)
+        {
+            if (Type == LocationType.Distance)
+            {
+                _distance = 1000;
+                _geoPoint.Meters = 1000;
+                await InvokeAsync(StateHasChanged);
+            }
+
+            await ShowMap(CurrentPage.Latitude, CurrentPage.Longitude);
+        }
+    }
+
+    private async Task Confirm()
+    {
+        if (_selected)
+        {
+            await BlazoredModal.CloseAsync(ModalResult.Ok(_geoPoint));
+        }
+    }
+    private async Task Cancel() => await BlazoredModal.CancelAsync();
+
+    private async Task Search()
+    {
+        if (CanSearch && IsSearching.Equals(false))
+        {
+            IsSearching = true;
+            await InvokeAsync(StateHasChanged);
+
+            var searchPlace = await PlaceModel.SearchPlace(SearchedPlace);
+
+            if (searchPlace is { Status: true, Result: List<PlaceModel> })
+            {
+                Places = (List<PlaceModel>)searchPlace.Result;
+            }
+
+            IsSearching = false;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private async Task ChoosePlace(PlaceModel place)
+    {
+        if (JsRuntime != null)
+        {
+            await JsRuntime.InvokeVoidAsync("SetPlace", place.Latitude, place.Longitude);
+            Places.Clear();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}

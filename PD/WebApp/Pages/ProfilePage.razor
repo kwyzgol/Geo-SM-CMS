@@ -1,0 +1,92 @@
+﻿@inherits CmsPageBase
+
+@page "/profile/{username}"
+
+<PageTitle> Profile: @Username - @Cms.System?.SystemName</PageTitle>
+
+@if (_canShow && Username != null)
+{
+    @if (IsLoggedIn() || IsNotLoggedIn())
+    {
+        <div id="user-profile" class="content-item width75">
+            <img src="img/@_avatar" />
+            <div>
+                <h1>@Username</h1>
+                <a href="message/@Username" class="no-decoration">
+                    <button>
+                        <Icon Name="mail" />
+                        Send a message
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <PostsLoader Username="@Username" />
+    }
+
+}
+
+
+@code
+{
+    [Parameter]
+    public string? Username { get; set; }
+
+    private bool _canShow = false;
+    private bool _init = true;
+
+    private ulong? _userId;
+    private string _avatar = "core/user.png";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_init && Username != null && _canShow.Equals(false))
+        {
+            _init = false;
+
+            var getUserId = UserModel.GetId(Username);
+
+            if (getUserId.Status.Equals(false))
+            {
+                await Error();
+                return;
+            }
+
+            if (getUserId.Result is ulong)
+            {
+                var userId = (ulong)getUserId.Result;
+
+                var getUser = await UserModel.Get(userId);
+
+                if (getUser.Status.Equals(false))
+                {
+                    await Error();
+                    return;
+                }
+
+                if (getUser.Result is UserModel)
+                {
+                    var user = (UserModel)getUser.Result;
+
+                    _userId = userId;
+                    _avatar = user.Avatar ?? _avatar;
+                }
+                else
+                {
+                    await Error();
+                    return;
+                }
+            }
+            else
+            {
+                await Error();
+                return;
+            }
+
+            _canShow = true;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}

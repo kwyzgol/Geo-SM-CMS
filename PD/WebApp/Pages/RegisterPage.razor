@@ -1,0 +1,257 @@
+﻿@inherits CmsPageBase
+
+@page "/register"
+
+<PageTitle>Registration - @Cms.System?.SystemName</PageTitle>
+
+@if (CurrentPage is { LoginInfo.IsLogged: true })
+{
+    <IndexPageRedirect />
+}
+
+@if (Stage == FormStage.Form)
+{
+    <div class="content-item width75 header-center paragraph-center triple-padding">
+        <h1>Registration <Icon Name="person_add" /></h1>
+
+        <EditForm Model="@NewUser" OnValidSubmit="@Submit">
+            <label>
+                Username:
+                <InputText @bind-Value="NewUser.Username"
+                           Placeholder="Your username"
+                           disabled="@(!_canProceed)" />
+            </label>
+
+            <label>
+                Password:
+                <InputText @bind-Value="NewUser.Password"
+                           type="password"
+                           Placeholder="Your password"
+                           disabled="@(!_canProceed)" />
+            </label>
+
+            <label>
+                Confirm Password:
+                <InputText @bind-Value="NewUser.ConfirmPassword"
+                           type="password"
+                           Placeholder="Your password"
+                           disabled="@(!_canProceed)" />
+            </label>
+
+            @if (Cms.Auth is { Type: AuthType.Email or AuthType.EmailAndSms })
+            {
+                <label>
+                    Email:
+                    <InputText @bind-Value="NewUser.Email"
+                               Placeholder="Your email"
+                               disabled="@(!_canProceed)" />
+                </label>
+            }
+
+            @if (Cms.Auth is { Type: AuthType.Sms or AuthType.EmailAndSms })
+            {
+                <label>
+                    Phone number:
+                    <div class="grid phone-container">
+                        <InputText class="phone-country"
+                           @bind-Value="NewUser.PhoneCountry"
+                                   Placeholder="+00"
+                                   type="tel"
+                                   disabled="@(!_canProceed)" />
+                        <InputText class="phone-number"
+                           @bind-Value="NewUser.PhoneNumber"
+                                   Placeholder="Your number"
+                                   type="tel"
+                                   disabled="@(!_canProceed)" />
+                    </div>
+                </label>
+            }
+
+            <label>
+                <InputCheckbox @bind-Value="NewUser.TermsOfService" disabled="@(!_canProceed)" />
+                I accept the <NavLink href="/tos" class="tos-link">terms of service</NavLink>
+            </label>
+
+            <br />
+
+            <span class="center-content">
+                <button type="submit"
+                        class="normal-button triple-padding"
+                        disabled="@(!_canProceed)">
+                    Register
+                </button>
+            </span>
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+        </EditForm>
+    </div>
+}
+@if (Stage == FormStage.Processing)
+{
+    <div class="paragraph-center">
+        <p>Please, wait. Operation in progress.</p>
+    </div>
+}
+@if (Stage == FormStage.Auth && _userId != null)
+{
+    <AuthPanel UserId="@_userId" Mode="AuthPanelMode.Normal" />
+}
+
+@code {
+    public FormStage Stage { get; set; } = FormStage.Form;
+
+    private bool _canProceed = true;
+    private ulong? _userId = null;
+
+    public RegistrationModel NewUser { get; set; } = Cms.Auth?.Type switch
+    {
+        AuthType.None => new RegistrationModel(),
+        AuthType.Email => new RegistrationModelEmail(),
+        AuthType.Sms => new RegistrationModelSms(),
+        AuthType.EmailAndSms => new RegistrationModelBoth(),
+        _ => new RegistrationModel()
+    };
+
+    public async Task Submit()
+    {
+        if (_canProceed)
+        {
+            _canProceed = false;
+            Stage = FormStage.Processing;
+
+            if ((await ReCaptchaOrContinue()).Equals(false))
+            {
+                _canProceed = true;
+                Stage = FormStage.Form;
+                return;
+            }
+
+            OperationResult usernameExists = NewUser.CheckUsernameExists();
+
+            if (usernameExists.Status.Equals(true))
+            {
+                if (Modal != null)
+                {
+                    var parameters = new ModalParameters()
+                        .Add("Message", "" +
+                                        "The provided username already exists. " +
+                                        "Please choose another one.");
+                    Modal.Show<InfoModal>("", parameters);
+                }
+                _canProceed = true;
+                Stage = FormStage.Form;
+                return;
+            }
+
+            if (usernameExists.Status.Equals(false) && usernameExists.Message.Equals("Error"))
+            {
+                if (Modal != null)
+                {
+                    Modal.Show<ErrorModal>("");
+                }
+                _canProceed = true;
+                Stage = FormStage.Form;
+                return;
+            }
+
+            if (NewUser is RegistrationModelEmail or RegistrationModelBoth)
+            {
+                OperationResult emailExists = NewUser.CheckEmailExists();
+
+                if (emailExists.Status.Equals(true))
+                {
+                    if (Modal != null)
+                    {
+                        var parameters = new ModalParameters()
+                            .Add("Message", "" +
+                                            "An account with this email address already exists. " +
+                                            "Please choose another one.");
+                        Modal.Show<InfoModal>("", parameters);
+                    }
+                    _canProceed = true;
+                    Stage = FormStage.Form;
+                    return;
+                }
+
+                if (emailExists.Status.Equals(false) && emailExists.Message.Equals("Error"))
+                {
+                    if (Modal != null)
+                    {
+                        Modal.Show<ErrorModal>("");
+                    }
+                    _canProceed = true;
+                    Stage = FormStage.Form;
+                    return;
+                }
+            }
+
+            if (NewUser is RegistrationModelSms or RegistrationModelBoth)
+            {
+                string completePhoneNumber = $"{NewUser.PhoneCountry}{NewUser.PhoneNumber}";
+                bool isAllowed = Cms.Auth?.CheckNumber(completePhoneNumber) ?? false;
+
+                if (isAllowed.Equals(false))
+                {
+                    if (Modal != null)
+                    {
+                        var parameters = new ModalParameters()
+                            .Add("Message", "" + 
+                                            "The format or country code of your phone number is not supported.");
+                        Modal.Show<InfoModal>("", parameters);
+                    }
+                    _canProceed = true;
+                    Stage = FormStage.Form;
+                    return;
+                }
+
+                OperationResult phoneNumberExists = NewUser.CheckPhoneNumberExists();
+
+                if (phoneNumberExists.Status.Equals(true))
+                {
+                    if (Modal != null)
+                    {
+                        var parameters = new ModalParameters()
+                            .Add("Message", "" +
+                                            "An account with this phone number already exists. " +
+                                            "Please choose another one.");
+                        Modal.Show<InfoModal>("", parameters);
+                    }
+                    _canProceed = true;
+                    Stage = FormStage.Form;
+                    return;
+                }
+
+                if (phoneNumberExists.Status.Equals(false) && phoneNumberExists.Message.Equals("Error"))
+                {
+                    if (Modal != null)
+                    {
+                        Modal.Show<ErrorModal>("");
+                    }
+                    _canProceed = true;
+                    Stage = FormStage.Form;
+                    return;
+                }
+            }
+
+            OperationResult registrationResult = NewUser.Register(Cms.CreateAdmin);
+
+            if (registrationResult.Status.Equals(true))
+            {
+                _userId = (ulong?)(registrationResult.Result);
+                if (_userId != null)
+                {
+                    Stage = FormStage.Auth;
+                    return;
+                }
+            }
+
+            if (Modal != null)
+            {
+                Modal.Show<ErrorModal>("");
+            }
+            _canProceed = true;
+            Stage = FormStage.Form;
+        }
+    }
+}

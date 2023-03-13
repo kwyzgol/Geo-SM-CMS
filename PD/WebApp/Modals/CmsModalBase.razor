@@ -1,0 +1,10 @@
+﻿@inherits CmsComponentBase
+
+@code {
+
+    [CascadingParameter]
+    public BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter]
+    public string? Message { get; set; } = "";
+}

@@ -1,0 +1,28 @@
+﻿<div class="content-item-2 comment">
+    <span class="width100-flex">
+
+        <span class="comment-date">
+            @Content?.Date UTC
+        </span>
+
+        <DeleteButton ContentType="@Data.Content.Comment"
+                      ContentId="@Content?.CommentId"
+                      AuthorId="@Content?.AuthorId" />
+
+        <ReportButton ContentType="@Data.Content.Comment"
+                      ContentId="@Content?.CommentId"
+                      AuthorId="@Content?.AuthorId" />
+
+        <UserPlate Username="@Content?.Author" Avatar="@Content?.Avatar" />
+
+    </span>
+
+    <p>@Content.Content</p>
+</div>
+
+@code {
+
+    [Parameter]
+    public CommentModel? Content { get; set; }
+
+}

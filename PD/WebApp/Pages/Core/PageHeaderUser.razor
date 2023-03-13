@@ -1,0 +1,43 @@
+﻿@inherits CmsComponentBase
+
+@if (CurrentPage?.LoginInfo.IsLogged.Equals(false) ?? true)
+{
+    <div id="header-user-panel">
+        <button @onclick="@Search">
+            <Icon Name="search" Class="icon-font-header" />
+            <span class="mobile-hidden">Search</span>
+        </button>
+
+        <button @onclick="@Login">
+            <Icon Name="person" Class="icon-font-header" />
+            <span class="mobile-hidden">Log in</span>
+        </button>
+
+        <button @onclick="@Register">
+            <Icon Name="person_add" Class="icon-font-header" />
+            <span class="mobile-hidden">Register</span>
+        </button>
+    </div>
+}
+else
+{
+    <button @onclick="@Search">
+        <Icon Name="search" Class="icon-font-header" />
+        <span class="mobile-hidden">Search</span>
+    </button>
+
+    <UserPlate Username="@CurrentPage.LoginInfo.Username"
+           Avatar="@CurrentPage.LoginInfo.Avatar"
+           HideUsernameMobile="true" />
+    
+    <button @onclick="@Logout">
+        <Icon Name="logout" Class="icon-font-header" />
+        <span class="mobile-hidden">Log out</span>
+    </button>
+}
+
+@code {
+    public void Register() => Navigation?.NavigateTo("/register", true);
+    public void Login() => Navigation?.NavigateTo("/login", true);
+    public void Search() => Navigation?.NavigateTo("/search", true);
+}

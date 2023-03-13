@@ -1,0 +1,9 @@
+﻿@inherits CmsPageBase
+
+@page "/contact"
+
+<PageTitle>Contact - @Cms.System?.SystemName</PageTitle>
+
+<div class="content-item width75 header-center paragraph-justify triple-padding">
+    @((MarkupString)(Cms.System?.Contact ?? ""))
+</div>

@@ -1,0 +1,18 @@
+﻿@inherits CmsPageBase
+
+@page "/moderator/ban-user"
+
+<PageTitle>Ban user - @Cms.System?.SystemName</PageTitle>
+
+@if (IsLoggedIn(Role.Moderator))
+{
+    <BanPanel @ref="@BanPanel" />
+}
+else if (IsLoggedIn() || IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@code {
+    public BanPanel? BanPanel { get; set; }
+}

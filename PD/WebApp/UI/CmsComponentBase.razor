@@ -1,0 +1,149 @@
+﻿@code {
+    public static string MapTilesUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+    public static string MapAttribution = "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>";
+
+    [Inject] public IStringLocalizer<Translations>? Translations { get; set; }
+    [Inject] public IJSRuntime? JsRuntime { get; set; }
+    [Inject] public NavigationManager? Navigation { get; set; }
+    [Inject] public ProtectedLocalStorage? ProtectedLocalStorage { get; set; }
+
+    [CascadingParameter]
+    public IModalService? Modal { get; set; }
+
+    [CascadingParameter(Name = "CurrentPage")]
+    public MainLayout? CurrentPage { get; set; }
+
+    public async Task<bool> ReCaptchaOrContinue()
+    {
+        if (Cms.ReCaptcha is { ReCaptchaEnabled: true })
+        {
+            if (CurrentPage != null && CurrentPage.ReCaptchaClient != null)
+            {
+                bool gotToken = await CurrentPage.ReCaptchaClient.GenerateToken();
+
+                if (gotToken)
+                {
+                    string token = CurrentPage.ReCaptchaToken;
+                    var reCaptchaResult = await Cms.ReCaptcha.Verify(token);
+
+                    if (reCaptchaResult.Equals(false))
+                    {
+                        var parameters = new ModalParameters()
+                            .Add("Message", "" +
+                                            "Could not determine if you are human." +
+                                            "Please refresh the page, " +
+                                            "try again or contact the website administrator.");
+                        if (Modal != null)
+                        {
+                            var errorModal = Modal.Show<ErrorModal>("", parameters);
+                            var response = await errorModal.Result;
+                        }
+                    }
+                }
+                else
+                {
+                    if (Modal != null)
+                    {
+                        var errorModal = Modal.Show<ErrorModal>("");
+                        var response = await errorModal.Result;
+                    }
+                    return false;
+                }
+            }
+            else
+            {
+                if (Modal != null)
+                {
+                    var errorModal = Modal.Show<ErrorModal>("");
+                    var response = await errorModal.Result;
+                }
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public async Task Logout()
+    {
+        if (ProtectedLocalStorage != null && Navigation != null)
+        {
+            var getAccessToken = await ProtectedLocalStorage.GetAsync<string>("AccessToken");
+            if (getAccessToken.Success && getAccessToken.Value != null)
+            {
+                UserModel.RevokeAccessToken(getAccessToken.Value);
+            }
+            await ProtectedLocalStorage.DeleteAsync("AccessToken");
+            Navigation.NavigateTo("/", true);
+        }
+    }
+
+    public async Task ShowMap(string id, double latitude, double longitude, int zoom)
+    {
+        await JsRuntime.InvokeVoidAsync("ShowMap", MapTilesUrl, MapAttribution, id, latitude, longitude, zoom);
+    }
+
+    public async Task ShowMap(double latitude, double longitude, int zoom)
+    {
+        await ShowMap("map", latitude, longitude, zoom);
+    }
+
+    public async Task ShowMap(double latitude, double longitude)
+    {
+        await ShowMap(latitude, longitude, 15);
+    }
+
+    public async Task ShowMap()
+    {
+        await ShowMap("map", 0, 0, 1);
+    }
+
+    public async Task Error(bool navigate = true)
+    {
+        if (Modal != null)
+        {
+            var errorModal = Modal.Show<ErrorModal>("");
+            var response = await errorModal.Result;
+        }
+        if(navigate) Navigation?.NavigateTo("/", true);
+    }
+
+    public void RefreshPage()
+    {
+        if (Navigation != null)
+        {
+            string uri = new Uri(Navigation.Uri)
+                .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+            Navigation.NavigateTo(uri, true);
+        }
+    }
+
+    public void LoadIndexPage()
+    {
+        if (Navigation != null)
+        {
+            Navigation.NavigateTo("/", true);
+        }
+    }
+
+    public bool IsLoggedIn()
+    {
+        return CurrentPage is { LoginInfo.AlreadyChecked: true, LoginInfo.IsLogged: true };
+    }
+
+    public bool IsNotLoggedIn()
+    {
+        return CurrentPage is { LoginInfo.AlreadyChecked: true, LoginInfo.IsLogged: false };
+    }
+
+    public bool IsLoggedIn(Role role)
+    {
+        return IsLoggedIn() && CurrentPage?.LoginInfo.Role >= role;
+    }
+
+    public async Task StateChangedAsync()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+}

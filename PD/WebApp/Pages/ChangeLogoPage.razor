@@ -1,0 +1,98 @@
+﻿@inherits CmsPageBase
+
+@page "/admin/change-logo"
+
+<PageTitle>Change logo - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn(Role.Admin))
+{
+    <div class="content-item width75 triple-padding column">
+
+        <label>
+            New logo:
+            <InputFile @bind-Value="@_file"
+                   OnChange="ImageSelected"
+                       accept=".png, .jpg, .jpeg" />
+        </label>
+
+        <button class="normal-button triple-padding" @onclick="@Change">
+            Change
+        </button>
+    </div>
+}
+
+@code {
+
+    private long _maxfileSize = 50 * 1024 * 1024;
+    private IBrowserFile? _file;
+
+    private async Task Change()
+    {
+        if (await UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken, Role.Admin))
+        {
+            if (_file != null && CurrentPage?.LoginInfo.AccessToken != null)
+            {
+                try
+                {
+                    string filename = "logo";
+                    filename = Path.ChangeExtension(filename, Path.GetExtension(_file.Name));
+                    string path = Path.Combine("./wwwroot/img/core", filename);
+
+                    await using FileStream fs = new FileStream(path, FileMode.Create);
+                    await _file.OpenReadStream(_maxfileSize).CopyToAsync(fs);
+
+                    var newLogo = $"core/{filename}";
+
+                    Cms.System!.Logo = newLogo;
+                    await Cms.Databases!.UpdateSettings(CurrentPage.LoginInfo.AccessToken, Cms.System!, Cms.Auth!, Cms.ReCaptcha!);
+
+                    Navigation?.NavigateTo("/settings", true);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+
+                    var parameters = new ModalParameters()
+                        .Add("Message",
+                            "Error occurred during the file upload.");
+                    var modal = Modal?.Show<ErrorModal>("", parameters);
+
+                    _file = null;
+                    await InvokeAsync(StateHasChanged);
+                    return;
+                }
+            }
+        }
+    }
+
+    private async Task ImageSelected(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            if (e.FileCount == 1)
+            {
+                string fileType = Path.GetExtension(e.File.Name).ToLower();
+                if (fileType.Equals(".png") || fileType.Equals(".jpg") || fileType.Equals(".jpeg"))
+                {
+                    _file = e.File;
+                }
+                else
+                {
+                    var parameters = new ModalParameters()
+                        .Add("Message", "Invalid file type. The file won't be uploaded.");
+                    var modal = Modal?.Show<InfoModal>("", parameters);
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}

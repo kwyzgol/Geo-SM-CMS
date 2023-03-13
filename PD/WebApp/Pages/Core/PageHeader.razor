@@ -1,0 +1,20 @@
+﻿@inherits CmsComponentBase
+
+<header id="header">
+    <div id="menu-mobile-switcher">
+        <span id="mobile-button-menu" onclick="openMobileMenu()">
+            <Icon Name="menu" />
+        </span>
+        <span id="mobile-button-close" class="mobile-hidden" onclick="closeMobileMenu()">
+            <Icon Name="close" />
+        </span>
+    </div>
+    <div id="header-logo">
+        <a href="/">
+            <img src="img/core/logo.png" />
+        </a>
+    </div>
+    <div id="header-user">
+        <PageHeaderUser />
+    </div>
+</header>

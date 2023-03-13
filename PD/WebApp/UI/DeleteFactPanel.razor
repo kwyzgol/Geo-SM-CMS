@@ -1,0 +1,46 @@
+﻿@inherits CmsComponentBase
+
+@if (IsLoggedIn(Role.FactChecker))
+{
+    <div class="content-item width75 triple-padding">
+        <label>
+            Post id:
+            <input type="number"
+                   min="0"
+                   @bind="@PostId" />
+        </label>
+
+        <br />
+
+        <button class="normal-button triple-padding" @onclick="@DeleteFact">
+            Delete fact
+        </button>
+
+    </div>
+}
+
+
+@code {
+    public long PostId { get; set; } = 0;
+
+    public async Task DeleteFact()
+    {
+        if (IsLoggedIn(Role.Moderator))
+        {
+            var deleteFact =
+                await PostModel.DeleteFact(CurrentPage?.LoginInfo.AccessToken, PostId);
+
+            if (deleteFact.Status.Equals(false))
+            {
+                await Error(false);
+                return;
+            }
+
+            var parameters = new ModalParameters().Add("Message", "Fact deleted.");
+
+            Modal?.Show<InfoModal>("", parameters);
+
+            PostId = 0;
+        }
+    }
+}

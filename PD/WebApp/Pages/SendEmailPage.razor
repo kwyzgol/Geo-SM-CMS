@@ -1,0 +1,70 @@
+﻿@inherits CmsPageBase
+
+@page "/admin/send-email"
+
+<PageTitle>Send email - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn(Role.Admin))
+{
+    <div class="content-item width75 triple-padding column">
+
+        <label>
+            Receiver:
+            <input type="text" @bind="@_customEmail.Recipient">
+        </label>
+
+        <label>
+            Subject:
+            <input type="text" @bind="@_customEmail.CustomSubject">
+        </label>
+
+        <label>
+            Message:
+            <textarea rows=4 @bind="@_customEmail.CustomBody"></textarea>
+        </label>
+
+        <button class="normal-button triple-padding" @onclick="@Send">
+            Send
+        </button>
+    </div>
+}
+
+@code {
+
+    private CustomEmail _customEmail = new CustomEmail();
+
+    private async Task Send()
+    {
+        if (await UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken, Role.Admin))
+        {
+            var sendEmail = _customEmail.Send();
+
+            if (sendEmail)
+            {
+                if (Modal != null)
+                {
+                    var parameters = new ModalParameters()
+                        .Add("Message", "Email sent.");
+                    var modal = Modal.Show<InfoModal>("", parameters);
+                    _customEmail.Recipient = "";
+                    _customEmail.CustomSubject = "";
+                    _customEmail.CustomBody = "";
+                }
+            }
+            else
+            {
+                if (Modal != null)
+                {
+                    var parameters = new ModalParameters()
+                        .Add("Message", "Error occurred. Email not sent.");
+                    var modal = Modal.Show<ErrorModal>("", parameters);
+                }
+            }
+        }
+    }
+}

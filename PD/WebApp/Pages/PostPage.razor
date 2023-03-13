@@ -1,0 +1,65 @@
+﻿@inherits CmsPageBase
+
+@page "/post/{PostId:long}"
+
+<PageTitle> @Post.Title - @Cms.System?.SystemName</PageTitle>
+
+@if (IsLoggedIn() || IsNotLoggedIn())
+{
+    <Post PostId="@((ulong)Post.PostId)"
+          Type="@PostType.Full"
+          Author="@Post.Author"
+          AuthorId="@((ulong)Post.AuthorId)"
+          Date="@Post.Date"
+          Title="@Post.Title"
+          Content="@Post.Content"
+          Img="@Post.Img"
+          Counter="@Post.Counter"
+          Fact="@Post.Fact"
+          SelectedDown="@Post.SelectedDown"
+          SelectedUp="@Post.SelectedUp"
+          BlockSearchEngines="@Post.BlockSearchEngines" />
+
+    <CommentsPanel PostId="@(PostId)" />
+
+}
+
+
+@code
+{
+    [Parameter]
+    public long PostId { get; set; }
+
+    public PostModel Post { get; set; } = new PostModel();
+
+    private bool _init = true;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_init && (IsLoggedIn() || IsNotLoggedIn()))
+        {
+            _init = false;
+
+            var getPost = await PostModel.Get(PostId, CurrentPage?.LoginInfo.AccessToken);
+
+            if (getPost.Status.Equals(false))
+            {
+                await Error();
+            }
+            else
+            {
+                if (getPost.Result is PostModel)
+                {
+                    Post = (PostModel)getPost.Result;
+                    await InvokeAsync(StateHasChanged);
+                }
+                else
+                {
+                    await Error();
+                }
+            }
+        }
+    }
+}

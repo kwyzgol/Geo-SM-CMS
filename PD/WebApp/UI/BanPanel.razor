@@ -1,0 +1,128 @@
+﻿@inherits CmsComponentBase
+
+@if (IsLoggedIn(Role.Moderator))
+{
+    <div class="content-item width75 triple-padding">
+        <label>
+            Username:
+            <input type="text"
+               @bind="@Username"
+                   autofocus />
+        </label>
+
+        <label>
+            Reason:
+            <input type="text"
+               @bind="@Reason" />
+        </label>
+
+        <label>
+            Days:
+            <input type="number"
+                   min="1"
+               @bind="@Days" />
+        </label>
+
+        <br />
+
+        <button class="normal-button triple-padding" @onclick="@BanUser">
+            Ban user
+        </button>
+
+    </div>
+}
+ 
+@code {
+    public string Username { get; set; } = "";
+    public string Reason { get; set; } = "";
+    public uint Days { get; set; } = 1;
+
+    [Parameter] public ReportLoader? ReportLoader { get; set; }
+    public Content? ContentType { get; set; }
+    public long? ContentId { get; set; }
+
+    public async Task BanUser()
+    {
+        if (IsLoggedIn(Role.Moderator))
+        {
+            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Reason))
+            {
+                var parameters = new ModalParameters()
+                    .Add("Message", "Username and reason are required.");
+                Modal?.Show<InfoModal>("", parameters);
+                return;
+            }
+
+            var banUser = await UserModel.Ban(CurrentPage?.LoginInfo.AccessToken, Username, Reason, Days);
+
+            if (banUser.Status.Equals(false))
+            {
+                await Error(false);
+                return;
+            }
+
+            if (ReportLoader == null)
+            {
+                var parameters = new ModalParameters()
+                    .Add("Message", "User successfully banned.");
+                Modal?.Show<InfoModal>("", parameters);
+                Username = "";
+                Reason = "";
+                Days = 1;
+            }
+
+            if (ContentType != null && ContentId != null)
+            {
+                if (ContentType == Content.Post)
+                {
+                    var getPost = await PostModel.Get(ContentId, CurrentPage?.LoginInfo.AccessToken);
+
+                    if (getPost.Status && getPost.Result != null)
+                    {
+                        var post = (PostModel)getPost.Result;
+                        var deletePost = await post.Delete(CurrentPage?.LoginInfo.AccessToken);
+
+                        if (deletePost.Status && post.Img.Equals("core/content.png").Equals(false))
+                        {
+                            try
+                            {
+                                File.Delete(Path.Combine("wwwroot/img", post.Img));
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+                        }
+                    }
+                }
+                if (ContentType == Content.Comment)
+                {
+                    var getComment = await CommentModel.Get(ContentId);
+
+                    if (getComment.Status && getComment.Result != null)
+                    {
+                        var comment = (CommentModel)getComment.Result;
+                        var deleteComment = await comment.Delete(CurrentPage?.LoginInfo.AccessToken);
+                    }
+                }
+                if (ContentType == Content.Message)
+                {
+                    var getMessage =
+                        await MessageModel.Get((ulong)ContentId, CurrentPage?.LoginInfo.AccessToken);
+
+                    if (getMessage.Status && getMessage.Result != null)
+                    {
+                        var message = (MessageModel)getMessage.Result;
+                        var deleteMessage = await message.Delete(CurrentPage?.LoginInfo.AccessToken);
+                    }
+                }
+            }
+
+            if (ReportLoader != null)
+            {
+                await ReportLoader.DeleteReport();
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+}

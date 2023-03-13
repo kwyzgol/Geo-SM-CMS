@@ -1,0 +1,259 @@
+﻿@page "/"
+
+<br />
+<h2>PD CMS</h2>
+<h1>MobileAuth</h1>
+
+<div class="grid">
+    <div></div>
+
+    <div>
+        <label for="url">URL</label>
+        <input type="text"
+               id="url"
+               name="url"
+               placeholder="Enter website URL"
+               @bind="@Url">
+        <label for="httpsConnection">
+            HTTPS connection
+            <input type="checkbox"
+                   id="httpsConnection"
+                   name="httpsConnection"
+                   @bind="@HttpsConnection">
+        </label>
+        <br />
+        <label for="url">Access key</label>
+        <input type="text"
+               id="access-key"
+               name="access-key"
+               placeholder="Enter access key"
+               @bind="@AccessKey">
+
+        <br />
+        <br />
+        <p>
+            Status:
+            <b class="@StatusText">
+                @(IsReconnecting ? "Reconnecting..." : ConnectionInfo)
+            </b>
+        </p>
+        <br />
+
+        <button disabled="@IsReconnecting"
+                @onclick="@Connect">
+            @(ConnectionStatus ? "Disconnect" : "Connect")
+        </button>
+    </div>
+
+    <div></div>
+</div>
+
+
+
+<br />
+<h5>by <a href="https://github.com/kwyzgol" target="_blank">kwyzgol</a></h5>
+
+@code
+{
+    private HubConnection _connection;
+
+    private string _url = "";
+    private string Url
+    {
+        get => _url;
+        set
+        {
+            _url = value;
+            if (_url.StartsWith("https//")) HttpsConnection = true;
+            StateHasChanged();
+        }
+    }
+    private string AccessKey { get; set; } = "";
+    private bool HttpsConnection { get; set; } = false;
+
+    private string ConnectionInfo => ConnectionStatus ? "Connected" : "Not connected";
+    private bool ConnectionStatus => _connection is { State: HubConnectionState.Connected };
+    private bool IsReconnecting { get; set; } = false;
+    private string StatusText
+    {
+        get
+        {
+            if (IsReconnecting) return "color-orange";
+            if (ConnectionStatus) return "color-green";
+            return "color-red";
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            try
+            {
+                DeviceDisplay.Current.KeepScreenOn = true;
+
+                string tmpUrl = await SecureStorage.Default.GetAsync("url");
+                string tmpAccessKey = await SecureStorage.Default.GetAsync("accessKey");
+                string tmpHttpsConnection = await SecureStorage.Default.GetAsync("httpsConnection");
+
+                if (tmpUrl != null) Url = tmpUrl;
+                if (tmpAccessKey != null) AccessKey = tmpAccessKey;
+                if (tmpHttpsConnection != null)
+                {
+                    HttpsConnection = Convert.ToBoolean(tmpHttpsConnection);
+                }
+
+                await this.InvokeAsync(StateHasChanged);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            await CheckPermissions();
+        }
+    }
+
+    private async Task<bool> CheckPermissions()
+    {
+        try
+        {
+            PermissionStatus permission = await Permissions.CheckStatusAsync<Permissions.Sms>();
+            if (permission != PermissionStatus.Granted)
+            {
+                permission = await Permissions.RequestAsync<Permissions.Sms>();
+            }
+
+            if (permission != PermissionStatus.Granted)
+            {
+                string toastText = "SMS permission denied.";
+                IToast toast = Toast.Make(toastText);
+                await toast.Show();
+
+                return false;
+            }
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return false;
+        }
+    }
+
+    private async Task Connect()
+    {
+        try
+        {
+            await SecureStorage.Default.SetAsync("url", Url);
+            await SecureStorage.Default.SetAsync("accessKey", AccessKey);
+            await SecureStorage.Default.SetAsync("httpsConnection", HttpsConnection.ToString());
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        if (!ConnectionStatus)
+        {
+            bool canSend = await CheckPermissions();
+
+            if (canSend)
+            {
+                try
+                {
+                    if (!Url.StartsWith("http"))
+                    {
+                        if (HttpsConnection)
+                            Url = $"https://{Url}";
+                        else
+                            Url = $"http://{Url}";
+                    }
+
+                    if (!Url.EndsWith("/"))
+                    {
+                        Url = $"{Url}/";
+                    }
+
+                    TimeSpan maxReconnectTime = TimeSpan.FromHours(24);
+                    TimeSpan reconnectDelay = TimeSpan.FromSeconds(10);
+                    List<TimeSpan> reconnectAttempts = new List<TimeSpan>();
+                    for (int i = 0; i < maxReconnectTime.Divide(reconnectDelay); i++)
+                    {
+                        reconnectAttempts.Add(reconnectDelay);
+                    }
+
+                    _connection = new HubConnectionBuilder()
+                        .WithUrl($"{Url}auth-hub")
+                        .WithAutomaticReconnect(reconnectAttempts.ToArray())
+                        .Build();
+
+                    _connection.On("SendSms", (string recipient, string content) =>
+                    {
+                        CustomSms sms = new CustomSms();
+                        sms.Recipient = recipient;
+                        sms.Content = content;
+                        sms.Send();
+                    });
+
+                    _connection.On("Disconnect", async () =>
+                    {
+                        await _connection.StopAsync();
+                        await this.InvokeAsync(StateHasChanged);
+                    });
+
+                    _connection.Reconnected += async (connectionId) =>
+                    {
+                        IsReconnecting = false;
+                        await _connection.InvokeCoreAsync("Connect", new object[] { AccessKey });
+                        await this.InvokeAsync(StateHasChanged);
+                    };
+
+                    _connection.Reconnecting += async (exception) =>
+                    {
+                        IsReconnecting = true;
+                        await this.InvokeAsync(StateHasChanged);
+                    };
+
+                    _connection.Closed += async (exception) =>
+                    {
+                        IsReconnecting = false;
+                        await this.InvokeAsync(StateHasChanged);
+                    };
+
+                    await _connection.StartAsync();
+                    await _connection.InvokeCoreAsync("Connect", new object[] { AccessKey });
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+
+                    try
+                    {
+                        IToast toast = Toast.Make(e.Message);
+                        await toast.Show();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+        }
+        else
+        {
+            try
+            {
+                await _connection.StopAsync();
+                StateHasChanged();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+﻿@inherits CmsComponentBase
+
+@code
+{
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            Navigation?.NavigateTo("/not-found", true);
+        }
+    }
+}

@@ -1,0 +1,50 @@
+﻿@inherits CmsPageBase
+
+@page "/admin/change-colors"
+
+<PageTitle>Change colors - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn(Role.Admin))
+{
+    <div class="content-item width75 triple-padding column">
+
+        <label>
+            Main color:
+            <input type="color" @bind="@_mainColor">
+        </label>
+
+        <label>
+            Font color for main color:
+            <input type="color" @bind="_mainColorFont">
+        </label>
+
+        <button class="normal-button triple-padding" @onclick="@Change">
+            Change
+        </button>
+    </div>
+}
+
+@code {
+
+    private string _mainColor = Cms.System!.MainColor;
+    private string _mainColorFont = Cms.System!.MainColorFont;
+
+    private async Task Change()
+    {
+        if (await UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken, Role.Admin))
+        {
+            if (CurrentPage?.LoginInfo.AccessToken != null)
+            {
+                Cms.System!.MainColor = _mainColor;
+                Cms.System!.MainColorFont = _mainColorFont;
+                await Cms.Databases!.UpdateSettings(CurrentPage.LoginInfo.AccessToken, Cms.System!, Cms.Auth!, Cms.ReCaptcha!);
+                Navigation?.NavigateTo("/settings", true);
+            }
+        }
+    }
+}

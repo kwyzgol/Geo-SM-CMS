@@ -1,0 +1,18 @@
+﻿@inherits CmsPageBase
+
+@page "/fact-checker/delete-fact"
+
+<PageTitle>Delete fact - @Cms.System?.SystemName</PageTitle>
+
+@if (IsLoggedIn(Role.FactChecker))
+{
+    <DeleteFactPanel @ref="@DeleteFactPanel" />
+}
+else if (IsLoggedIn() || IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@code {
+    public DeleteFactPanel? DeleteFactPanel { get; set; }
+}

@@ -1,0 +1,78 @@
+﻿@inherits CmsComponentBase
+
+@if (IsLoggedIn(Role.FactChecker))
+{
+    <div class="content-item width75 triple-padding">
+        <label>
+            Post id:
+            <input type="number"
+                   min="0"
+               @bind="@PostId" />
+        </label>
+
+        <label>
+            Fact:
+            <textarea rows=4 @bind="@Fact"></textarea>
+        </label>
+
+        <br />
+
+        <button class="normal-button triple-padding" @onclick="@AddFact">
+            Add fact
+        </button>
+
+    </div>
+}
+
+
+@code {
+    public string Fact { get; set; } = "";
+    public long PostId { get; set; } = 0;
+
+    [Parameter] public ReportLoader? ReportLoader { get; set; }
+
+    public async Task AddFact()
+    {
+        if (IsLoggedIn(Role.Moderator))
+        {
+            if (string.IsNullOrWhiteSpace(Fact))
+            {
+                return;
+            }
+
+            var addFact =
+                await PostModel.CreateFact(CurrentPage?.LoginInfo.AccessToken, PostId, Fact);
+
+            if (addFact.Status.Equals(false))
+            {
+                await Error(false);
+                return;
+            }
+
+            var parameters = new ModalParameters().Add("Message", "Fact added.");
+
+            Modal?.Show<InfoModal>("", parameters);
+
+            Fact = "";
+            PostId = 0;
+
+            if (ReportLoader != null)
+            {
+                await ReportLoader.DeleteReport();
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+
+    public async Task GetFact()
+    {
+        var getFact = await PostModel.GetFact(PostId);
+
+        if (getFact.Status && getFact.Result != null)
+        {
+            Fact = (string)getFact.Result;
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+}

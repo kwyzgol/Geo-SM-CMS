@@ -1,0 +1,43 @@
+﻿@inherits CmsComponentBase
+
+<div id="page-left" class="mobile-menu-closed">
+    <nav id="navigation">
+
+        <NavigationItem Text=" Main page"
+                        IconName="home"
+                        UriPath="/" />
+
+        @if (IsLoggedIn())
+        {
+            <NavigationItem Text=" Messages"
+                        IconName="chat"
+                        UriPath="/messages" />
+        }
+
+        <NavigationItem Text=" Tags"
+                        IconName="tag"
+                        UriPath="/tags" />
+
+        @if (IsLoggedIn())
+        {
+
+            <NavigationItem Text=" New Post"
+                        IconName="post_add"
+                        UriPath="/new-post" />
+
+            <NavigationItem Text=" Settings"
+                        IconName="settings"
+                        UriPath="/settings" />
+
+        }
+
+        <NavigationItem Text=" Language"
+                        IconName="language"
+                        UriPath="/language" />
+
+        <NavigationItem Text="Contact"
+                        IconName="contact_support"
+                        UriPath="/contact" />
+
+    </nav>
+</div>

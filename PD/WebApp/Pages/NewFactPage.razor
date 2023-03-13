@@ -1,0 +1,18 @@
+﻿@inherits CmsPageBase
+
+@page "/fact-checker/new-fact"
+
+<PageTitle>New fact - @Cms.System?.SystemName</PageTitle>
+
+@if (IsLoggedIn(Role.FactChecker))
+{
+    <FactPanel @ref="@FactPanel" />
+}
+else if (IsLoggedIn() || IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@code {
+    public FactPanel? FactPanel { get; set; }
+}

@@ -1,0 +1,118 @@
+﻿@inherits CmsPageBase
+
+@page "/login"
+
+<PageTitle>Log in - @Cms.System?.SystemName</PageTitle>
+
+@if (CurrentPage is { LoginInfo.IsLogged: true })
+{
+    <IndexPageRedirect />
+}
+
+@if (Stage == FormStage.Form)
+{
+    <div class="content-item width75 header-center paragraph-center triple-padding">
+        <h1>Log in <Icon Name="person" /></h1>
+
+        <EditForm Model="@UserAccess" OnValidSubmit="@Submit">
+            <label>
+                Username:
+                <InputText @bind-Value="@UserAccess.Username"
+                           Placeholder="Your username"
+                           disabled="@(!_canProceed)" />
+            </label>
+
+            <label>
+                Password:
+                <InputText @bind-Value="@UserAccess.Password"
+                           type="password"
+                           Placeholder="Your password"
+                           disabled="@(!_canProceed)" />
+            </label>
+
+            <span class="center-content">
+                <NavLink href="/reset-password" class="tos-link">Forgot your password? Change it now.</NavLink>
+            </span>
+
+            <br />
+
+            <span class="center-content">
+                <button type="submit"
+                        class="normal-button triple-padding"
+                        disabled="@(!_canProceed)">
+                    Log in
+                </button>
+            </span>
+
+        </EditForm>
+    </div>
+}
+@if (Stage == FormStage.Processing)
+{
+    <div class="paragraph-center">
+        <p>Please, wait. Operation in progress.</p>
+    </div>
+}
+@if (Stage == FormStage.Auth && _userId != null)
+{
+    <AuthPanel UserId="@_userId" Mode="AuthPanelMode.Normal" />
+}
+
+@code {
+    public FormStage Stage { get; set; } = FormStage.Form;
+
+    private bool _canProceed = true;
+    private ulong? _userId = null;
+
+    public UserAccessModel UserAccess { get; set; } = new UserAccessModel();
+
+    public async Task Submit()
+    {
+        if (_canProceed)
+        {
+            _canProceed = false;
+            Stage = FormStage.Processing;
+
+            if ((await ReCaptchaOrContinue()).Equals(false))
+            {
+                _canProceed = true;
+                Stage = FormStage.Form;
+                return;
+            }
+
+            OperationResult checkLoginData = UserAccessModel.
+                CheckLoginData(UserAccess.Username, UserAccess.Password);
+
+            if (checkLoginData.Status.Equals(false))
+            {
+                if (Modal != null)
+                {
+                    var parameters = new ModalParameters()
+                        .Add("Message", "Incorrect login data.");
+                    var infoModal = Modal.Show<InfoModal>("", parameters);
+                }
+                _canProceed = true;
+                Stage = FormStage.Form;
+            }
+            else
+            {
+                if (checkLoginData.Result is ulong userId)
+                {
+                    _userId = userId;
+                    Stage = FormStage.Auth;
+                    await this.InvokeAsync(StateHasChanged);
+                }
+                else
+                {
+                    if (Modal != null)
+                    {
+                        var errorModal = Modal.Show<ErrorModal>("");
+                        var response = await errorModal.Result;
+                    }
+                    _canProceed = true;
+                    Stage = FormStage.Form;
+                }
+            }
+        }
+    }
+}

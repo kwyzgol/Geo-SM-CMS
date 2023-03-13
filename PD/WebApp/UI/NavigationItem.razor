@@ -1,0 +1,28 @@
+﻿<NavLink class="nav-item no-decoration"
+         href="@UriPath"
+         Match="@MatchType"
+         ActiveClass="selected"
+         @onclick="@OnClick">
+
+    <Icon Name="@IconName" />@Text
+
+</NavLink>
+
+
+@code
+{
+    [Parameter]
+    public string IconName { get; set; } = "";
+
+    [Parameter]
+    public string Text { get; set; } = "";
+
+    [Parameter]
+    public string UriPath { get; set; } = "/";
+
+    [Parameter]
+    public NavLinkMatch MatchType { get; set; } = NavLinkMatch.All;
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+}

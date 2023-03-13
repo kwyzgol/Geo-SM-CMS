@@ -1,0 +1,52 @@
+﻿@inherits CmsComponentBase
+
+@if (IsLoggedIn(Role.Moderator))
+{
+    <div class="content-item width75 triple-padding">
+        <label>
+            Username:
+            <input type="text"
+               @bind="@Username"
+                   autofocus />
+        </label>
+
+        <br />
+
+        <button class="normal-button triple-padding" @onclick="@UnBanUser">
+            Unban user
+        </button>
+
+    </div>
+}
+
+
+@code {
+    public string Username { get; set; } = "";
+
+    public async Task UnBanUser()
+    {
+        if (IsLoggedIn(Role.Moderator))
+        {
+            if (string.IsNullOrWhiteSpace(Username))
+            {
+                var parametersInfo = new ModalParameters()
+                    .Add("Message", "Username is required.");
+                Modal?.Show<InfoModal>("", parametersInfo);
+                return;
+            }
+
+            var unBanUser = await UserModel.UnBan(CurrentPage?.LoginInfo.AccessToken, Username);
+
+            if (unBanUser.Status.Equals(false))
+            {
+                await Error(false);
+                return;
+            }
+
+            var parametersSuccess = new ModalParameters()
+                .Add("Message", "User unbanned.");
+            Modal?.Show<InfoModal>("", parametersSuccess);
+            Username = "";
+        }
+    }
+}

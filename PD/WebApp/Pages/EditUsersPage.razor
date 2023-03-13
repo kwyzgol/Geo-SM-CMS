@@ -1,0 +1,50 @@
+﻿@inherits CmsPageBase
+
+@page "/admin/edit-users"
+
+<PageTitle>Edit users - @Cms.System?.SystemName</PageTitle>
+
+@if (IsLoggedIn(Role.Admin))
+{
+    <SearchBar Parent="@this" @ref="@SearchBar" Type="SearchType.User" />
+
+    @if (SearchBar != null)
+    {
+        @if (SearchBar.CurrentType == SearchType.User)
+        {
+            foreach (var user in SearchBar.SearchedUsers)
+            {
+                <span class="user-list-item" @onclick="@(async() => await EditUser(user))">
+                    <UserPlate Username="@user.Username"
+               Avatar="@user.Avatar"
+               Redirect="javascript:void(0)" />
+                </span>
+            }
+        }
+    }
+}
+else if (IsLoggedIn() || IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@code
+{
+    public SearchBar? SearchBar { get; set; }
+
+    public async Task EditUser(UserModel user)
+    {
+        var parameters = new ModalParameters().Add("User", user);
+        var modal = Modal?.Show<EditUserModal>("", parameters);
+        var result = await modal.Result;
+
+        if (result.Confirmed)
+        {
+            if (result.Data is string)
+            {
+                var message = (string)result.Data;
+                if (message.Equals("Deleted") && SearchBar != null) await SearchBar.Search();
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+﻿@inherits CmsComponentBase
+
+<input type="hidden" id="recaptcha-token-input" @bind="@Token" />
+
+@code
+{
+    public string Token
+    {
+        get => CurrentPage?.ReCaptchaToken ?? "";
+        set
+        {
+            if (CurrentPage != null)
+            {
+                CurrentPage.ReCaptchaToken = value;
+                CurrentPage.StateChanged();
+            }
+        }
+    }
+
+    public async Task<bool> GenerateToken()
+    {
+        Token = "";
+        if (Cms.ReCaptcha != null && Cms.ReCaptcha.ReCaptchaEnabled)
+        {
+            try
+            {
+                await JsRuntime.InvokeVoidAsync("GetReCaptchaToken");
+
+                for (int i = 0; i < 600; i++)
+                {
+                    await Task.Delay(100);
+                    if (Token.Equals("").Equals(false)) return true;
+                }
+
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+        else return false;
+    }
+}

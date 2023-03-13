@@ -1,0 +1,91 @@
+﻿@inherits CmsPageBase
+
+@page "/admin/edit-phones"
+
+<PageTitle>Edit allowed phone numbers - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn(Role.Admin))
+{
+    <div class="content-item width75 triple-padding column">
+
+        @foreach (var allowedPhone in _allowed)
+        {
+            <div class="content-item-2 phone-allowed fit">
+                <div>
+                    <p><b>Country code:</b> @allowedPhone.CountryCode</p>
+                    <p><b>Max numbers:</b> @allowedPhone.MaxNumbers</p>
+                </div>
+                <div>
+                    <button class="normal-button triple-padding" @onclick="@(async() => await Delete(allowedPhone))">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        }
+
+        <label>
+            Country code:
+            <input type="text" @bind="@_countryCode">
+        </label>
+
+        <label>
+            Max numbers:
+            <input type="number" @bind="@_maxNumbers">
+        </label>
+
+        <button class="normal-button triple-padding" @onclick="@Add">
+            Add
+        </button>
+    </div>
+}
+
+@code {
+    private string _countryCode = "";
+    private int _maxNumbers = 4;
+
+    private List<PhoneAllowed> _allowed = Cms.Auth!.PhoneAllowedList;
+
+    private async Task Add()
+    {
+        if (await UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken, Role.Admin))
+        {
+            if (CurrentPage?.LoginInfo.AccessToken != null)
+            {
+                if (_countryCode.Length > 4 || _countryCode.StartsWith("+").Equals(false) || _maxNumbers == 0)
+                {
+                    var parameters = new ModalParameters()
+                        .Add("Message", "Invalid data format.");
+                    Modal?.Show<InfoModal>("", parameters);
+                    return;
+                }
+
+                bool exists = _allowed.Any(x => x.CountryCode == _countryCode && x.MaxNumbers == _maxNumbers);
+                if(exists.Equals(false)) _allowed.Add(new PhoneAllowed(_countryCode, _maxNumbers));
+                Cms.Auth!.PhoneAllowedList = _allowed;
+
+                await Cms.Databases!.UpdateSettings(CurrentPage.LoginInfo.AccessToken, Cms.System!, Cms.Auth!, Cms.ReCaptcha!);
+                Navigation?.NavigateTo("/admin/edit-phones", true);
+            }
+        }
+    }
+
+    private async Task Delete(PhoneAllowed record)
+    {
+        if (await UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken, Role.Admin))
+        {
+            if (CurrentPage?.LoginInfo.AccessToken != null)
+            {
+                _allowed.Remove(record);
+                Cms.Auth!.PhoneAllowedList = _allowed;
+
+                await Cms.Databases!.UpdateSettings(CurrentPage.LoginInfo.AccessToken, Cms.System!, Cms.Auth!, Cms.ReCaptcha!);
+                Navigation?.NavigateTo("/admin/edit-phones", true);
+            }
+        }
+    }
+}

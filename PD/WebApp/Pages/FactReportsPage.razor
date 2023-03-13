@@ -1,0 +1,25 @@
+﻿@inherits CmsPageBase
+
+@page "/fact-checker/check-reports"
+
+<PageTitle>Fact checker reports - @Cms.System?.SystemName</PageTitle>
+
+@if (IsLoggedIn(Role.FactChecker))
+{
+    <ReportLoader @ref="@ReportLoader"
+              ReportType="ReportType.FactChecker"
+              FactPanel="@FactPanel" />
+    <br />
+    <span class="width100 center-content @(ReportLoader != null && ReportLoader.ShowPanel ? "" : "display-none")">
+        <FactPanel @ref="@FactPanel" ReportLoader="@ReportLoader" />
+    </span>
+}
+else if (IsLoggedIn() || IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@code {
+    public ReportLoader? ReportLoader { get; set; }
+    public FactPanel? FactPanel { get; set; }
+}

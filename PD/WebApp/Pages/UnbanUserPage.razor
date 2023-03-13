@@ -1,0 +1,18 @@
+﻿@inherits CmsPageBase
+
+@page "/moderator/unban-user"
+
+<PageTitle>Unban user - @Cms.System?.SystemName</PageTitle>
+
+@if (IsLoggedIn(Role.Moderator))
+{
+    <UnBanPanel @ref="@UnBanPanel" />
+}
+else if (IsLoggedIn() || IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@code {
+    public UnBanPanel? UnBanPanel { get; set; }
+}

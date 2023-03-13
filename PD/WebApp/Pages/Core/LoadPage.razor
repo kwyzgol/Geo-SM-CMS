@@ -1,0 +1,22 @@
+﻿@inherits CmsPageBase
+
+@page "/load/{*path}"
+
+@code {
+
+    [Parameter]
+    public string? Path { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        var newUrl = Navigation?.ToAbsoluteUri(Path ?? "").ToString();
+        var currentUrl = Navigation?.ToAbsoluteUri(Navigation.Uri).ToString();
+
+        if (Navigation != null && !string.IsNullOrWhiteSpace(Path) && newUrl != currentUrl)
+        {
+            Navigation.NavigateTo(Path!, true);
+        }
+    }
+}

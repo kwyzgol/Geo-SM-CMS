@@ -1,0 +1,76 @@
+﻿@inherits CmsModalBase
+
+<h1 class="font-color-report"><Icon Name="report" /> Content report</h1>
+
+<div class="report-input-container">
+    <div class="content-item-2">
+        @if (ContentType == Content.Post)
+        {
+            <label for="report-type">Select report type:</label>
+            <select @bind="@Type" id="report-type">
+                <option value="@ReportType.Moderator">Inappropriate or forbidden content.</option>
+                <option value="@ReportType.FactChecker">Disinformation, manipulation or false information.</option>
+            </select>
+        }
+        <label for="report-input">Please, provide a reason for your report:</label>
+        <textarea @bind="Reason" id="report-input" rows=4 disabled="@(!_canEdit)"></textarea>
+    </div>
+</div>
+
+<br />
+
+<div class="grid">
+    <button disabled="@(!_canEdit)" @onclick="@Send">
+        <Icon Name="done" Class="icon-font-header" /> Send
+    </button>
+    <button disabled="@(!_canEdit)" @onclick="@Cancel">
+        <Icon Name="close" Class="icon-font-header" /> Cancel
+    </button>
+</div>
+
+@code
+{
+    private bool _canEdit = true;
+
+    [Parameter]
+    public long ContentId { get; set; } = -1;
+
+    [Parameter]
+    public Content ContentType { get; set; } = Content.Post;
+
+    [Parameter]
+    public string? AccessToken { get; set; } = "";
+
+    public ReportType Type { get; set; } = ReportType.Moderator;
+    public string Reason { get; set; } = "";
+
+    public async Task Send()
+    {
+        if (_canEdit && AccessToken != null && UserModel.IsActive(AccessToken))
+        {
+            _canEdit = false;
+
+            if (Reason.Length > 5000)
+            {
+                var parameters = new ModalParameters()
+                    .Add("Message", "The reason must be a maximum of 5000 characters.");
+                Modal?.Show<ErrorModal>("", parameters);
+                _canEdit = true;
+                return;
+            }
+
+            var createReport = await ReportModel.Create(Type, ContentId, ContentType, AccessToken, Reason);
+
+            if (createReport.Status)
+            {
+                await BlazoredModal.CloseAsync(ModalResult.Ok("Success"));
+            }
+            else
+            {
+                await BlazoredModal.CloseAsync(ModalResult.Ok("Error"));
+            }
+        }
+    }
+
+    public async Task Cancel() => await BlazoredModal.CancelAsync();
+}

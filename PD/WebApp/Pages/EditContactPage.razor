@@ -1,0 +1,43 @@
+﻿@inherits CmsPageBase
+
+@page "/admin/edit-contact"
+
+<PageTitle>Edit contact - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn(Role.Admin))
+{
+    <div class="content-item width75 triple-padding column">
+
+        <label>
+            Contact:
+            <textarea rows=14 @bind="@_contact"></textarea>
+        </label>
+
+        <button class="normal-button triple-padding" @onclick="@Change">
+            Change
+        </button>
+    </div>
+}
+
+@code {
+    private string _contact = Cms.System!.Contact;
+
+    private async Task Change()
+    {
+        if (await UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken, Role.Admin))
+        {
+            if (CurrentPage?.LoginInfo.AccessToken != null)
+            {
+                Cms.System!.Contact = _contact;
+
+                await Cms.Databases!.UpdateSettings(CurrentPage.LoginInfo.AccessToken, Cms.System!, Cms.Auth!, Cms.ReCaptcha!);
+                Navigation?.NavigateTo("/settings", true);
+            }
+        }
+    }
+}

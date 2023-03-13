@@ -1,0 +1,22 @@
+name: Renew SSL certificate
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: '0 9 1 * *'
+
+jobs: 
+  SSL_certificate_renewal:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Renew via ssh
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        password: ${{ secrets.VPS_PASSWORD }}
+        port: ${{ secrets.VPS_PORT }}
+        script: |
+          cd ./pd-nginx
+          docker compose run certbot renew --force-renewal
+          docker compose up -d --force-recreate --no-deps nginx

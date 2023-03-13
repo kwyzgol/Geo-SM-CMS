@@ -1,0 +1,54 @@
+﻿@inherits CmsComponentBase
+
+@if (IsLoggedIn())
+{
+    @if (AuthorId.Equals((long?)(CurrentPage?.LoginInfo.UserId)).Equals(false))
+    {
+        <div class="report-content-container" @onclick="@Report">
+            <button>
+                <Icon Name="report" Class="icon-font-header" />
+                <span class="report-button-label">Report</span>
+            </button>
+        </div>
+
+    }
+}
+
+@code
+{
+    [Parameter]
+    public long? AuthorId { get; set; }
+
+    [Parameter]
+    public long? ContentId { get; set; }
+
+    [Parameter]
+    public Content ContentType { get; set; } = Content.Post;
+
+    public async Task Report()
+    {
+        if (IsLoggedIn() && ContentId != null && CurrentPage != null && CurrentPage.LoginInfo.AccessToken != null)
+        {
+            var reportParameters = new ModalParameters()
+                .Add("ContentId", ContentId)
+                .Add("ContentType", ContentType)
+                .Add("AccessToken", CurrentPage.LoginInfo.AccessToken);
+            var reportModal = Modal.Show<ReportModal>("", reportParameters);
+            var reportResult = await reportModal.Result;
+
+            if (reportResult.Confirmed)
+            {
+                if (reportResult.Data?.ToString() == "Success")
+                {
+                    var infoParameters = new ModalParameters().Add("Message", "Report successfully created.");
+                    var infoModal = Modal.Show<InfoModal>("", infoParameters);
+                }
+                else
+                {
+                    Modal.Show<ErrorModal>();
+                }
+            }
+
+        }
+    }
+}

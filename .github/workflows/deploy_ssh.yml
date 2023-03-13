@@ -1,0 +1,50 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    secrets:
+      VPS_HOST:
+        required: true
+      VPS_USERNAME:
+        required: true
+      VPS_PASSWORD:
+        required: true
+      VPS_PORT:
+        required: true
+      PLACEHOLDER_MYSQL_ROOT_PASSWORD:
+        required: true
+      PLACEHOLDER_NEO4J_AUTH:
+        required: true
+
+jobs: 
+  Deployment:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy via ssh
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        password: ${{ secrets.VPS_PASSWORD }}
+        port: ${{ secrets.VPS_PORT }}
+        script: |
+          sudo apt-get update
+          sudo apt-get install docker-compose-plugin
+          git clone https://github.com/kwyzgol/PD.git
+          mkdir -p pd-cms
+          mv ./PD/PD/docker-compose.yml ./pd-cms/docker-compose.yml
+          rm ./PD -r -f
+          cd ./pd-cms
+          mkdir -p ./binds/mysql
+          mkdir -p ./binds/neo4j
+          mkdir -p ./binds/pd-webapp/img
+          sed -i 's|PLACEHOLDER_MYSQL_ROOT_PASSWORD|${{ secrets.PLACEHOLDER_MYSQL_ROOT_PASSWORD }}|g' ./docker-compose.yml
+          sed -i 's|PLACEHOLDER_NEO4J_AUTH|${{ secrets.PLACEHOLDER_NEO4J_AUTH }}|g' ./docker-compose.yml
+          sed -i 's|# EDIT ||g' ./docker-compose.yml
+          sed -i 's|PLACEHOLDER_WEBAPP_PATH|./binds/pd-webapp/img|g' ./docker-compose.yml
+          sed -i 's|PLACEHOLDER_MYSQL_PATH|./binds/mysql|g' ./docker-compose.yml
+          sed -i 's|PLACEHOLDER_NEO4J_PATH|./binds/neo4j|g' ./docker-compose.yml
+          docker compose pull
+          docker compose up -d
+          yes | docker image prune

@@ -1,0 +1,70 @@
+version: '3.4'
+
+services:
+  webapp:
+    image: kwyzgol/pd-webapp:latest
+    container_name: pd-webapp
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - MYSQL_HOSTNAME=pd-mysql
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=PLACEHOLDER_MYSQL_ROOT_PASSWORD
+      - NEO4J_HOSTNAME=pd-neo4j
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=PLACEHOLDER_NEO4J_AUTH
+    depends_on:
+      - mysql
+      - neo4j
+    # EDIT volumes:
+    # EDIT  - PLACEHOLDER_WEBAPP_PATH:/app/wwwroot/img
+    networks:
+      - pd-network
+
+  mysql:
+    image: mysql:latest
+    container_name: pd-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=PLACEHOLDER_MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=db
+    # EDIT volumes:
+    # EDIT  - PLACEHOLDER_MYSQL_PATH:/var/lib/mysql
+    networks:
+      - pd-network
+
+  adminer:
+    image: adminer:latest
+    container_name: pd-adminer
+    restart: unless-stopped
+    ports:
+      - "9090:8080"
+    depends_on:
+      - mysql
+    networks:
+      - pd-network
+
+  neo4j:
+    image: neo4j:latest
+    container_name: pd-neo4j
+    restart: unless-stopped
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/PLACEHOLDER_NEO4J_AUTH
+      - NEO4J_PLUGINS=["apoc"]
+    # EDIT volumes:
+    # EDIT  - PLACEHOLDER_NEO4J_PATH:/data
+    networks:
+      - pd-network
+
+networks:
+  pd-network:
+    driver: bridge

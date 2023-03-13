@@ -1,0 +1,34 @@
+{
+  "profiles": {
+    "WebApp": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MYSQL_HOSTNAME": "localhost",
+        "MYSQL_DATABASE": "db",
+        "MYSQL_USER": "root",
+        "MYSQL_PASSWORD": "PLACEHOLDER_MYSQL_ROOT_PASSWORD",
+        "NEO4J_HOSTNAME": "localhost:7687",
+        "NEO4J_USER": "neo4j",
+        "NEO4J_PASSWORD": "PLACEHOLDER_NEO4J_AUTH"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5163;http://0.0.0.0:5163"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:56638",
+      "sslPort": 0
+    }
+  }
+}

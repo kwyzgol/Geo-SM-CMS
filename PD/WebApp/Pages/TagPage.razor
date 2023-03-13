@@ -1,0 +1,47 @@
+﻿@inherits CmsPageBase
+
+@page "/tag/{*tags}"
+
+<PageTitle>@(_pageTitle) @Cms.System?.SystemName</PageTitle>
+
+@if (_canShow)
+{
+    <PostsLoader Tags="@_tagList" />
+}
+
+
+@code
+{
+    [Parameter]
+    public string? Tags { get; set; }
+
+    private List<string>? _tagList;
+
+    private bool _alreadySetParams = false;
+
+    private bool _canShow = false;
+
+    private string _pageTitle = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (Tags != null && _canShow.Equals(false))
+        {
+            _tagList = Tags.Split('/').ToList();
+            _canShow = true;
+
+            _pageTitle = "Tag: ";
+
+            foreach (var tag in _tagList)
+            {
+                _pageTitle += $" #{tag} ";
+            }
+
+            _pageTitle += "-";
+
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}

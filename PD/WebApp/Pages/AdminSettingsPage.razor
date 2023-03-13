@@ -1,0 +1,151 @@
+﻿@inherits CmsPageBase
+
+@page "/admin/cms-settings"
+
+<PageTitle>CMS settings - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn(Role.Admin))
+{
+    <div class="content-item width75 triple-padding column">
+
+        <label>
+            System name:
+            <input type="text" @bind="@_systemName">
+        </label>
+
+        <label>
+            Automatically report new posts when low reputation:
+            <input type="checkbox" @bind="@_autoReport">
+        </label>
+        
+        <br />
+
+        <label>
+            Reputation triggering automatic reports:
+            <input type="number" @bind="@_autoReportReputation">
+        </label>
+
+        <label>
+            Reputation triggering not indexing user's new posts by search engines:
+            <input type="number" @bind="@_reputationUnlisted">
+        </label>
+
+        <label>
+            Starting reputation:
+            <input type="number" @bind="@_startingReputation">
+        </label>
+
+        <label>
+            Access key for the mobile device (SMS verification):
+            <input type="text" @bind="@_accessKey">
+        </label>
+
+        <label>
+            SMTP host:
+            <input type="text" @bind="@_smtpHost">
+        </label>
+
+        <label>
+            SMTP port:
+            <input type="number" @bind="@_smtpPort">
+        </label>
+
+        <label>
+            SMTP user:
+            <input type="text" @bind="@_smtpUser">
+        </label>
+
+        <label>
+            SMTP password:
+            <input type="text" @bind="@_smtpPassword">
+        </label>
+
+        <label>
+            Auth type:
+            <select @bind="@_authType">
+                <option value="@AuthType.None">None</option>
+                <option value="@AuthType.Email">Email</option>
+                <option value="@AuthType.Sms">SMS</option>
+                <option value="@AuthType.EmailAndSms">Email and SMS</option>
+            </select>
+        </label>
+
+        <label>
+            ReCaptcha enabled:
+            <input type="checkbox" @bind="@_reCaptchaEnabled">
+        </label>
+        
+        <br />
+
+        <label>
+            ReCaptcha public key:
+            <input type="text" @bind="@_reCaptchaPublicKey">
+        </label>
+
+        <label>
+            ReCaptcha private key:
+            <input type="text" @bind="@_reCaptchaPrivateKey">
+        </label>
+
+        <label>
+            ReCaptcha minimum score:
+            <input type="number" step="0.01" @bind="@_reCaptchaMinimumScore">
+        </label>
+
+        <button class="normal-button triple-padding" @onclick="@Change">
+            Change
+        </button>
+    </div>
+}
+
+@code {
+    private string _systemName = Cms.System!.SystemName;
+    private bool _autoReport = Cms.System!.AutoReport;
+    private int _autoReportReputation = Cms.System!.AutoReportReputation;
+    private int _reputationUnlisted = Cms.System!.ReputationUnlisted;
+    private int _startingReputation = Cms.System!.StartingReputation;
+    private string _accessKey = Cms.Auth!.AccessKey;
+    private string _smtpHost = Cms.Auth!.SmtpData.Host;
+    private int _smtpPort = Cms.Auth!.SmtpData.Port;
+    private string _smtpUser = Cms.Auth!.SmtpData.User;
+    private string _smtpPassword = Cms.Auth!.SmtpData.Password;
+    private AuthType _authType = Cms.Auth!.Type;
+    private bool _reCaptchaEnabled = Cms.ReCaptcha!.ReCaptchaEnabled;
+    private string _reCaptchaPublicKey = Cms.ReCaptcha!.ReCaptchaPublicKey;
+    private string _reCaptchaPrivateKey = Cms.ReCaptcha!.ReCaptchaPrivateKey;
+    private float _reCaptchaMinimumScore = Cms.ReCaptcha!.ReCaptchaMinimumScore;
+
+
+    private async Task Change()
+    {
+        if (await UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken, Role.Admin))
+        {
+            if (CurrentPage?.LoginInfo.AccessToken != null)
+            {
+                Cms.System!.SystemName = _systemName;
+                Cms.System!.AutoReport = _autoReport;
+                Cms.System!.AutoReportReputation = _autoReportReputation;
+                Cms.System!.ReputationUnlisted = _reputationUnlisted;
+                Cms.System!.StartingReputation = _startingReputation;
+                Cms.Auth!.AccessKey = _accessKey;
+                Cms.Auth!.SmtpData.Host = _smtpHost;
+                Cms.Auth!.SmtpData.Port = _smtpPort;
+                Cms.Auth!.SmtpData.User = _smtpUser;
+                Cms.Auth!.SmtpData.Password = _smtpPassword;
+                Cms.Auth!.Type = _authType;
+                Cms.ReCaptcha!.ReCaptchaEnabled = _reCaptchaEnabled;
+                Cms.ReCaptcha!.ReCaptchaPublicKey = _reCaptchaPublicKey;
+                Cms.ReCaptcha!.ReCaptchaPrivateKey = _reCaptchaPrivateKey;
+                Cms.ReCaptcha!.ReCaptchaMinimumScore = _reCaptchaMinimumScore;
+
+                await Cms.Databases!.UpdateSettings(CurrentPage.LoginInfo.AccessToken, Cms.System!, Cms.Auth!, Cms.ReCaptcha!);
+                Navigation?.NavigateTo("/settings", true);
+            }
+        }
+    }
+}

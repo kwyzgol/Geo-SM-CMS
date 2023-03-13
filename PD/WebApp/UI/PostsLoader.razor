@@ -1,0 +1,167 @@
+﻿@inherits CmsComponentBase
+
+@if (IsLoggedIn() || IsNotLoggedIn())
+{
+    <div id="filter-options" class="content-item width75 paragraph-center">
+        <select @bind="View">
+            <option value="@ViewMode.Best24">Best in 24h</option>
+            <option value="@ViewMode.New">New</option>
+        </select>
+        <LocationButton @ref="@Location"
+                    Type="@LocationType.Distance"
+                    PostsLoader="@this" />
+    </div>
+
+    @if (Tags.Count != 0)
+    {
+        <div id="tag-label" class="content-item width75 paragraph-center">
+            <p>
+                <b>Tag: </b>
+                @foreach (var tag in Tags)
+                {
+                    @($"#{tag}, ")
+                }
+            </p>
+        </div>
+    }
+
+    @if (Posts?.Count != 0)
+    {
+        @foreach (var post in Posts)
+        {
+            <Post PostId="@((ulong)post.PostId)"
+                  Type="@PostType.Mini"
+                  Author="@post.Author"
+                  AuthorId="@((ulong)post.AuthorId)"
+                  Date="@post.Date"
+                  Title="@post.Title"
+                  Content="@post.Content"
+                  Img="@post.Img"
+                  Counter="@post.Counter"
+                  Fact="@post.Fact"
+                  SelectedUp="@post.SelectedUp"
+                  SelectedDown="@post.SelectedDown" />
+        }
+    }
+    else
+    {
+        <div class="content-item width75 paragraph-center">
+            <p>No posts to display.</p>
+        </div>
+    }
+
+    @if (_canLoad && Posts.Count != 0)
+    {
+        <span class="center-content">
+            <button class="normal-button triple-padding"
+                    disabled="@(!_canLoad)"
+            @onclick="@(() => Show())">
+                Load more
+            </button>
+        </span>
+    }
+}
+
+
+@code {
+    public ViewMode View
+    {
+        get => CurrentPage!.View;
+        set
+        {
+            CurrentPage!.View = value;
+            _canLoad = true;
+            _reset = true;
+
+            Show();
+        }
+    }
+
+    [Parameter]
+    public List<string> Tags { get; set; } = new List<string>();
+
+    [Parameter]
+    public string? Username { get; set; }
+
+    public LocationButton? Location { get; set; }
+
+    private List<PostModel>? Posts { get; set; } = new List<PostModel>();
+    private List<long>? _alreadyLoaded = new List<long>();
+
+    private bool _canLoad = true;
+    private bool _block = false;
+    private bool _init = true;
+    private bool _reset = false;
+
+    public async Task Show(bool reset = false)
+    {
+        if (reset)
+        {
+            _reset = true;
+            _canLoad = true;
+        }
+
+        if (_canLoad)
+        {
+            _block = true;
+            _canLoad = false;
+            await InvokeAsync(StateHasChanged);
+
+            if (_reset)
+            {
+                Posts?.Clear();
+                _alreadyLoaded?.Clear();
+                _reset = false;
+            }
+
+            string? accessToken = CurrentPage.LoginInfo.AccessToken;
+            GeoPointModel? geoPoint = Location?.GeoPoint;
+
+            var getPosts = await PostModel.GetMultiple(View, Tags, geoPoint, _alreadyLoaded, Username, accessToken);
+
+            if (getPosts.Status)
+            {
+                if (getPosts.Message.Equals("Empty"))
+                {
+                    _block = false;
+                    await InvokeAsync(StateHasChanged);
+                    return;
+                }
+
+                if (getPosts.Result is List<PostModel>)
+                {
+                    var newPosts = (List<PostModel>)getPosts.Result;
+                    Posts?.AddRange(newPosts);
+                    _alreadyLoaded?.AddRange(newPosts.Select(p => p.PostId));
+
+                    _canLoad = true;
+                    _block = false;
+
+                    await InvokeAsync(StateHasChanged);
+                }
+                else
+                {
+                    await Error();
+                }
+            }
+            else
+            {
+                await Error();
+            }
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_init && (IsLoggedIn() || IsNotLoggedIn()))
+        {
+            _init = false;
+            await Show();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+}

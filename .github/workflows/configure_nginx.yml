@@ -1,0 +1,40 @@
+name: Configure nginx
+
+on:
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: 'SSL certificate will be requested for this domain:'
+        required: true
+        type: string
+      email:
+        description: 'E-mail adress for urgent renewal and security notices:'
+        required: true
+        type: string
+
+jobs: 
+  Nginx_configuration:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Configure via ssh
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        password: ${{ secrets.VPS_PASSWORD }}
+        port: ${{ secrets.VPS_PORT }}
+        script: |
+          sudo apt-get update
+          sudo apt-get install docker-compose-plugin
+          git clone https://github.com/kwyzgol/PD.git
+          mkdir pd-nginx
+          mv ./PD/Nginx\ sample\ configuration/* ./pd-nginx/
+          cd ./pd-nginx
+          sed -i 's|DOMAIN|${{ inputs.domain }}|g' ./nginx1.conf
+          sed -i 's|DOMAIN|${{ inputs.domain }}|g' ./nginx2.conf
+          sed -i 's|DOMAIN|${{ inputs.domain }}|g' ./configure.sh
+          sed -i 's|EMAIL|${{ inputs.email }}|g' ./configure.sh
+          sudo bash configure.sh
+          rm ./configure.sh -f
+          cd ..
+          rm ./PD -r -f

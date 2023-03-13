@@ -1,0 +1,57 @@
+﻿@inherits CmsComponentBase
+
+<div class="one-row">
+    <button onclick="@ShowModal" class="location-button @(Selected ? "location-selected" : "")">
+        @(Selected ? $"Localization: " +
+                     $"[{GeoPoint?.Latitude.ToString("F")}, " +
+                     $"{GeoPoint?.Longitude.ToString("F")}]" +
+                     $"{(Type == LocationType.Distance ? $", Distance: [{GeoPoint.Meters/1000.0} km]" : "")}"
+            : "Choose a location")
+    </button>
+    <button @onclick="@Reset" disabled="@(!Selected)" class="location-button">Reset</button>
+</div>
+
+@code
+{
+    [Parameter] public LocationType Type { get; set; } = LocationType.Normal;
+    [Parameter] public PostsLoader? PostsLoader { get; set; } = null;
+
+    private GeoPointModel? _geoPoint;
+
+    public GeoPointModel? GeoPoint
+    {
+        get => _geoPoint;
+        set
+        {
+            _geoPoint = value;
+            PostsLoader?.Show(true);
+        }
+    }
+
+
+    private bool Selected { get; set; } = false;
+
+    public async Task ShowModal()
+    {
+        if (Modal != null)
+        {
+            var parameters = new ModalParameters()
+                .Add("Type", Type);
+            var modal = Modal.Show<LocationModal>("", parameters);
+            var result = await modal.Result;
+            if (result.Confirmed)
+            {
+                GeoPoint = (GeoPointModel?)result.Data;
+                if (GeoPoint != null) Selected = true;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+
+    public void Reset()
+    {
+        GeoPoint = null;
+        Selected = false;
+        StateHasChanged();
+    }
+}

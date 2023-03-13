@@ -1,0 +1,475 @@
+﻿@inherits CmsComponentBase
+
+@if (_showForm && UserId != null)
+{
+    <div class="content-item width75 header-center paragraph-center triple-padding">
+
+        <h1>Access verification <Icon Name="verified_user" /></h1>
+
+        <EditForm Model="AuthCodes" OnValidSubmit="@Submit">
+            @if (_type is AuthType.Email or AuthType.EmailAndSms)
+            {
+                <label>
+                    Email code:
+                    <InputText @bind-Value="@AuthCodes.CodeEmail"
+                               Placeholder="Enter code"
+                               disabled="@(!_canProceed)" />
+                </label>
+            }
+
+            @if (_type is AuthType.Sms or AuthType.EmailAndSms)
+            {
+                <label>
+                    SMS code:
+                    <InputText @bind-Value="@AuthCodes.CodeSms"
+                               Placeholder="Enter code"
+                               disabled="@(!_canProceed)" />
+                </label>
+            }
+
+            <br />
+
+            <span class="center-content grid">
+                <button type="button"
+                        class="normal-button triple-padding"
+                        disabled="@(!_canProceed || !_canSend)"
+                    @onclick="@SendCodes">
+                    @($"Send again{TimeLabel}")
+                </button>
+                <button type="submit"
+                        class="normal-button triple-padding"
+                        disabled="@(!_canProceed)">
+                    Submit
+                </button>
+            </span>
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+        </EditForm>
+    </div>
+}
+
+@if (Mode == AuthPanelMode.ForgotPassword && _showFormForgotPassword && UserId != null)
+{
+    <div class="content-item width75 header-center paragraph-center triple-padding">
+
+        <h1>Change password <Icon Name="edit" /></h1>
+
+        <EditForm Model="PasswordValidation" OnValidSubmit="@ChangePassword">
+
+            <label>
+                New password:
+                <InputText @bind-Value="@PasswordValidation.Password"
+                           Placeholder="Enter code"
+                           disabled="@(!_canProceed)" />
+            </label>
+
+            <br />
+
+            <span class="center-content grid">
+                <button type="submit"
+                        class="normal-button triple-padding"
+                        disabled="@(!_canProceed)">
+                    Change
+                </button>
+            </span>
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+        </EditForm>
+    </div>
+}
+
+@code {
+    private bool _showFormForgotPassword = false;
+
+    private AuthType _type = AuthType.None;
+    private string? _userStatus;
+
+    private bool _showForm = false;
+    private bool _canProceed = true;
+    private bool _canSend = false;
+    private bool _canLogin = true;
+
+    private Timer? _timerUnlock;
+    private Timer? _timerClock;
+    private int? _timeCount = null;
+    private int _waitTime = 30;
+
+    private string TimeLabel => _timeCount != null ? $" ({_timeCount})" : "";
+
+    private AuthCodes? AuthCodes { get; set; }
+    private PasswordValidation PasswordValidation { get; set; } = new PasswordValidation();
+
+    [Parameter] public ulong? UserId { get; set; }
+    [Parameter] public AuthPanelMode Mode { get; set; } = AuthPanelMode.Normal;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if (UserId != null)
+        {
+            OperationResult checkUserStatus = UserAccessModel.GetUserStatus(UserId);
+
+            if (checkUserStatus.Status)
+            {
+                if (checkUserStatus.Result is string)
+                {
+                    string userStatus = (string)(checkUserStatus.Result);
+
+                    if (userStatus.Equals("banned"))
+                    {
+                        if (Modal != null)
+                        {
+                            var parameters = new ModalParameters()
+                                .Add("Message", "" +
+                                                "You are banned. " +
+                                                "For more information please contact the website administrator.");
+                            var errorModal = Modal.Show<ErrorModal>("", parameters);
+                            var response = await errorModal.Result;
+                        }
+                        Navigation?.NavigateTo("/", true);
+                    }
+
+                    if (userStatus.Equals("active") || userStatus.Equals("registered"))
+                    {
+                        if (userStatus.Equals("active")) _userStatus = "active";
+                        if (userStatus.Equals("registered")) _userStatus = "registered";
+
+                        OperationResult getUserAuthType = UserAccessModel.GetUserAuthType(UserId);
+                        if (getUserAuthType is { Status: true, Result: AuthType })
+                        {
+                            AuthType userAuthType = (AuthType)getUserAuthType.Result;
+                            if (Cms.Auth?.Type != null)
+                            {
+                                switch (Cms.Auth.Type)
+                                {
+                                    case AuthType.None:
+                                        _type = AuthType.None;
+                                        break;
+                                    case AuthType.Sms:
+                                        if (userAuthType == AuthType.Sms || userAuthType == AuthType.EmailAndSms)
+                                            _type = AuthType.Sms;
+                                        else
+                                            _type = AuthType.None;
+                                        break;
+                                    case AuthType.Email:
+                                        if (userAuthType == AuthType.Email || userAuthType == AuthType.EmailAndSms)
+                                            _type = AuthType.Email;
+                                        else
+                                            _type = AuthType.None;
+                                        break;
+                                    case AuthType.EmailAndSms:
+                                        if (userAuthType == AuthType.EmailAndSms)
+                                            _type = AuthType.EmailAndSms;
+                                        if (userAuthType == AuthType.Sms)
+                                            _type = AuthType.Sms;
+                                        if (userAuthType == AuthType.Email)
+                                            _type = AuthType.Email;
+                                        if (userAuthType == AuthType.None)
+                                            _type = AuthType.None;
+                                        break;
+
+                                    default:
+                                        _type = AuthType.None;
+                                        break;
+                                }
+
+                                if (!AuthHub.Connected)
+                                {
+                                    if (_type == AuthType.Sms) _type = AuthType.None;
+                                    if (_type == AuthType.EmailAndSms) _type = AuthType.Email;
+                                }
+
+                                if (_type == AuthType.None)
+                                {
+                                    await Submit();
+                                }
+                                else
+                                {
+                                    _showForm = true;
+                                    _canSend = true;
+
+                                    AuthCodes = _type switch
+                                    {
+                                        AuthType.Email => new AuthCodeEmail(),
+                                        AuthType.Sms => new AuthCodeSms(),
+                                        AuthType.EmailAndSms => new AuthCodesBoth(),
+                                        _ => null,
+                                    };
+
+                                    await SendCodes();
+                                    await this.InvokeAsync(StateHasChanged);
+                                }
+                            }
+                            else
+                            {
+                                await Error();
+                            }
+                        }
+                        else
+                        {
+                            await Error();
+                        }
+                    }
+                    else
+                    {
+                        await Error();
+                    }
+                }
+                else
+                {
+                    await Error();
+                }
+            }
+            else
+            {
+                await Error();
+            }
+        }
+        else
+        {
+            await Error();
+        }
+    }
+
+    public async Task Submit()
+    {
+        _canProceed = false;
+
+        if (await ReCaptchaOrContinue() && _userStatus != null)
+        {
+            bool sms = true;
+            bool email = true;
+
+            if (_type == AuthType.Email || _type == AuthType.EmailAndSms)
+            {
+                try
+                {
+                    int code = Convert.ToInt32(AuthCodes?.CodeEmail);
+                    email = UserAccessModel.CheckAuthCode(UserId, code, "email").Status;
+                }
+                catch (Exception e)
+                {
+                    email = false;
+                }
+            }
+
+            if (_type == AuthType.Sms || _type == AuthType.EmailAndSms)
+            {
+                try
+                {
+                    int code = Convert.ToInt32(AuthCodes?.CodeSms);
+                    sms = UserAccessModel.CheckAuthCode(UserId, code, "sms").Status;
+                }
+                catch (Exception e)
+                {
+                    sms = false;
+                }
+            }
+
+            if (sms && email)
+            {
+                if (_userStatus.Equals("active") && Mode == AuthPanelMode.Normal)
+                {
+                    if (_canLogin) await Login();
+                    else await Error();
+                }
+
+                if (_userStatus.Equals("registered") && Mode == AuthPanelMode.Normal)
+                {
+                    await Activate();
+                    if (_canLogin) await Login();
+                    else await Error();
+                }
+
+                if (Mode == AuthPanelMode.ForgotPassword)
+                {
+                    if (_type == AuthType.None)
+                    {
+                        if (Modal != null)
+                        {
+                            var parameters = new ModalParameters()
+                                .Add("Message", "No available verification option.");
+                            var infoModal = Modal.Show<InfoModal>("", parameters);
+                            var response = await infoModal.Result;
+                        }
+                        Navigation?.NavigateTo("/", true);
+                    }
+                    else
+                    {
+                        _showForm = false;
+                        _showFormForgotPassword = true;
+                        _canProceed = true;
+
+                        await this.InvokeAsync(StateHasChanged);
+                    }
+                }
+            }
+            else
+            {
+                var parameters = new ModalParameters()
+                    .Add("Message", "" +
+                                    "Invalid code. " +
+                                    "Please try again.");
+                if (Modal != null)
+                {
+                    var errorModal = Modal.Show<InfoModal>("", parameters);
+                    var response = await errorModal.Result;
+                }
+                _canProceed = true;
+            }
+        }
+        else
+        {
+            _canProceed = true;
+        }
+
+    }
+
+    public async Task SendCodes()
+    {
+        _canSend = false;
+
+        bool resultEmail = true;
+        bool resultSms = true;
+
+        OperationResult codesCreation = UserAccessModel.CreateAuthCodes(UserId, _type);
+        OperationResult getUserContact = UserAccessModel.GetUserContact(UserId);
+
+        if (codesCreation.Status && getUserContact.Status)
+        {
+            int? emailCode = null;
+            int? smsCode = null;
+
+            string? emailAddress = null;
+            string? phoneCountry = null;
+            string? phoneNumber = null;
+
+            if (codesCreation.Result is (int emailCodeValue, int smsCodeValue))
+            {
+                emailCode = emailCodeValue;
+                smsCode = smsCodeValue;
+            }
+
+            if (getUserContact.Result is
+                (string, string, string) or
+                    (null, string, string) or
+                    (string, null, null) or
+                    (string, string, null) or
+                    (string, null, string))
+            {
+                (string? emailAddressValue, string? phoneCountryValue, string? phoneNumberValue)
+                    = ((string?, string?, string?))getUserContact.Result;
+                emailAddress = emailAddressValue;
+                phoneCountry = phoneCountryValue;
+                phoneNumber = phoneNumberValue;
+            }
+
+            if (_type is AuthType.Email or AuthType.EmailAndSms &&
+                emailAddress != null && emailCode != null)
+            {
+                AuthEmail authEmail = new AuthEmail();
+                authEmail.Code = (int)emailCode;
+                authEmail.Recipient = emailAddress;
+                resultEmail = authEmail.Send();
+            }
+
+            if (_type is AuthType.Sms or AuthType.EmailAndSms &&
+                (phoneCountry != null && phoneNumber != null) && smsCode != null)
+            {
+                if (Cms.Auth != null && Cms.Auth.CheckNumber($"{phoneCountry}{phoneNumber}"))
+                {
+                    if (CurrentPage != null)
+                        resultSms = await CurrentPage.SendAuthSms($"{phoneCountry}{phoneNumber}", (int)smsCode);
+                    else resultSms = false;
+                }
+                else resultSms = false;
+            }
+
+            if (resultEmail.Equals(false) || resultSms.Equals(false))
+            {
+
+                if (Modal != null)
+                {
+                    var errorModal = Modal.Show<ErrorModal>("");
+                    var response = await errorModal.Result;
+                }
+            }
+        }
+
+        SetTimers();
+    }
+
+    private async Task Login()
+    {
+        OperationResult userLogin = UserModel.Login(UserId);
+
+        if (userLogin is { Status: true, Result: string })
+        {
+            if (ProtectedLocalStorage != null && Navigation != null)
+            {
+                await ProtectedLocalStorage.SetAsync("AccessToken", (string)(userLogin.Result));
+                Navigation.NavigateTo("/", true);
+            }
+            else
+            {
+                await Error();
+            }
+        }
+    }
+
+    private async Task Activate()
+    {
+        var activate = await UserAccessModel.Activate(UserId);
+        if (activate.Status.Equals(false)) _canLogin = false;
+    }
+
+    private void SetTimers()
+    {
+        _timeCount = _waitTime;
+        _timerClock = new Timer();
+        _timerClock.Interval = TimeSpan.FromSeconds(1).TotalMilliseconds;
+        _timerClock.AutoReset = true;
+        _timerClock.Elapsed += (sender, e) =>
+        {
+            if (_timeCount != null) _timeCount -= 1;
+            InvokeAsync(StateHasChanged);
+        };
+        _timerUnlock = new Timer();
+        _timerUnlock.Interval = TimeSpan.FromSeconds((double)_waitTime).TotalMilliseconds;
+        _timerUnlock.AutoReset = false;
+        _timerUnlock.Elapsed += (sender, e) =>
+        {
+            _canSend = true;
+            _timerClock?.Stop();
+            _timeCount = null;
+            InvokeAsync(StateHasChanged);
+        };
+
+        _timerClock.Start();
+        _timerUnlock.Start();
+    }
+
+    private async Task ChangePassword()
+    {
+        _canProceed = false;
+        var changePassword = UserAccessModel.ChangePassword(UserId, PasswordValidation.Password);
+        if (changePassword.Status)
+        {
+            if (Modal != null)
+            {
+                var parameters = new ModalParameters()
+                    .Add("Message", "Password changed successfully.");
+                var infoModal = Modal.Show<InfoModal>("", parameters);
+                var response = await infoModal.Result;
+            }
+            Navigation?.NavigateTo("/login", true);
+        }
+        else
+        {
+            await Error();
+        }
+    }
+}

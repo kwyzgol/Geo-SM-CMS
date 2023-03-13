@@ -1,0 +1,42 @@
+﻿@inherits LayoutComponentBase
+@inject IStringLocalizer<Translations> Translations
+
+<PageTitle>@Cms.System?.SystemName</PageTitle>
+
+<CascadingValue Value=@CurrentPage Name="CurrentPage">
+    <CascadingBlazoredModal Class="cms-modal">
+        <div id="main">
+
+            <PageHeader />
+
+            <div id="page">
+
+                <NavigationMenu />
+
+                <div id="page-right">
+
+                    <main id="content" class="box-content">
+                        <div class="width100">
+                            @Body
+                        </div>
+                    </main>
+
+                    <PageFooter />
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button id="theme-switcher" onclick="changeTheme()">
+            <Icon Name="palette" />
+        </button>
+
+        <ReCaptchaClient @ref="@ReCaptchaClient" />
+        
+        <input type="hidden" id="latitude" @bind="@LatitudeInput" />
+        <input type="hidden" id="longitude" @bind="@LongitudeInput" />
+
+    </CascadingBlazoredModal>
+</CascadingValue>

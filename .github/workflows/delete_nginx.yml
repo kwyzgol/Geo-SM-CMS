@@ -1,0 +1,19 @@
+name: Delete nginx
+
+on: workflow_dispatch
+
+jobs: 
+  Nginx_deletion:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Delete via ssh
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        password: ${{ secrets.VPS_PASSWORD }}
+        port: ${{ secrets.VPS_PORT }}
+        script: |
+          docker kill nginx
+          docker rm nginx
+          sudo rm ./pd-nginx -r -f

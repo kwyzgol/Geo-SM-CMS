@@ -1,0 +1,118 @@
+﻿@inherits CmsComponentBase
+
+@if (IsLoggedIn() || IsNotLoggedIn())
+{
+    <div class="content-item width75 triple-padding">
+        
+        <h3>Comments</h3>
+
+        @if (IsLoggedIn())
+        {
+            <div class="content-item-2 comment-create">
+                <EditForm Model="@_comment" OnValidSubmit="@CreateComment">
+                    <label for="comment-input">Create a new comment:</label>
+                    <div class="message-input">
+                        <textarea id="comment-input" @bind="_comment.Content" rows=3></textarea>
+                        <button type="submit">Create</button>
+                    </div>
+                </EditForm>
+            </div>
+        }
+
+        @foreach (var comment in Comments)
+        {
+            <Comment Content="@comment" />
+        }
+        
+        @if(Comments.Count == 0)
+        {
+            <p>No comments yet.</p>
+        }
+
+        @if (_canLoad && Comments.Count != 0)
+        {
+            <span class="center-content">
+                <button class="normal-button triple-padding"
+                        disabled="@(!_canLoad)"
+                @onclick="@LoadComments">
+                    Load more
+                </button>
+            </span>
+        }
+
+    </div>
+}
+
+@code
+{
+    [Parameter]
+    public long? PostId { get; set; }
+
+    public List<CommentModel> Comments { get; private set; } = new List<CommentModel>();
+
+    private bool _init = true;
+    private CommentModel _comment = new CommentModel();
+    private bool _canLoad = true;
+    private long MinId => Comments.Count > 0 ? Comments.Max(c => c.CommentId) : 0;
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_init && (IsLoggedIn() || IsNotLoggedIn()))
+        {
+            _init = false;
+
+            await LoadComments();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    public async Task CreateComment()
+    {
+        if (_comment.IsValid && PostId != null)
+        {
+            if ((await ReCaptchaOrContinue()).Equals(false))
+            {
+                return;
+            }
+
+            string? accessToken = CurrentPage?.LoginInfo.AccessToken;
+            if (UserModel.IsActive(accessToken) && CurrentPage.LoginInfo.UserId != null)
+            {
+                _comment.AuthorId = (long)CurrentPage.LoginInfo.UserId;
+                _comment.Date = DateTime.UtcNow;
+                var createComment = await CommentModel.Create(accessToken, _comment, PostId);
+
+                if (createComment.Status)
+                {
+                    RefreshPage();
+                }
+                else
+                {
+                    await Error();
+                }
+            }
+        }
+    }
+
+    public async Task LoadComments()
+    {
+        if (IsLoggedIn() || IsNotLoggedIn())
+        {
+            var getComments = await CommentModel.GetMultiple(PostId, MinId);
+
+            if (getComments.Status && getComments.Result is List<CommentModel>)
+            {
+                var commentsToAdd = (List<CommentModel>)getComments.Result;
+
+                if (commentsToAdd.Count == 0) _canLoad = false;
+
+                Comments.AddRange(commentsToAdd);
+
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+}

@@ -1,0 +1,118 @@
+﻿@inherits CmsComponentBase
+
+@if (AuthorId.Equals((long?)(CurrentPage?.LoginInfo.UserId)) || IsLoggedIn(Role.Moderator))
+{
+    <div class="delete-content-container" @onclick="@Delete">
+        <button>
+            <Icon Name="delete" Class="icon-font-header" />
+            <span class="delete-button-label">Delete</span>
+        </button>
+    </div>
+}
+
+@code
+{
+    [Parameter]
+    public long? AuthorId { get; set; }
+
+    [Parameter]
+    public long? ContentId { get; set; }
+
+    [Parameter]
+    public Content ContentType { get; set; } = Content.Post;
+
+    public async Task Delete()
+    {
+        if ((AuthorId.Equals((long?)(CurrentPage?.LoginInfo.UserId)) || IsLoggedIn(Role.Moderator))
+            && ContentId != null && CurrentPage != null && CurrentPage.LoginInfo.AccessToken != null)
+        {
+            var confirmModal = Modal.Show<ConfirmModal>();
+            var confirmResult = await confirmModal.Result;
+
+            if (confirmResult.Confirmed.Equals(false))
+            {
+                return;
+            }
+
+            if (ContentType == Content.Post)
+            {
+                var getPost = await PostModel.Get(ContentId, CurrentPage.LoginInfo.AccessToken);
+
+                if (getPost.Status.Equals(false) || getPost.Result == null)
+                {
+                    Modal.Show<ErrorModal>();
+                    return;
+                }
+
+                var post = (PostModel)getPost.Result;
+
+                var deletePost = await post.Delete(CurrentPage.LoginInfo.AccessToken);
+
+                if (deletePost.Status.Equals(false))
+                {
+                    Modal.Show<ErrorModal>();
+                    return;
+                }
+
+                if (post.Img.Equals("core/content.png").Equals(false))
+                {
+                    try
+                    {
+                        File.Delete(Path.Combine("wwwroot/img", post.Img));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
+
+                Navigation?.NavigateTo("/", true);
+            }
+            else if (ContentType == Content.Comment)
+            {
+                var getComment = await CommentModel.Get(ContentId);
+
+                if (getComment.Status.Equals(false) || getComment.Result == null)
+                {
+                    Modal.Show<ErrorModal>();
+                    return;
+                }
+
+                var comment = (CommentModel)getComment.Result;
+
+                var deleteComment = await comment.Delete(CurrentPage.LoginInfo.AccessToken);
+
+                if (deleteComment.Status.Equals(false))
+                {
+                    Modal.Show<ErrorModal>();
+                    return;
+                }
+
+                RefreshPage();
+            }
+            else if (ContentType == Content.Message)
+            {
+                var getMessage = await MessageModel.Get((ulong?)ContentId, CurrentPage.LoginInfo.AccessToken);
+
+                if (getMessage.Status.Equals(false) || getMessage.Result == null)
+                {
+                    Modal.Show<ErrorModal>();
+                    return;
+                }
+
+                var message = (MessageModel)getMessage.Result;
+
+                var deleteMessage = await message.Delete(CurrentPage.LoginInfo.AccessToken);
+
+                if (deleteMessage.Status.Equals(false))
+                {
+                    Modal.Show<ErrorModal>();
+                    return;
+                }
+
+                RefreshPage();
+            }
+
+        }
+    }
+}

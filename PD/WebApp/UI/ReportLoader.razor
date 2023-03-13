@@ -1,0 +1,242 @@
+﻿@inherits CmsComponentBase
+
+@if (IsLoggedIn(Role.FactChecker))
+{
+    <div class="content-item width75 triple-padding column">
+        @if (ShowPanel.Equals(false))
+        {
+            <button class="normal-button triple-padding" @onclick="@GetReport" disabled="@(!_canGet)">
+                @Translations!["Get report"]
+            </button>
+        }
+        else
+        {
+            @if (Report != null)
+            {
+                @if (ContentType == Content.Post)
+                {
+                    <Post Type="@PostType.Mini"
+          PostId="@((ulong)((PostModel)Report.ReportedContent!).PostId)"
+          Author="@(((PostModel)Report.ReportedContent!).Author)"
+          AuthorId="@((ulong)((PostModel)Report.ReportedContent!).AuthorId)"
+          Date="@(((PostModel)Report.ReportedContent!).Date)"
+          Title="@(((PostModel)Report.ReportedContent!).Title)"
+          Content="@(((PostModel)Report.ReportedContent!).Content)"
+          Img="@(((PostModel)Report.ReportedContent!).Img)"
+          Counter="@(((PostModel)Report.ReportedContent!).Counter)"
+          Fact="@(((PostModel)Report.ReportedContent!).Fact)"
+          SelectedUp="@(((PostModel)Report.ReportedContent!).SelectedUp)"
+          SelectedDown="@(((PostModel)Report.ReportedContent!).SelectedDown)"
+          BlockSearchEngines="@(((PostModel)Report.ReportedContent!).BlockSearchEngines)" />
+                }
+
+                @if (ContentType == Content.Comment)
+                {
+                    <Comment Content="@((CommentModel)Report.ReportedContent!)" />
+                }
+
+                if (ContentType == Content.Message)
+                {
+                    <div class="message">
+                        <div class="content-item-2">
+                            <UserPlate Username="@_messageUsername" Avatar="@_messageAvatar" />
+                            <p>@(((MessageModel)Report.ReportedContent!).Content)</p>
+                        </div>
+                    </div>
+                }
+
+                <br />
+
+                <p>
+                    <b>@Translations!["Type:"] </b>
+                    @(ReportType == Data.ReportType.Moderator ?
+                        Translations!["Inappropriate or forbidden content."] :
+                        Translations!["Disinformation, manipulation or false information."])
+                </p>
+                <p>
+                    <b>@Translations!["Reported by:"] </b>
+                    @Report.ReportCreator
+                </p>
+                <p>
+                    <b>@Translations!["Reason:"] </b>
+                    @Report.Content
+                </p>
+
+                <button class="normal-button triple-padding" @onclick="@DeleteReport" disabled="@(!_canGet)">
+                    @Translations!["Delete report"]
+                </button>
+            }
+        }
+    </div>
+}
+
+@code {
+    private bool _canGet = true;
+    private string? _messageUsername;
+    private string? _messageAvatar;
+
+    [Parameter] public ReportType? ReportType { get; set; }
+    [Parameter] public BanPanel? BanPanel { get; set; }
+    [Parameter] public FactPanel? FactPanel { get; set; }
+
+    public bool ShowPanel { get; set; } = false;
+    public Content? ContentType { get; set; }
+    public ReportModel? Report { get; set; }
+
+    public async Task GetReport()
+    {
+        if (_canGet)
+        {
+            _canGet = false;
+
+            if (ReportType == null)
+            {
+                return;
+            }
+
+            var getReport = await ReportModel.Get(CurrentPage?.LoginInfo.AccessToken, ReportType);
+
+            if (getReport.Status.Equals(false))
+            {
+                await Error(false);
+                return;
+            }
+
+            if (getReport is { Status: true, Message: "Empty" })
+            {
+                _canGet = true;
+                if (Modal != null)
+                {
+                    var parameters = new ModalParameters().Add("Message", "No reports.");
+                    var infoModal = Modal.Show<InfoModal>("", parameters);
+                }
+                await InvokeAsync(StateHasChanged);
+                return;
+            }
+
+            if (getReport.Result == null)
+            {
+                await Error(false);
+                return;
+            }
+
+            Report = (ReportModel)getReport.Result;
+            ContentType = Report switch
+            {
+                { ReportedContent: PostModel } => Content.Post,
+                { ReportedContent: CommentModel } => Content.Comment,
+                { ReportedContent: MessageModel } => Content.Message,
+                _ => null
+            };
+
+            if (ContentType == null)
+            {
+                await Error(false);
+                return;
+            }
+
+            if (ContentType == Content.Message)
+            {
+                var message = (MessageModel)Report.ReportedContent!;
+                var getUser = await UserModel.Get(message.SenderId);
+
+                if (getUser.Status.Equals(false))
+                {
+                    await Error(false);
+                    return;
+                }
+
+                if (getUser.Result == null)
+                {
+                    await Error(false);
+                    return;
+                }
+
+                var user = (UserModel)getUser.Result;
+                _messageUsername = user.Username;
+                _messageAvatar = user.Avatar;
+            }
+
+            ShowPanel = true;
+            if (CurrentPage != null) await CurrentPage.StateChangedAsync();
+            await InvokeAsync(StateHasChanged);
+            if (BanPanel != null) await BanPanel.StateChangedAsync();
+            if (FactPanel != null) await FactPanel.StateChangedAsync();
+            await InvokeAsync(StateHasChanged);
+
+            if (BanPanel != null)
+            {
+                switch (ContentType)
+                {
+                    case Content.Post:
+                        BanPanel.ContentType = Content.Post;
+                        BanPanel.ContentId = ((PostModel)Report.ReportedContent!).PostId;
+                        BanPanel.Username = ((PostModel)Report.ReportedContent!).Author;
+                        break;
+                    case Content.Comment:
+                        BanPanel.ContentType = Content.Comment;
+                        BanPanel.ContentId = ((CommentModel)Report.ReportedContent!).CommentId;
+                        BanPanel.Username = ((CommentModel)Report.ReportedContent!).Author;
+                        break;
+
+                    case Content.Message:
+                        BanPanel.ContentType = Content.Message;
+                        BanPanel.ContentId = (long)(((MessageModel)Report.ReportedContent!).MessageId);
+                        BanPanel.Username = _messageUsername ?? "";
+                        break;
+                }
+            }
+
+            if (FactPanel != null && ContentType == Content.Post)
+            {
+                FactPanel.PostId = ((PostModel)Report.ReportedContent!).PostId;
+                await FactPanel.GetFact();
+            }
+
+            _canGet = true;
+
+            if (BanPanel != null) await BanPanel.StateChangedAsync();
+            if (FactPanel != null) await FactPanel.StateChangedAsync();
+            if (CurrentPage != null) await CurrentPage.StateChangedAsync();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    public async Task DeleteReport()
+    {
+        var deleteReport = await ReportModel.Delete(CurrentPage?.LoginInfo.AccessToken, Report?.ReportId);
+
+        if (deleteReport.Status.Equals(false))
+        {
+            await Error(false);
+        }
+
+        if (BanPanel != null)
+        {
+            BanPanel.ContentType = null;
+            BanPanel.ContentId = null;
+            BanPanel.Username = "";
+            BanPanel.Reason = "";
+            BanPanel.Days = 1;
+            await BanPanel.StateChangedAsync();
+        }
+
+        if (FactPanel != null)
+        {
+            FactPanel.PostId = 0;
+            FactPanel.Fact = "";
+            await FactPanel.StateChangedAsync();
+        }
+
+        _messageUsername = null;
+        _messageAvatar = null;
+
+        ContentType = null;
+        Report = null;
+
+        ShowPanel = false;
+
+        if (CurrentPage != null) await CurrentPage.StateChangedAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+}

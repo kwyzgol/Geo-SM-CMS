@@ -1,0 +1,256 @@
+﻿@inherits CmsPageBase
+
+@page "/message/{username}"
+
+<PageTitle> Messages: @Username - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (_canShow && IsLoggedIn())
+{
+    <div id="messages-list" class="content-item width75 header-center paragraph-center triple-padding">
+        <div class="sticky">
+            <UserPlate Avatar="@_avatar" Username="@Username" />
+        </div>
+
+        <span class="center-content">
+            <button id="load-messages" class="normal-button triple-padding" @onclick="@Load">
+                Load more
+            </button>
+        </span>
+
+        @foreach (var message in _messages)
+        {
+            <div class="message @(message.SenderId.Equals(_senderId) ? "message-sender" : "")">
+                
+                @if (message.SenderId.Equals(_senderId))
+                {
+                    <DeleteButton ContentType="@Content.Message" 
+                                  ContentId="@((long?)message.MessageId)" 
+                                  AuthorId="@((long?)message.SenderId)" />
+                }
+
+                <div class="content-item-2 @(message.SenderId.Equals(_senderId) ? "message-sender-color" : "")">
+                    <p>@message.Content</p>
+                </div>
+                
+                @if(message.SenderId.Equals(_receiverId))
+                {
+                    <ReportButton ContentType="Content.Message"
+                                  ContentId="@((long?)message.MessageId)"
+                                  AuthorId="@((long?)message.SenderId)" />
+                }
+
+            </div>
+        }
+
+        <EditForm Model="@Message" OnValidSubmit="@SendMessage">
+            <div class="message-input">
+                <textarea @bind="Message.Content" onkeydown="TextAreaEnter(event)" rows=2 id="message-textarea"></textarea>
+                <button type="submit" id="send-message">Send</button>
+            </div>
+        </EditForm>
+    </div>
+}
+
+
+@code
+{
+    [Parameter]
+    public string? Username { get; set; }
+
+    public MessageModel Message { get; set; } = new MessageModel();
+
+    private bool _init = true;
+    private bool _canShow = false;
+
+    private string? _avatar = "core/user.png";
+    private ulong? _senderId;
+    private ulong? _receiverId;
+    private ulong? MaxId => _messages.Count != 0 ? _messages.Min(m => m.MessageId) : null;
+    private List<MessageModel> _messages = new List<MessageModel>();
+    private HubConnection? _hubConnection;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_init && IsLoggedIn())
+        {
+            _init = false;
+
+            bool isActive = UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken);
+
+            if (isActive.Equals(false))
+            {
+                await Error();
+                return;
+            }
+
+            var getUser = await UserModel.Get(Username);
+
+            if (getUser.Status.Equals(false))
+            {
+                await Error();
+                return;
+            }
+
+            if (getUser.Result == null)
+            {
+                await Error();
+                return;
+            }
+
+            var receiver = (UserModel)getUser.Result;
+            _receiverId = receiver.UserId;
+            _avatar = receiver.Avatar;
+            _senderId = CurrentPage?.LoginInfo.UserId;
+
+            if (Navigation == null || _receiverId == null || _senderId == null)
+            {
+                await Error();
+                return;
+            }
+            try
+            {
+                _hubConnection = new HubConnectionBuilder()
+                    .WithUrl(Navigation.ToAbsoluteUri("/message-hub"))
+                    .Build();
+
+                _hubConnection.On<ulong, ulong, ulong, string>("ReceiveMessage",
+                    async (messageId, senderId, receiverId, content) =>
+                    {
+                        var message = new MessageModel();
+                        message.MessageId = messageId;
+                        message.SenderId = senderId;
+                        message.ReceiverId = receiverId;
+                        message.Content = content;
+                        _messages.Add(message);
+
+                        await InvokeAsync(StateHasChanged);
+                        JsRuntime?.InvokeVoidAsync("ScrollToBottom");
+                    });
+
+                _hubConnection.On<ulong, ulong, ulong, string>("ReceiveMessageSelf",
+                    async (messageId, senderId, receiverId, content) =>
+                    {
+                        var message = new MessageModel();
+                        message.MessageId = messageId;
+                        message.SenderId = senderId;
+                        message.ReceiverId = receiverId;
+                        message.Content = content;
+                        _messages.Add(message);
+
+                        await InvokeAsync(StateHasChanged);
+                        JsRuntime?.InvokeVoidAsync("ScrollToBottom");
+                    });
+
+                await _hubConnection.StartAsync();
+
+                await _hubConnection.SendCoreAsync("Connect", new object[]
+                {
+                    MessageHub.AccessKey,
+                    (ulong)_senderId,
+                    (ulong)_receiverId
+                });
+
+                await Load();
+
+                _canShow = true;
+                await InvokeAsync(StateHasChanged);
+                JsRuntime?.InvokeVoidAsync("ScrollToBottom");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                await Error();
+                return;
+            }
+        }
+    }
+
+    public async Task SendMessage()
+    {
+        if (_canShow && Message.IsValid)
+        {
+            try
+            {
+                if ((await ReCaptchaOrContinue()).Equals(false))
+                {
+                    return;
+                }
+
+                if (UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken).Equals(false))
+                {
+                    await Error();
+                    return;
+                }
+
+                if (_senderId == null || _receiverId == null)
+                {
+                    await Error();
+                    return;
+                }
+
+                if (_hubConnection == null)
+                {
+                    await Error();
+                    return;
+                }
+
+                await _hubConnection.SendCoreAsync("SendMessage", new object[]
+                {
+                    MessageHub.AccessKey,
+                    _senderId,
+                    _receiverId,
+                    Message.Content
+                });
+
+                Message.Content = "";
+
+                await InvokeAsync(StateHasChanged);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                await Error();
+            }
+        }
+    }
+
+    public async Task Load()
+    {
+        if (IsLoggedIn() && _senderId != null && _receiverId != null)
+        {
+            string? accessToken = CurrentPage?.LoginInfo.AccessToken;
+            bool isActive = UserModel.IsActive(accessToken);
+
+            if (isActive.Equals(false))
+            {
+                await Error();
+                return;
+            }
+
+            var getMessages = MessageModel.Get(_senderId, _receiverId, MaxId);
+
+            if (getMessages.Status.Equals(false))
+            {
+                await Error();
+                return;
+            }
+
+            if (getMessages.Result == null) return;
+
+            var messagesToAdd = (List<MessageModel>)getMessages.Result;
+
+            _messages.Reverse();
+            _messages.AddRange(messagesToAdd);
+            _messages.Reverse();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+}

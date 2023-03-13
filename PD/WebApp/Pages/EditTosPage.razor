@@ -1,0 +1,43 @@
+﻿@inherits CmsPageBase
+
+@page "/admin/edit-tos"
+
+<PageTitle>Edit TOS - @Cms.System?.SystemName</PageTitle>
+
+@if (IsNotLoggedIn())
+{
+    <IndexPageRedirect />
+}
+
+@if (IsLoggedIn(Role.Admin))
+{
+    <div class="content-item width75 triple-padding column">
+
+        <label>
+            Terms of service:
+            <textarea rows=14 @bind="@_tos"></textarea>
+        </label>
+
+        <button class="normal-button triple-padding" @onclick="@Change">
+            Change
+        </button>
+    </div>
+}
+
+@code {
+    private string _tos = Cms.System!.TermsOfService;
+
+    private async Task Change()
+    {
+        if (await UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken, Role.Admin))
+        {
+            if (CurrentPage?.LoginInfo.AccessToken != null)
+            {
+                Cms.System!.TermsOfService = _tos;
+
+                await Cms.Databases!.UpdateSettings(CurrentPage.LoginInfo.AccessToken, Cms.System!, Cms.Auth!, Cms.ReCaptcha!);
+                Navigation?.NavigateTo("/settings", true);
+            }
+        }
+    }
+}

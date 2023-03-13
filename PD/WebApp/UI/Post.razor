@@ -1,0 +1,316 @@
+﻿@inherits CmsComponentBase
+
+@if (Type == PostType.Mini)
+{
+    <div class="post">
+        
+        <DeleteButton ContentType="Data.Content.Post"
+                      ContentId="@((long?)PostId)"
+                      AuthorId="@((long?)AuthorId)" />
+        
+        <ReportButton ContentType="Data.Content.Post"
+                      ContentId="@((long?)PostId)"
+                      AuthorId="@((long?)AuthorId)" />
+
+        <div class="ui-post">
+            <div class="ui-post-vote-picture">
+                <div class="ui-post-vote">
+                    <button class='@(SelectedUp ? "selected" : "")' disabled="@(!_canSelect)" @onclick="@UpVote">
+                        <Icon Name="arrow_drop_up" />
+                    </button>
+                    <span class="ui-post-counter">@Counter</span>
+                    <button class="@(SelectedDown ? "selected" : "")" disabled="@(!_canSelect)" @onclick="@DownVote">
+                        <Icon Name="arrow_drop_down" />
+                    </button>
+                </div>
+                <a href="/post/@PostId">
+                    <img src="@($"img/{Img}")" class="ui-post-picture" />
+                </a>
+            </div>
+            <div class="ui-post-text">
+                <a class="no-decoration" href="/post/@PostId">
+                    <h5 class="ui-post-header">@Title</h5>
+                </a>
+                <p class="ui-post-author">by <a href="/profile/@Author">@Author</a>, date: @Date UTC</p>
+                <a class="no-decoration" href="/post/@PostId">
+                    <p class="ui-post-content">@_content</p>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+@if (Type == PostType.Full)
+{
+    @if (BlockSearchEngines)
+    {
+        <HeadContent>
+            <meta name="robots" content="noindex, nofollow" />
+        </HeadContent>
+    }
+    else
+    {
+        <HeadContent>
+            <meta name="robots" content="index, follow" />
+        </HeadContent>
+    }
+
+    @if (string.IsNullOrEmpty(Fact) == false)
+    {
+        <div id="fact" class="post-full">
+            <h2>Fact-checked information <Icon Name="check_circle" /></h2>
+            <p class="ui-post-content-full">@Fact</p>
+        </div>
+    }
+    <div class="post-full">
+
+        <DeleteButton ContentType="Data.Content.Post"
+                  ContentId="@((long?)PostId)"
+                  AuthorId="@((long?)AuthorId)" />
+
+        <ReportButton ContentType="Data.Content.Post"
+                  ContentId="@((long?)PostId)"
+                  AuthorId="@((long?)AuthorId)" />
+
+        <div class="ui-post">
+            <div class="ui-post-vote-picture-full">
+                <div class="ui-post-vote">
+                    <button class='@(SelectedUp ? "selected" : "")' disabled="@(!_canSelect)" @onclick="@UpVote">
+                        <Icon Name="arrow_drop_up"/>
+                    </button>
+                    <span class="ui-post-counter">@Counter</span>
+                    <button class='@(SelectedDown ? "selected" : "")' disabled="@(!_canSelect)" @onclick="@DownVote">
+                        <Icon Name="arrow_drop_down"/>
+                    </button>
+                </div>
+            </div>
+            <div class="ui-post-text">
+                <h5 class="ui-post-header-full">@Title</h5>
+                <p class="ui-post-author">by <a href="/profile/@Author">@Author</a>, date: @Date UTC</p>
+                <p class="ui-post-content-full">@_content</p>
+                @if (Img.Equals("core/content.png") == false)
+                {
+                    <div class="picture-center">
+                        <img src=@($"img/{Img}") class="ui-post-picture-full"/>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code
+{
+    [Parameter] public ulong PostId { get; set; } = 0;
+    [Parameter] public PostType Type { get; set; } = PostType.Mini;
+    [Parameter] public string Author { get; set; } = "Test";
+    [Parameter] public ulong AuthorId { get; set; } = 0;
+    [Parameter] public DateTime Date { get; set; } = DateTime.UtcNow;
+    [Parameter] public string Title { get; set; } = "Lorem ipsum";
+    [Parameter] public string Content { get; set; } = "Lorem ipsum";
+    [Parameter] public string Img { get; set; } = "core/content.png";
+    [Parameter] public int Counter { get; set; } = 0;
+
+    [Parameter] public string Fact { get; set; } = "";
+
+    [Parameter] public bool SelectedUp { get; set; } = false;
+    [Parameter] public bool SelectedDown { get; set; } = false;
+
+    [Parameter] public bool BlockSearchEngines { get; set; } = false;
+
+    private bool _canSelect = false;
+
+    private bool _init = true;
+    private bool _initText = true;
+
+    private MarkupString _content = (MarkupString)"";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (IsLoggedIn() && _init)
+        {
+            _canSelect = CurrentPage.LoginInfo.IsLogged;
+
+            _init = false;
+
+            await InvokeAsync(StateHasChanged);
+        }
+
+        if (_initText && Content != "")
+        {
+            _initText = false;
+
+            string contentWithTags = HttpUtility.HtmlEncode(Content);
+
+            List<string> tags = Content
+                .Split(' ', '\n')
+                .ToList()
+                .Where(x => x.StartsWith("#"))
+                .Where(y => y.Contains("?").Equals(false) && y.Contains("/").Equals(false)
+                            && y.Contains("<").Equals(false) && y.Contains(">").Equals(false))
+                .Select(z => z.Remove(0, 1))
+                .ToList();
+
+            //to prevent replacing already processed tags in next iterations
+            string tmp = Guid.NewGuid().ToString();
+
+            foreach (var tag in tags)
+            {
+                contentWithTags = contentWithTags.Replace($"#{tag}\n", $"<a href='/load/tag/{tag}'>#{tmp}{tag}</a> ");
+            }
+
+            foreach (var tag in tags)
+            {
+                contentWithTags = contentWithTags.Replace($"#{tag} ", $"<a href='/load/tag/{tag}'>#{tmp}{tag}</a> ");
+            }
+
+            foreach (var tag in tags)
+            {
+                contentWithTags = contentWithTags.Replace($"#{tag}", $"<a href='/load/tag/{tag}'>#{tmp}{tag}</a>");
+            }
+
+            contentWithTags = contentWithTags.Replace(tmp, "");
+
+            _content = (MarkupString)contentWithTags;
+
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    public async Task UpVote()
+    {
+        string? accessToken = CurrentPage?.LoginInfo.AccessToken;
+
+        PostModel post = new PostModel()
+        {
+            PostId = (long)PostId,
+            AuthorId = (long)AuthorId,
+            Author = Author,
+            Title = Title,
+            Content = Content,
+            Img = Img,
+            Date = Date,
+            Counter = Counter,
+            Fact = Fact,
+            BlockSearchEngines = BlockSearchEngines
+        };
+
+        if (_canSelect && UserModel.IsActive(accessToken).Equals(false))
+        {
+            await Error();
+            return;
+        }
+
+        if (_canSelect && !SelectedUp)
+        {
+            var upvote = await post.Upvote(accessToken);
+
+            if (upvote.Status)
+            {
+                SelectedUp = true;
+                if (SelectedDown)
+                {
+                    SelectedDown = false;
+                    Counter += 1;
+                }
+                Counter += 1;
+            }
+            else
+            {
+                await Error();
+                return;
+            }
+
+            await InvokeAsync(StateHasChanged);
+            return;
+        }
+
+        if (_canSelect && SelectedUp)
+        {
+            var upvoteOff = await post.UpvoteOff(accessToken);
+
+            if (upvoteOff.Status)
+            {
+                SelectedUp = false;
+                Counter -= 1;
+            }
+            else
+            {
+                await Error();
+                return;
+            }
+
+            await InvokeAsync(StateHasChanged);
+            return;
+        }
+    }
+
+    public async Task DownVote()
+    {
+        string? accessToken = CurrentPage?.LoginInfo.AccessToken;
+
+        PostModel post = new PostModel()
+        {
+            PostId = (long)PostId,
+            AuthorId = (long)AuthorId,
+            Author = Author,
+            Title = Title,
+            Content = Content,
+            Img = Img,
+            Date = Date,
+            Counter = Counter,
+            Fact = Fact,
+            BlockSearchEngines = BlockSearchEngines
+        };
+
+        if (_canSelect && UserModel.IsActive(accessToken).Equals(false))
+        {
+            await Error();
+            return;
+        }
+
+        if (_canSelect && !SelectedDown)
+        {
+            var downvote = await post.Downvote(accessToken);
+
+            if (downvote.Status)
+            {
+                SelectedDown = true;
+                if (SelectedUp)
+                {
+                    SelectedUp = false;
+                    Counter -= 1;
+                }
+                Counter -= 1;
+            }
+            else
+            {
+                await Error();
+                return;
+            }
+
+            await InvokeAsync(StateHasChanged);
+            return;
+        }
+
+        if (_canSelect && SelectedDown)
+        {
+            var downvoteOff = await post.DownvoteOff(accessToken);
+
+            if (downvoteOff.Status)
+            {
+                SelectedDown = false;
+                Counter += 1;
+            }
+            else
+            {
+                await Error();
+                return;
+            }
+
+            await InvokeAsync(StateHasChanged);
+            return;
+        }
+    }
+}
