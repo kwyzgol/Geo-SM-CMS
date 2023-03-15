@@ -479,4 +479,4 @@ $RECYCLE.BIN/
 # PD
 docker-compose.override.yml
 docker-compose.localhost.yml
-wwwroot/img/
+**/WebApp/wwwroot/img/
