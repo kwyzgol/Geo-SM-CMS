@@ -119,6 +119,19 @@
     #search-bar > form {
         width: 100%;
     }
+
+    #filter-options {
+        flex-wrap: wrap;
+    }
+
+    #filter-options > .one-row {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .reset-button {
+        flex-shrink: 0;
+    }
 }
 
 @media only screen and (max-width: 767px) {

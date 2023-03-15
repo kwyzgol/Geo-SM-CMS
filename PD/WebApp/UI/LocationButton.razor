@@ -8,7 +8,7 @@
                      $"{(Type == LocationType.Distance ? $", Distance: [{GeoPoint.Meters/1000.0} km]" : "")}"
             : "Choose a location")
     </button>
-    <button @onclick="@Reset" disabled="@(!Selected)" class="location-button">Reset</button>
+    <button @onclick="@Reset" disabled="@(!Selected)" class="location-button reset-button">Reset</button>
 </div>
 
 @code
