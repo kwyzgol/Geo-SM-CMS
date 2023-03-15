@@ -25,7 +25,7 @@
 
     public async Task DeleteFact()
     {
-        if (IsLoggedIn(Role.Moderator))
+        if (IsLoggedIn(Role.FactChecker))
         {
             var deleteFact =
                 await PostModel.DeleteFact(CurrentPage?.LoginInfo.AccessToken, PostId);

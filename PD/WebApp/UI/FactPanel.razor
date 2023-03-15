@@ -33,7 +33,7 @@
 
     public async Task AddFact()
     {
-        if (IsLoggedIn(Role.Moderator))
+        if (IsLoggedIn(Role.FactChecker))
         {
             if (string.IsNullOrWhiteSpace(Fact))
             {
