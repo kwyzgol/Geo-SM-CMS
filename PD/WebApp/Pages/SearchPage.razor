@@ -17,6 +17,11 @@
                            Avatar="@user.Avatar" />
             </span>
         }
+
+        @if (SearchBar.SearchedUsers.Count == 0)
+        {
+            <p>No users found.</p>
+        }
     }
 
     @if (SearchBar.CurrentType == SearchType.Tag)
@@ -26,7 +31,12 @@
             <a href="@($"tag/{tag}")" class="no-decoration">
                 <div class="tag tag-search">#@(tag)</div>
             </a>
-            
+
+        }
+
+        @if (SearchBar.SearchedTags.Count == 0)
+        {
+            <p>No tags found.</p>
         }
     }
 
@@ -35,18 +45,23 @@
         foreach (var post in SearchBar.SearchedPosts)
         {
             <Post PostId="@((ulong)post.PostId)"
-                  Type="PostType.Mini"
-                  Author="@post.Author"
-                  AuthorId="@((ulong)post.AuthorId)"
-                  Date="@post.Date"
-                  Title="@post.Title"
-                  Content="@post.Content"
-                  Img="@post.Img"
-                  Counter="@post.Counter"
-                  Fact="@post.Fact"
-                  SelectedUp="@post.SelectedUp"
-                  SelectedDown="@post.SelectedDown"
-                  BlockSearchEngines="@post.BlockSearchEngines" />
+      Type="PostType.Mini"
+      Author="@post.Author"
+      AuthorId="@((ulong)post.AuthorId)"
+      Date="@post.Date"
+      Title="@post.Title"
+      Content="@post.Content"
+      Img="@post.Img"
+      Counter="@post.Counter"
+      Fact="@post.Fact"
+      SelectedUp="@post.SelectedUp"
+      SelectedDown="@post.SelectedDown"
+      BlockSearchEngines="@post.BlockSearchEngines" />
+        }
+
+        @if (SearchBar.SearchedPosts.Count == 0)
+        {
+            <p>No posts found.</p>
         }
     }
 }

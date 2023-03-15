@@ -14,11 +14,17 @@
         {
             foreach (var user in SearchBar.SearchedUsers)
             {
-                <span class="user-list-item" @onclick="@(async() => await EditUser(user))">
+                <span class="user-list-item" @onclick="@(async () => await EditUser(user))">
+
                     <UserPlate Username="@user.Username"
-               Avatar="@user.Avatar"
-               Redirect="javascript:void(0)" />
+                               Avatar="@user.Avatar"
+                               Redirect="javascript:void(0)" />
                 </span>
+            }
+
+            @if (SearchBar.SearchedUsers.Count == 0)
+            {
+                <p>No users found.</p>
             }
         }
     }
