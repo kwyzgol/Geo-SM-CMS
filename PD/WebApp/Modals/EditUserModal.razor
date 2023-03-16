@@ -5,36 +5,40 @@
     <div class="edit-user-modal">
         <div class="center-content column user-info">
             <div>
-                <UserPlate Username="@User.Username" Avatar="@User.Avatar"/>
+                <UserPlate Username="@User.Username" Avatar="@User.Avatar" />
                 <p><b>ID:</b> @User.UserId</p>
-                <p><b>@Translations!["Role:"]</b> @(User.Role != null ? CmsUtilities.RoleToString((Role)User.Role) : "")</p>
+                <p>
+                    <b>@Translations!["Role:"]</b> @(User.Role != null ?
+                Translations![CmsUtilities.RoleToString((Role)User.Role).Substring(0, 1).ToUpper() + 
+                              CmsUtilities.RoleToString((Role)User.Role).Substring(1)] : "")
+                </p>
                 <p><b>@Translations!["Reputation:"]</b> @User.Reputation</p>
             </div>
 
-            <br/>
+            <br />
             <NavigationItem IconName="engineering"
-                            Text=@Translations!["Make admin"]
-                            @onclick="@(async () => await ChangeRole(Role.Admin))"
-                            UriPath="javascript:void(0)"/>
+                        Text=@Translations!["Make admin"]
+                        @onclick="@(async () => await ChangeRole(Role.Admin))"
+                        UriPath="javascript:void(0)" />
             <NavigationItem IconName="manage_accounts"
-                            Text=@Translations!["Make moderator"]
-                            @onclick="@(async () => await ChangeRole(Role.Moderator))"
-                            UriPath="javascript:void(0)"/>
+                        Text=@Translations!["Make moderator"]
+                        @onclick="@(async () => await ChangeRole(Role.Moderator))"
+                        UriPath="javascript:void(0)" />
             <NavigationItem IconName="person_search"
-                            Text=@Translations!["Make fact checker"]
-                            @onclick="@(async () => await ChangeRole(Role.FactChecker))"
-                            UriPath="javascript:void(0)"/>
+                        Text=@Translations!["Make fact checker"]
+                        @onclick="@(async () => await ChangeRole(Role.FactChecker))"
+                        UriPath="javascript:void(0)" />
             <NavigationItem IconName="person"
-                            Text=@Translations!["Make user"]
-                            @onclick="@(async () => await ChangeRole(Role.User))"
-                            UriPath="javascript:void(0)"/>
+                        Text=@Translations!["Make user"]
+                        @onclick="@(async () => await ChangeRole(Role.User))"
+                        UriPath="javascript:void(0)" />
             <NavigationItem IconName="delete"
-                            Text=@Translations!["Delete"]
-                            @onclick="@(async () => await Delete())"
-                            UriPath="javascript:void(0)"/>
+                        Text=@Translations!["Delete"]
+                        @onclick="@(async () => await Delete())"
+                        UriPath="javascript:void(0)" />
 
         </div>
-        
+
         @if (BanHistory.Count > 0)
         {
             <div class="center-content column ban-history">
@@ -93,12 +97,12 @@
     {
         if (await UserModel.IsActive(CurrentPage?.LoginInfo.AccessToken, Role.Admin))
         {
-            var changeRole = 
+            var changeRole =
                 await UserModel.ChangeRole(CurrentPage?.LoginInfo.AccessToken, User?.UserId, role);
 
             if (changeRole.Status)
             {
-                if(User != null) User.Role = role;
+                if (User != null) User.Role = role;
                 var parameters = new ModalParameters()
                     .Add("Message", Translations!["Role successfully changed."].ToString());
                 Modal?.Show<InfoModal>("", parameters);
