@@ -1,704 +1,810 @@
-﻿<root>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="Acceptance of the terms of service is required." xml:space="preserve">
-		<value>Wymagana jest akceptacja regulaminu.</value>
-	</data>
-	<data name="Access key for the mobile device (SMS verification):" xml:space="preserve">
-		<value>Klucz dostępu dla urządzenia mobilnego (weryfikacja przez SMS):</value>
-	</data>
-	<data name="Access verification" xml:space="preserve">
-		<value>Weryfikacja dostępu</value>
-	</data>
-	<data name="Add" xml:space="preserve">
-		<value>Dodaj</value>
-	</data>
-	<data name="Add fact" xml:space="preserve">
-		<value>Dodaj fakt</value>
-	</data>
-	<data name="Admin" xml:space="preserve">
-		<value>Administrator</value>
-	</data>
-	<data name="An account with this email address already exists. Please choose another one." xml:space="preserve">
-		<value>Konto z tym adresem e-mail już istnieje. Proszę wybrać inny.</value>
-	</data>
-	<data name="An account with this phone number already exists. Please choose another one." xml:space="preserve">
-		<value>Konto z tym numerem telefonu już istnieje. Proszę wybrać inny.</value>
-	</data>
-	<data name="An unexpected error has occurred. Please try again later or contact the website administrator." xml:space="preserve">
-		<value>Wystąpił nieoczekiwany błąd. Spróbuj ponownie później lub skontaktuj się z administratorem strony.</value>
-	</data>
-	<data name="Are you sure?" xml:space="preserve">
-		<value>Czy jesteś pewny/pewna?</value>
-	</data>
-	<data name="Auth type:" xml:space="preserve">
-		<value>Typ autoryzacji:</value>
-	</data>
-	<data name="Automatically report new posts when low reputation:" xml:space="preserve">
-		<value>Automatycznie zgłaszaj nowe posty w przypadku niskiej reputacji:</value>
-	</data>
-	<data name="Available characters for the password:" xml:space="preserve">
-		<value>Dostępne znaki dla hasła: A-Z, a-z, 0-9, !@$%^&amp;*&lt;&gt;_.,?-</value>
-	</data>
-	<data name="Available characters for the username:" xml:space="preserve">
-		<value>Dostępne znaki dla nazwy użytkownika: A-Z, a-z, 0-9, ._</value>
-	</data>
-	<data name="Avatar changed." xml:space="preserve">
-		<value>Zmieniono awatar.</value>
-	</data>
-	<data name="Ban history" xml:space="preserve">
-		<value>Historia banów</value>
-	</data>
-	<data name="Ban user" xml:space="preserve">
-		<value>Zbanuj użytkownika</value>
-	</data>
-	<data name="Best in 24h" xml:space="preserve">
-		<value>Najlepsze w ciągu 24 godzin</value>
-	</data>
-	<data name="by" xml:space="preserve">
-		<value>przez</value>
-	</data>
-	<data name="Cancel" xml:space="preserve">
-		<value>Anuluj</value>
-	</data>
-	<data name="Change" xml:space="preserve">
-		<value>Zmień</value>
-	</data>
-	<data name="Change avatar" xml:space="preserve">
-		<value>Zmień awatar</value>
-	</data>
-	<data name="Change colors" xml:space="preserve">
-		<value>Zmień kolory</value>
-	</data>
-	<data name="Change email" xml:space="preserve">
-		<value>Zmień adres email</value>
-	</data>
-	<data name="Change logo" xml:space="preserve">
-		<value>Zmień logo</value>
-	</data>
-	<data name="Change password" xml:space="preserve">
-		<value>Zmień hasło</value>
-	</data>
-	<data name="Change phone number" xml:space="preserve">
-		<value>Zmień numer telefonu</value>
-	</data>
-	<data name="Change your language:" xml:space="preserve">
-		<value>Zmień swój język:</value>
-	</data>
-	<data name="Check reports" xml:space="preserve">
-		<value>Sprawdź zgłoszenia</value>
-	</data>
-	<data name="Choose a location" xml:space="preserve">
-		<value>Wybierz lokalizację</value>
-	</data>
-	<data name="CMS by" xml:space="preserve">
-		<value>CMS autorstwa</value>
-	</data>
-	<data name="CMS settings" xml:space="preserve">
-		<value>Ustawienia CMSa</value>
-	</data>
-	<data name="Comments" xml:space="preserve">
-		<value>Komentarze</value>
-	</data>
-	<data name="Confirm" xml:space="preserve">
-		<value>Potwierdź</value>
-	</data>
-	<data name="Confirm Password:" xml:space="preserve">
-		<value>Potwierdź hasło:</value>
-	</data>
-	<data name="Confirmation" xml:space="preserve">
-		<value>Potwierdzenie</value>
-	</data>
-	<data name="Contact" xml:space="preserve">
-		<value>Kontakt</value>
-	</data>
-	<data name="Contact:" xml:space="preserve">
-		<value>Kontakt:</value>
-	</data>
-	<data name="Content report" xml:space="preserve">
-		<value>Zgłoszenie treści</value>
-	</data>
-	<data name="Content:" xml:space="preserve">
-		<value>Treść</value>
-	</data>
-	<data name="Could not determine if you are human. Please refresh the page, try again or contact the website administrator." xml:space="preserve">
-		<value>Nie można określić, czy jesteś człowiekiem. Odśwież stronę, spróbuj ponownie lub skontaktuj się z administratorem serwisu.</value>
-	</data>
-	<data name="Country code:" xml:space="preserve">
-		<value>Kod kraju:</value>
-	</data>
-	<data name="Create" xml:space="preserve">
-		<value>Utwórz</value>
-	</data>
-	<data name="Create a new comment:" xml:space="preserve">
-		<value>Utwórz nowy komentarz:</value>
-	</data>
-	<data name="Date end:" xml:space="preserve">
-		<value>Koniec:</value>
-	</data>
-	<data name="Date start:" xml:space="preserve">
-		<value>Początek:</value>
-	</data>
-	<data name="date:" xml:space="preserve">
-		<value>data:</value>
-	</data>
-	<data name="Days:" xml:space="preserve">
-		<value>Dni:</value>
-	</data>
-	<data name="Delete" xml:space="preserve">
-		<value>Usuń</value>
-	</data>
-	<data name="Delete account" xml:space="preserve">
-		<value>Usuń konto</value>
-	</data>
-	<data name="Delete fact" xml:space="preserve">
-		<value>Usuń fakt</value>
-	</data>
-	<data name="Delete report" xml:space="preserve">
-		<value>Usuń zgłoszenie</value>
-	</data>
-	<data name="Disinformation, manipulation or false information." xml:space="preserve">
-		<value>Dezinformacja, manipulacja lub fałszywe informacje.</value>
-	</data>
-	<data name="Distance:" xml:space="preserve">
-		<value>Odległość</value>
-	</data>
-	<data name="Edit allowed phone numbers" xml:space="preserve">
-		<value>Edytuj dozwolone numery telefonów</value>
-	</data>
-	<data name="Edit CMS settings" xml:space="preserve">
-		<value>Edytuj ustawienia CMSa</value>
-	</data>
-	<data name="Edit contact" xml:space="preserve">
-		<value>Edytuj dane kontaktowe</value>
-	</data>
-	<data name="Edit Terms of Service" xml:space="preserve">
-		<value>Edytuj regulamin</value>
-	</data>
-	<data name="Edit TOS" xml:space="preserve">
-		<value>Edytuj regulamin</value>
-	</data>
-	<data name="Edit users" xml:space="preserve">
-		<value>Edytuj użytkowników</value>
-	</data>
-	<data name="Email" xml:space="preserve">
-		<value>Email</value>
-	</data>
-	<data name="Email and SMS" xml:space="preserve">
-		<value>Email oraz SMS</value>
-	</data>
-	<data name="Email changed." xml:space="preserve">
-		<value>Adres email został zmieniony.</value>
-	</data>
-	<data name="Email code:" xml:space="preserve">
-		<value>Kod email:</value>
-	</data>
-	<data name="Email sent." xml:space="preserve">
-		<value>Email został wysłany.</value>
-	</data>
-	<data name="Email:" xml:space="preserve">
-		<value>Email:</value>
-	</data>
-	<data name="Enter a valid email address." xml:space="preserve">
-		<value>Wprowadź prawidłowy adres email.</value>
-	</data>
-	<data name="Enter code" xml:space="preserve">
-		<value>Wprowadź kod</value>
-	</data>
-	<data name="Enter new password" xml:space="preserve">
-		<value>Wprowadź nowe hasło</value>
-	</data>
-	<data name="Error" xml:space="preserve">
-		<value>Błąd</value>
-	</data>
-	<data name="Error occurred during the file upload." xml:space="preserve">
-		<value>Wystąpił błąd podczas przesyłania pliku.</value>
-	</data>
-	<data name="Error occurred. Email not sent." xml:space="preserve">
-		<value>Wystąpił błąd. Email nie został wysłany.</value>
-	</data>
-	<data name="Fact added." xml:space="preserve">
-		<value>Dodano fakt.</value>
-	</data>
-	<data name="Fact checker" xml:space="preserve">
-		<value>Fact checker</value>
-	</data>
-	<data name="Fact checker reports" xml:space="preserve">
-		<value>Zgłoszenia Fact checkera</value>
-	</data>
-	<data name="Fact deleted." xml:space="preserve">
-		<value>Usunięto fakt.</value>
-	</data>
-	<data name="Fact-checked information" xml:space="preserve">
-		<value>Zweryfikowane informacje</value>
-	</data>
-	<data name="Fact:" xml:space="preserve">
-		<value>Fakt:</value>
-	</data>
-	<data name="Font color for main color:" xml:space="preserve">
-		<value>Kolor czcionki dla głównego koloru:</value>
-	</data>
-	<data name="Forgot your password? Change it now." xml:space="preserve">
-		<value>Zapomniałeś/łaś hasła? Zmień je teraz.</value>
-	</data>
-	<data name="Get report" xml:space="preserve">
-		<value>Pobierz zgłoszenie</value>
-	</data>
-	<data name="I accept the" xml:space="preserve">
-		<value>Akceptuję</value>
-	</data>
-	<data name="Image:" xml:space="preserve">
-		<value>Obraz:</value>
-	</data>
-	<data name="Inappropriate or forbidden content." xml:space="preserve">
-		<value>Nieodpowiednia lub zakazana treść.</value>
-	</data>
-	<data name="Incorrect login data." xml:space="preserve">
-		<value>Nieprawidłowe dane logowania.</value>
-	</data>
-	<data name="Incorrect username." xml:space="preserve">
-		<value>Nieprawidłowa nazwa użytkownika.</value>
-	</data>
-	<data name="Information" xml:space="preserve">
-		<value>Informacja</value>
-	</data>
-	<data name="Invalid code. Please try again." xml:space="preserve">
-		<value>Nieprawidłowy kod. Proszę spróbuj ponownie.</value>
-	</data>
-	<data name="Invalid data format." xml:space="preserve">
-		<value>Nieprawidłowy format danych.</value>
-	</data>
-	<data name="Invalid email auth code format." xml:space="preserve">
-		<value>Nieprawidłowy format kodu email.</value>
-	</data>
-	<data name="Invalid file type. The file won't be uploaded." xml:space="preserve">
-		<value>Nieprawidłowy typ pliku. Plik nie zostanie przesłany.</value>
-	</data>
-	<data name="Invalid SMS auth code format." xml:space="preserve">
-		<value>Nieprawidłowy format kodu SMS.</value>
-	</data>
-	<data name="Language" xml:space="preserve">
-		<value>Język</value>
-	</data>
-	<data name="Language change" xml:space="preserve">
-		<value>Zmiana języka</value>
-	</data>
-	<data name="Latest login history" xml:space="preserve">
-		<value>Ostatnie logowania</value>
-	</data>
-	<data name="Latest messages" xml:space="preserve">
-		<value>Ostatnie wiadomości</value>
-	</data>
-	<data name="Load more" xml:space="preserve">
-		<value>Załaduj więcej</value>
-	</data>
-	<data name="Localization:" xml:space="preserve">
-		<value>Lokalizacja:</value>
-	</data>
-	<data name="Location:" xml:space="preserve">
-		<value>Lokalizacja:</value>
-	</data>
-	<data name="Log in" xml:space="preserve">
-		<value>Zaloguj się</value>
-	</data>
-	<data name="Log out" xml:space="preserve">
-		<value>Wyloguj się</value>
-	</data>
-	<data name="Log out of all sessions" xml:space="preserve">
-		<value>Wyloguj ze wszystkich sesji</value>
-	</data>
-	<data name="Login history" xml:space="preserve">
-		<value>Historia logowania</value>
-	</data>
-	<data name="Main color:" xml:space="preserve">
-		<value>Główny kolor:</value>
-	</data>
-	<data name="Main page" xml:space="preserve">
-		<value>Strona główna</value>
-	</data>
-	<data name="Make admin" xml:space="preserve">
-		<value>Uczyń administratorem</value>
-	</data>
-	<data name="Make fact checker" xml:space="preserve">
-		<value>Uczyń fact checkerem</value>
-	</data>
-	<data name="Make moderator" xml:space="preserve">
-		<value>Uczyń moderatorem</value>
-	</data>
-	<data name="Make user" xml:space="preserve">
-		<value>Uczyń użytkownikiem</value>
-	</data>
-	<data name="Max numbers:" xml:space="preserve">
-		<value>Maksymalna ilość cyfr:</value>
-	</data>
-	<data name="Message:" xml:space="preserve">
-		<value>Wiadomość:</value>
-	</data>
-	<data name="Messages" xml:space="preserve">
-		<value>Wiadomości</value>
-	</data>
-	<data name="Messages:" xml:space="preserve">
-		<value>Wiadomości:</value>
-	</data>
-	<data name="Moderator" xml:space="preserve">
-		<value>Moderator</value>
-	</data>
-	<data name="Moderator ID:" xml:space="preserve">
-		<value>ID moderatora:</value>
-	</data>
-	<data name="Moderator name:" xml:space="preserve">
-		<value>Nazwa moderatora:</value>
-	</data>
-	<data name="Moderator reports" xml:space="preserve">
-		<value>Zgłoszenia moderatora</value>
-	</data>
-	<data name="New" xml:space="preserve">
-		<value>Nowe</value>
-	</data>
-	<data name="New avatar:" xml:space="preserve">
-		<value>Nowy awatar:</value>
-	</data>
-	<data name="New email:" xml:space="preserve">
-		<value>Nowy email:</value>
-	</data>
-	<data name="New fact" xml:space="preserve">
-		<value>Nowy fakt</value>
-	</data>
-	<data name="New logo:" xml:space="preserve">
-		<value>Nowe logo:</value>
-	</data>
-	<data name="New password:" xml:space="preserve">
-		<value>Nowe hasło:</value>
-	</data>
-	<data name="New phone number:" xml:space="preserve">
-		<value>Nowy numer telefonu:</value>
-	</data>
-	<data name="No available verification option." xml:space="preserve">
-		<value>Brak dostępnej opcji weryfikacji.</value>
-	</data>
-	<data name="No comments yet." xml:space="preserve">
-		<value>Brak komentarzy.</value>
-	</data>
-	<data name="No conversations found." xml:space="preserve">
-		<value>Nie znaleziono rozmów.</value>
-	</data>
-	<data name="No posts found." xml:space="preserve">
-		<value>Nie znaleziono postów.</value>
-	</data>
-	<data name="No posts to display." xml:space="preserve">
-		<value>Brak postów do wyświetlenia.</value>
-	</data>
-	<data name="No reports." xml:space="preserve">
-		<value>Brak zgłoszeń.</value>
-	</data>
-	<data name="No tags found." xml:space="preserve">
-		<value>Nie znaleziono tagów.</value>
-	</data>
-	<data name="No users found." xml:space="preserve">
-		<value>Nie znaleziono użytkowników.</value>
-	</data>
-	<data name="None" xml:space="preserve">
-		<value>Brak</value>
-	</data>
-	<data name="Not found" xml:space="preserve">
-		<value>Nie znaleziono</value>
-	</data>
-	<data name="Page not found." xml:space="preserve">
-		<value>Strona nie znaleziona.</value>
-	</data>
-	<data name="Password changed successfully." xml:space="preserve">
-		<value>Hasło zmienione pomyślnie.</value>
-	</data>
-	<data name="Password changed." xml:space="preserve">
-		<value>Hasło zmienione.</value>
-	</data>
-	<data name="Password:" xml:space="preserve">
-		<value>Hasło:</value>
-	</data>
-	<data name="Passwords must be equal." xml:space="preserve">
-		<value>Hasła muszą być równe.</value>
-	</data>
-	<data name="Phone number changed." xml:space="preserve">
-		<value>Zmieniono numer telefonu.</value>
-	</data>
-	<data name="Phone number:" xml:space="preserve">
-		<value>Numer telefonu:</value>
-	</data>
-	<data name="Place:" xml:space="preserve">
-		<value>Miejsce:</value>
-	</data>
-	<data name="Please, provide a reason for your report:" xml:space="preserve">
-		<value>Proszę podaj podaj powód zgłoszenia:</value>
-	</data>
-	<data name="Please, wait. Operation in progress." xml:space="preserve">
-		<value>Proszę czekać. Operacja w trakcie realizacji.</value>
-	</data>
-	<data name="Post id:" xml:space="preserve">
-		<value>ID postu:</value>
-	</data>
-	<data name="Profile:" xml:space="preserve">
-		<value>Profil:</value>
-	</data>
-	<data name="Reason:" xml:space="preserve">
-		<value>Powód:</value>
-	</data>
-	<data name="ReCaptcha enabled:" xml:space="preserve">
-		<value>ReCaptcha włączona:</value>
-	</data>
-	<data name="ReCaptcha minimum score:" xml:space="preserve">
-		<value>ReCaptcha - minimalny wynik:</value>
-	</data>
-	<data name="ReCaptcha private key:" xml:space="preserve">
-		<value>ReCaptcha - klucz prywatny:</value>
-	</data>
-	<data name="ReCaptcha public key:" xml:space="preserve">
-		<value>ReCaptcha - klucz publiczny:</value>
-	</data>
-	<data name="Receiver:" xml:space="preserve">
-		<value>Odbiorca</value>
-	</data>
-	<data name="Register" xml:space="preserve">
-		<value>Zarejestruj się</value>
-	</data>
-	<data name="Registration" xml:space="preserve">
-		<value>Rejestracja</value>
-	</data>
-	<data name="Report" xml:space="preserve">
-		<value>Zgłoś</value>
-	</data>
-	<data name="Report successfully created." xml:space="preserve">
-		<value>Zgłoszenie pomyślnie utworzone.</value>
-	</data>
-	<data name="Reported by:" xml:space="preserve">
-		<value>Zgłoszone przez:</value>
-	</data>
-	<data name="Reputation triggering automatic reports:" xml:space="preserve">
-		<value>Reputacja aktywująca automatyczne zgłoszenie:</value>
-	</data>
-	<data name="Reputation triggering not indexing user's new posts by search engines:" xml:space="preserve">
-		<value>Reputacja aktywująca nieindeksowanie nowych postów użytkownika przez wyszukiwarki internetowe:</value>
-	</data>
-	<data name="Reputation:" xml:space="preserve">
-		<value>Reputacja:</value>
-	</data>
-	<data name="Reset" xml:space="preserve">
-		<value>Resetuj</value>
-	</data>
-	<data name="Reset your password" xml:space="preserve">
-		<value>Zresetuj swoje hasło</value>
-	</data>
-	<data name="Role successfully changed." xml:space="preserve">
-		<value>Rola zmieniona pomyślnie.</value>
-	</data>
-	<data name="Role:" xml:space="preserve">
-		<value>Rola:</value>
-	</data>
-	<data name="Search" xml:space="preserve">
-		<value>Szukaj</value>
-	</data>
-	<data name="Search for a place" xml:space="preserve">
-		<value>Szukaj miejsca</value>
-	</data>
-	<data name="Search for a post, @user or #tag." xml:space="preserve">
-		<value>Szukaj postu, @użytkownika lub #tagu.</value>
-	</data>
-	<data name="Select report type:" xml:space="preserve">
-		<value>Wybierz typ zgłoszenia:</value>
-	</data>
-	<data name="Send" xml:space="preserve">
-		<value>Wyślij</value>
-	</data>
-	<data name="Send a message" xml:space="preserve">
-		<value>Wyślij wiadomość</value>
-	</data>
-	<data name="Send again{0}" xml:space="preserve">
-		<value>Wyślij ponownie</value>
-	</data>
-	<data name="Send email" xml:space="preserve">
-		<value>Wyślij wiadomość email</value>
-	</data>
-	<data name="Settings" xml:space="preserve">
-		<value>Ustawienia</value>
-	</data>
-	<data name="Show (count: {0})" xml:space="preserve">
-		<value>Pokaż (ilość: {0})</value>
-	</data>
-	<data name="SMS" xml:space="preserve">
-		<value>SMS</value>
-	</data>
-	<data name="SMS code:" xml:space="preserve">
-		<value>Kod SMS:</value>
-	</data>
-	<data name="SMTP host:" xml:space="preserve">
-		<value>Host SMTP:</value>
-	</data>
-	<data name="SMTP password:" xml:space="preserve">
-		<value>Hasło SMTP:</value>
-	</data>
-	<data name="SMTP port:" xml:space="preserve">
-		<value>Port SMTP:</value>
-	</data>
-	<data name="SMTP user:" xml:space="preserve">
-		<value>Użytkownik SMTP:</value>
-	</data>
-	<data name="Starting reputation:" xml:space="preserve">
-		<value>Reputacja startowa:</value>
-	</data>
-	<data name="Subject:" xml:space="preserve">
-		<value>Temat:</value>
-	</data>
-	<data name="Submit" xml:space="preserve">
-		<value>Zatwierdź</value>
-	</data>
-	<data name="System name:" xml:space="preserve">
-		<value>Nazwa systemu:</value>
-	</data>
-	<data name="Tag:" xml:space="preserve">
-		<value>Tag:</value>
-	</data>
-	<data name="Tags" xml:space="preserve">
-		<value>Tagi</value>
-	</data>
-	<data name="terms of service" xml:space="preserve">
-		<value>regulamin</value>
-	</data>
-	<data name="Terms of service:" xml:space="preserve">
-		<value>Regulamin:</value>
-	</data>
-	<data name="The comment is required." xml:space="preserve">
-		<value>Komentarz jest wymagany.</value>
-	</data>
-	<data name="The comment must be a maximum of 2000 characters." xml:space="preserve">
-		<value>Komentarz musi mieć maksymalnie 2000 znaków.</value>
-	</data>
-	<data name="The country phone code is required." xml:space="preserve">
-		<value>Kod kraju jest wymagany.</value>
-	</data>
-	<data name="The country phone code must have 1-3 digits and be preceded by a '+' sign." xml:space="preserve">
-		<value>Kod kraju musi składać się z 1-3 cyft oraz być poprzedzony znakiem '+'.</value>
-	</data>
-	<data name="The email address must be between 5 and 320 characters long." xml:space="preserve">
-		<value>Adres e-mail musi mieć od 5 do 320 znaków.</value>
-	</data>
-	<data name="The email auth code is required." xml:space="preserve">
-		<value>Kod autoryzacji email jest wymagany.</value>
-	</data>
-	<data name="The email is required." xml:space="preserve">
-		<value>Email jest wymagany.</value>
-	</data>
-	<data name="The format or country code of your phone number is not supported." xml:space="preserve">
-		<value>Format lub kod kraju twojego numeru nie jest wspierany.</value>
-	</data>
-	<data name="The message is required." xml:space="preserve">
-		<value>Wiadomość jest wymagana.</value>
-	</data>
-	<data name="The message must be a maximum of 1000 characters." xml:space="preserve">
-		<value>Wiadomość musi mieć maksymalnie 1000 znaków.</value>
-	</data>
-	<data name="The password confirmation is required." xml:space="preserve">
-		<value>Potwierdzenie hasła jest wymagane.</value>
-	</data>
-	<data name="The password is required." xml:space="preserve">
-		<value>Hasło jest wymagane.</value>
-	</data>
-	<data name="The password must be between 8 and 64 characters long." xml:space="preserve">
-		<value>Hasło musi mieć od 8 do 64 znaków.</value>
-	</data>
-	<data name="The phone number is required." xml:space="preserve">
-		<value>Numer telefonu jest wymagany.</value>
-	</data>
-	<data name="The phone number must have 4-12 digits." xml:space="preserve">
-		<value>Numer telefonu musi mieć od 4 do 12 cyfr.</value>
-	</data>
-	<data name="The provided username already exists. Please choose another one." xml:space="preserve">
-		<value>Podana nazwa użytkownika już istnieje. Proszę wybrać inną.</value>
-	</data>
-	<data name="The reason must be a maximum of 5000 characters." xml:space="preserve">
-		<value>Powód musi mieć maksymalnie 5000 znaków.</value>
-	</data>
-	<data name="The SMS auth code is required." xml:space="preserve">
-		<value>Kod autoryzacji SMS jest wymagany.</value>
-	</data>
-	<data name="The title max length is 200 and the content max length is 2000." xml:space="preserve">
-		<value>Maksymalna długość tytułu to 200, a maksymalna długość treści to 2000.</value>
-	</data>
-	<data name="The username is required." xml:space="preserve">
-		<value>Nazwa użytkownika jest wymagana.</value>
-	</data>
-	<data name="The username must be between 4 and 20 characters long." xml:space="preserve">
-		<value>Nazwa użytkownika musi mieć od 4 do 20 znaków.</value>
-	</data>
-	<data name="Title and content cannot be empty." xml:space="preserve">
-		<value>Tytuł i treść nie mogą być puste.</value>
-	</data>
-	<data name="Title:" xml:space="preserve">
-		<value>Tytuł:</value>
-	</data>
-	<data name="Type:" xml:space="preserve">
-		<value>Typ:</value>
-	</data>
-	<data name="Unban user" xml:space="preserve">
-		<value>Odbanuj użytkownika</value>
-	</data>
-	<data name="User" xml:space="preserve">
-		<value>Użytkownik</value>
-	</data>
-	<data name="User deleted successfully." xml:space="preserve">
-		<value>Użytkownik usunięty pomyślnie.</value>
-	</data>
-	<data name="User successfully banned." xml:space="preserve">
-		<value>Użytkownik zbanowany pomyślnie.</value>
-	</data>
-	<data name="User unbanned." xml:space="preserve">
-		<value>Użytkownik odbanowany.</value>
-	</data>
-	<data name="Username and reason are required." xml:space="preserve">
-		<value>Nazwa użytkownika i powód są wymagane.</value>
-	</data>
-	<data name="Username is required." xml:space="preserve">
-		<value>Nazwa użytkownika jest wymagana.</value>
-	</data>
-	<data name="Username:" xml:space="preserve">
-		<value>Nazwa użytkownika:</value>
-	</data>
-	<data name="Yes" xml:space="preserve">
-		<value>Tak</value>
-	</data>
-	<data name="You are banned. For more information please contact the website administrator." xml:space="preserve">
-		<value>Jesteś zbanowany. Aby uzyskać więcej informacji, skontaktuj się z administratorem serwisu.</value>
-	</data>
-	<data name="Your email" xml:space="preserve">
-		<value>Twój email</value>
-	</data>
-	<data name="Your new email" xml:space="preserve">
-		<value>Twój nowy email</value>
-	</data>
-	<data name="Your new password" xml:space="preserve">
-		<value>Twoje nowe hasło</value>
-	</data>
-	<data name="Your number" xml:space="preserve">
-		<value>Twój numer</value>
-	</data>
-	<data name="Your password" xml:space="preserve">
-		<value>Twoje hasło</value>
-	</data>
-	<data name="Your username" xml:space="preserve">
-		<value>Twoja nazwa użytkownika</value>
-	</data>
-	<data name="{0} km" xml:space="preserve">
-		<value>{0} km</value>
-	</data>
-	<data name="New post" xml:space="preserve">
-		<value>Nowy post</value>
-	</data>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Acceptance of the terms of service is required." xml:space="preserve">
+    <value>Wymagana jest akceptacja regulaminu.</value>
+  </data>
+  <data name="Access key for the mobile device (SMS verification):" xml:space="preserve">
+    <value>Klucz dostępu dla urządzenia mobilnego (weryfikacja przez SMS):</value>
+  </data>
+  <data name="Access verification" xml:space="preserve">
+    <value>Weryfikacja dostępu</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="Add fact" xml:space="preserve">
+    <value>Dodaj fakt</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="An account with this email address already exists. Please choose another one." xml:space="preserve">
+    <value>Konto z tym adresem e-mail już istnieje. Proszę wybrać inny.</value>
+  </data>
+  <data name="An account with this phone number already exists. Please choose another one." xml:space="preserve">
+    <value>Konto z tym numerem telefonu już istnieje. Proszę wybrać inny.</value>
+  </data>
+  <data name="An unexpected error has occurred. Please try again later or contact the website administrator." xml:space="preserve">
+    <value>Wystąpił nieoczekiwany błąd. Spróbuj ponownie później lub skontaktuj się z administratorem strony.</value>
+  </data>
+  <data name="Are you sure?" xml:space="preserve">
+    <value>Czy jesteś pewny/pewna?</value>
+  </data>
+  <data name="Auth type:" xml:space="preserve">
+    <value>Typ autoryzacji:</value>
+  </data>
+  <data name="Automatically report new posts when low reputation:" xml:space="preserve">
+    <value>Automatycznie zgłaszaj nowe posty w przypadku niskiej reputacji:</value>
+  </data>
+  <data name="Available characters for the password:" xml:space="preserve">
+    <value>Dostępne znaki dla hasła: A-Z, a-z, 0-9, !@$%^&amp;*&lt;&gt;_.,?-</value>
+  </data>
+  <data name="Available characters for the username:" xml:space="preserve">
+    <value>Dostępne znaki dla nazwy użytkownika: A-Z, a-z, 0-9, ._</value>
+  </data>
+  <data name="Avatar changed." xml:space="preserve">
+    <value>Zmieniono awatar.</value>
+  </data>
+  <data name="Ban history" xml:space="preserve">
+    <value>Historia banów</value>
+  </data>
+  <data name="Ban user" xml:space="preserve">
+    <value>Zbanuj użytkownika</value>
+  </data>
+  <data name="Best in 24h" xml:space="preserve">
+    <value>Najlepsze w ciągu 24 godzin</value>
+  </data>
+  <data name="by" xml:space="preserve">
+    <value>przez</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Zmień</value>
+  </data>
+  <data name="Change avatar" xml:space="preserve">
+    <value>Zmień awatar</value>
+  </data>
+  <data name="Change colors" xml:space="preserve">
+    <value>Zmień kolory</value>
+  </data>
+  <data name="Change email" xml:space="preserve">
+    <value>Zmień adres email</value>
+  </data>
+  <data name="Change logo" xml:space="preserve">
+    <value>Zmień logo</value>
+  </data>
+  <data name="Change password" xml:space="preserve">
+    <value>Zmień hasło</value>
+  </data>
+  <data name="Change phone number" xml:space="preserve">
+    <value>Zmień numer telefonu</value>
+  </data>
+  <data name="Change your language" xml:space="preserve">
+    <value>Zmień swój język</value>
+  </data>
+  <data name="Check reports" xml:space="preserve">
+    <value>Sprawdź zgłoszenia</value>
+  </data>
+  <data name="Choose a location" xml:space="preserve">
+    <value>Wybierz lokalizację</value>
+  </data>
+  <data name="CMS by" xml:space="preserve">
+    <value>CMS autorstwa</value>
+  </data>
+  <data name="CMS settings" xml:space="preserve">
+    <value>Ustawienia CMSa</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentarze</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Potwierdź</value>
+  </data>
+  <data name="Confirm Password:" xml:space="preserve">
+    <value>Potwierdź hasło:</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Potwierdzenie</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="Contact:" xml:space="preserve">
+    <value>Kontakt:</value>
+  </data>
+  <data name="Content report" xml:space="preserve">
+    <value>Zgłoszenie treści</value>
+  </data>
+  <data name="Content:" xml:space="preserve">
+    <value>Treść</value>
+  </data>
+  <data name="Could not determine if you are human. Please refresh the page, try again or contact the website administrator." xml:space="preserve">
+    <value>Nie można określić, czy jesteś człowiekiem. Odśwież stronę, spróbuj ponownie lub skontaktuj się z administratorem serwisu.</value>
+  </data>
+  <data name="Country code:" xml:space="preserve">
+    <value>Kod kraju:</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Utwórz</value>
+  </data>
+  <data name="Create a new comment:" xml:space="preserve">
+    <value>Utwórz nowy komentarz:</value>
+  </data>
+  <data name="Date end:" xml:space="preserve">
+    <value>Koniec:</value>
+  </data>
+  <data name="Date start:" xml:space="preserve">
+    <value>Początek:</value>
+  </data>
+  <data name="date:" xml:space="preserve">
+    <value>data:</value>
+  </data>
+  <data name="Days:" xml:space="preserve">
+    <value>Dni:</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="Delete account" xml:space="preserve">
+    <value>Usuń konto</value>
+  </data>
+  <data name="Delete fact" xml:space="preserve">
+    <value>Usuń fakt</value>
+  </data>
+  <data name="Delete report" xml:space="preserve">
+    <value>Usuń zgłoszenie</value>
+  </data>
+  <data name="Disinformation, manipulation or false information." xml:space="preserve">
+    <value>Dezinformacja, manipulacja lub fałszywe informacje.</value>
+  </data>
+  <data name="Distance:" xml:space="preserve">
+    <value>Odległość</value>
+  </data>
+  <data name="Edit allowed phone numbers" xml:space="preserve">
+    <value>Edytuj dozwolone numery telefonów</value>
+  </data>
+  <data name="Edit CMS settings" xml:space="preserve">
+    <value>Edytuj ustawienia CMSa</value>
+  </data>
+  <data name="Edit contact" xml:space="preserve">
+    <value>Edytuj dane kontaktowe</value>
+  </data>
+  <data name="Edit Terms of Service" xml:space="preserve">
+    <value>Edytuj regulamin</value>
+  </data>
+  <data name="Edit TOS" xml:space="preserve">
+    <value>Edytuj regulamin</value>
+  </data>
+  <data name="Edit users" xml:space="preserve">
+    <value>Edytuj użytkowników</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Email and SMS" xml:space="preserve">
+    <value>Email oraz SMS</value>
+  </data>
+  <data name="Email changed." xml:space="preserve">
+    <value>Adres email został zmieniony.</value>
+  </data>
+  <data name="Email code:" xml:space="preserve">
+    <value>Kod email:</value>
+  </data>
+  <data name="Email sent." xml:space="preserve">
+    <value>Email został wysłany.</value>
+  </data>
+  <data name="Email:" xml:space="preserve">
+    <value>Email:</value>
+  </data>
+  <data name="Enter a valid email address." xml:space="preserve">
+    <value>Wprowadź prawidłowy adres email.</value>
+  </data>
+  <data name="Enter code" xml:space="preserve">
+    <value>Wprowadź kod</value>
+  </data>
+  <data name="Enter new password" xml:space="preserve">
+    <value>Wprowadź nowe hasło</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="Error occurred during the file upload." xml:space="preserve">
+    <value>Wystąpił błąd podczas przesyłania pliku.</value>
+  </data>
+  <data name="Error occurred. Email not sent." xml:space="preserve">
+    <value>Wystąpił błąd. Email nie został wysłany.</value>
+  </data>
+  <data name="Fact added." xml:space="preserve">
+    <value>Dodano fakt.</value>
+  </data>
+  <data name="Fact checker" xml:space="preserve">
+    <value>Fact checker</value>
+  </data>
+  <data name="Fact checker reports" xml:space="preserve">
+    <value>Zgłoszenia Fact checkera</value>
+  </data>
+  <data name="Fact deleted." xml:space="preserve">
+    <value>Usunięto fakt.</value>
+  </data>
+  <data name="Fact-checked information" xml:space="preserve">
+    <value>Zweryfikowane informacje</value>
+  </data>
+  <data name="Fact:" xml:space="preserve">
+    <value>Fakt:</value>
+  </data>
+  <data name="Font color for main color:" xml:space="preserve">
+    <value>Kolor czcionki dla głównego koloru:</value>
+  </data>
+  <data name="Forgot your password? Change it now." xml:space="preserve">
+    <value>Zapomniałeś/łaś hasła? Zmień je teraz.</value>
+  </data>
+  <data name="Get report" xml:space="preserve">
+    <value>Pobierz zgłoszenie</value>
+  </data>
+  <data name="I accept the" xml:space="preserve">
+    <value>Akceptuję</value>
+  </data>
+  <data name="Image:" xml:space="preserve">
+    <value>Obraz:</value>
+  </data>
+  <data name="Inappropriate or forbidden content." xml:space="preserve">
+    <value>Nieodpowiednia lub zakazana treść.</value>
+  </data>
+  <data name="Incorrect login data." xml:space="preserve">
+    <value>Nieprawidłowe dane logowania.</value>
+  </data>
+  <data name="Incorrect username." xml:space="preserve">
+    <value>Nieprawidłowa nazwa użytkownika.</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Informacja</value>
+  </data>
+  <data name="Invalid code. Please try again." xml:space="preserve">
+    <value>Nieprawidłowy kod. Proszę spróbuj ponownie.</value>
+  </data>
+  <data name="Invalid data format." xml:space="preserve">
+    <value>Nieprawidłowy format danych.</value>
+  </data>
+  <data name="Invalid email auth code format." xml:space="preserve">
+    <value>Nieprawidłowy format kodu email.</value>
+  </data>
+  <data name="Invalid file type. The file won't be uploaded." xml:space="preserve">
+    <value>Nieprawidłowy typ pliku. Plik nie zostanie przesłany.</value>
+  </data>
+  <data name="Invalid SMS auth code format." xml:space="preserve">
+    <value>Nieprawidłowy format kodu SMS.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Język</value>
+  </data>
+  <data name="Language change" xml:space="preserve">
+    <value>Zmiana języka</value>
+  </data>
+  <data name="Latest login history" xml:space="preserve">
+    <value>Ostatnie logowania</value>
+  </data>
+  <data name="Latest messages" xml:space="preserve">
+    <value>Ostatnie wiadomości</value>
+  </data>
+  <data name="Load more" xml:space="preserve">
+    <value>Załaduj więcej</value>
+  </data>
+  <data name="Localization:" xml:space="preserve">
+    <value>Lokalizacja:</value>
+  </data>
+  <data name="Location:" xml:space="preserve">
+    <value>Lokalizacja:</value>
+  </data>
+  <data name="Log in" xml:space="preserve">
+    <value>Zaloguj się</value>
+  </data>
+  <data name="Log out" xml:space="preserve">
+    <value>Wyloguj się</value>
+  </data>
+  <data name="Log out of all sessions" xml:space="preserve">
+    <value>Wyloguj ze wszystkich sesji</value>
+  </data>
+  <data name="Login history" xml:space="preserve">
+    <value>Historia logowania</value>
+  </data>
+  <data name="Main color:" xml:space="preserve">
+    <value>Główny kolor:</value>
+  </data>
+  <data name="Main page" xml:space="preserve">
+    <value>Strona główna</value>
+  </data>
+  <data name="Make admin" xml:space="preserve">
+    <value>Uczyń administratorem</value>
+  </data>
+  <data name="Make fact checker" xml:space="preserve">
+    <value>Uczyń fact checkerem</value>
+  </data>
+  <data name="Make moderator" xml:space="preserve">
+    <value>Uczyń moderatorem</value>
+  </data>
+  <data name="Make user" xml:space="preserve">
+    <value>Uczyń użytkownikiem</value>
+  </data>
+  <data name="Max numbers:" xml:space="preserve">
+    <value>Maksymalna ilość cyfr:</value>
+  </data>
+  <data name="Message:" xml:space="preserve">
+    <value>Wiadomość:</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Wiadomości</value>
+  </data>
+  <data name="Messages:" xml:space="preserve">
+    <value>Wiadomości:</value>
+  </data>
+  <data name="Moderator" xml:space="preserve">
+    <value>Moderator</value>
+  </data>
+  <data name="Moderator ID:" xml:space="preserve">
+    <value>ID moderatora:</value>
+  </data>
+  <data name="Moderator name:" xml:space="preserve">
+    <value>Nazwa moderatora:</value>
+  </data>
+  <data name="Moderator reports" xml:space="preserve">
+    <value>Zgłoszenia moderatora</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Nowe</value>
+  </data>
+  <data name="New avatar:" xml:space="preserve">
+    <value>Nowy awatar:</value>
+  </data>
+  <data name="New email:" xml:space="preserve">
+    <value>Nowy email:</value>
+  </data>
+  <data name="New fact" xml:space="preserve">
+    <value>Nowy fakt</value>
+  </data>
+  <data name="New logo:" xml:space="preserve">
+    <value>Nowe logo:</value>
+  </data>
+  <data name="New password:" xml:space="preserve">
+    <value>Nowe hasło:</value>
+  </data>
+  <data name="New phone number:" xml:space="preserve">
+    <value>Nowy numer telefonu:</value>
+  </data>
+  <data name="No available verification option." xml:space="preserve">
+    <value>Brak dostępnej opcji weryfikacji.</value>
+  </data>
+  <data name="No comments yet." xml:space="preserve">
+    <value>Brak komentarzy.</value>
+  </data>
+  <data name="No conversations found." xml:space="preserve">
+    <value>Nie znaleziono rozmów.</value>
+  </data>
+  <data name="No posts found." xml:space="preserve">
+    <value>Nie znaleziono postów.</value>
+  </data>
+  <data name="No posts to display." xml:space="preserve">
+    <value>Brak postów do wyświetlenia.</value>
+  </data>
+  <data name="No reports." xml:space="preserve">
+    <value>Brak zgłoszeń.</value>
+  </data>
+  <data name="No tags found." xml:space="preserve">
+    <value>Nie znaleziono tagów.</value>
+  </data>
+  <data name="No users found." xml:space="preserve">
+    <value>Nie znaleziono użytkowników.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Brak</value>
+  </data>
+  <data name="Not found" xml:space="preserve">
+    <value>Nie znaleziono</value>
+  </data>
+  <data name="Page not found." xml:space="preserve">
+    <value>Strona nie znaleziona.</value>
+  </data>
+  <data name="Password changed successfully." xml:space="preserve">
+    <value>Hasło zmienione pomyślnie.</value>
+  </data>
+  <data name="Password changed." xml:space="preserve">
+    <value>Hasło zmienione.</value>
+  </data>
+  <data name="Password:" xml:space="preserve">
+    <value>Hasło:</value>
+  </data>
+  <data name="Passwords must be equal." xml:space="preserve">
+    <value>Hasła muszą być równe.</value>
+  </data>
+  <data name="Phone number changed." xml:space="preserve">
+    <value>Zmieniono numer telefonu.</value>
+  </data>
+  <data name="Phone number:" xml:space="preserve">
+    <value>Numer telefonu:</value>
+  </data>
+  <data name="Place:" xml:space="preserve">
+    <value>Miejsce:</value>
+  </data>
+  <data name="Please, provide a reason for your report:" xml:space="preserve">
+    <value>Proszę podaj podaj powód zgłoszenia:</value>
+  </data>
+  <data name="Please, wait. Operation in progress." xml:space="preserve">
+    <value>Proszę czekać. Operacja w trakcie realizacji.</value>
+  </data>
+  <data name="Post id:" xml:space="preserve">
+    <value>ID postu:</value>
+  </data>
+  <data name="Profile:" xml:space="preserve">
+    <value>Profil:</value>
+  </data>
+  <data name="Reason:" xml:space="preserve">
+    <value>Powód:</value>
+  </data>
+  <data name="ReCaptcha enabled:" xml:space="preserve">
+    <value>ReCaptcha włączona:</value>
+  </data>
+  <data name="ReCaptcha minimum score:" xml:space="preserve">
+    <value>ReCaptcha - minimalny wynik:</value>
+  </data>
+  <data name="ReCaptcha private key:" xml:space="preserve">
+    <value>ReCaptcha - klucz prywatny:</value>
+  </data>
+  <data name="ReCaptcha public key:" xml:space="preserve">
+    <value>ReCaptcha - klucz publiczny:</value>
+  </data>
+  <data name="Receiver:" xml:space="preserve">
+    <value>Odbiorca</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Zarejestruj się</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Rejestracja</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Zgłoś</value>
+  </data>
+  <data name="Report successfully created." xml:space="preserve">
+    <value>Zgłoszenie pomyślnie utworzone.</value>
+  </data>
+  <data name="Reported by:" xml:space="preserve">
+    <value>Zgłoszone przez:</value>
+  </data>
+  <data name="Reputation triggering automatic reports:" xml:space="preserve">
+    <value>Reputacja aktywująca automatyczne zgłoszenie:</value>
+  </data>
+  <data name="Reputation triggering not indexing user's new posts by search engines:" xml:space="preserve">
+    <value>Reputacja aktywująca nieindeksowanie nowych postów użytkownika przez wyszukiwarki internetowe:</value>
+  </data>
+  <data name="Reputation:" xml:space="preserve">
+    <value>Reputacja:</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Resetuj</value>
+  </data>
+  <data name="Reset your password" xml:space="preserve">
+    <value>Zresetuj swoje hasło</value>
+  </data>
+  <data name="Role successfully changed." xml:space="preserve">
+    <value>Rola zmieniona pomyślnie.</value>
+  </data>
+  <data name="Role:" xml:space="preserve">
+    <value>Rola:</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Szukaj</value>
+  </data>
+  <data name="Search for a place" xml:space="preserve">
+    <value>Szukaj miejsca</value>
+  </data>
+  <data name="Search for a post, @user or #tag." xml:space="preserve">
+    <value>Szukaj postu, @użytkownika lub #tagu.</value>
+  </data>
+  <data name="Select report type:" xml:space="preserve">
+    <value>Wybierz typ zgłoszenia:</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Wyślij</value>
+  </data>
+  <data name="Send a message" xml:space="preserve">
+    <value>Wyślij wiadomość</value>
+  </data>
+  <data name="Send again{0}" xml:space="preserve">
+    <value>Wyślij ponownie{0}</value>
+  </data>
+  <data name="Send email" xml:space="preserve">
+    <value>Wyślij wiadomość email</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="Show (count: {0})" xml:space="preserve">
+    <value>Pokaż (ilość: {0})</value>
+  </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS code:" xml:space="preserve">
+    <value>Kod SMS:</value>
+  </data>
+  <data name="SMTP host:" xml:space="preserve">
+    <value>Host SMTP:</value>
+  </data>
+  <data name="SMTP password:" xml:space="preserve">
+    <value>Hasło SMTP:</value>
+  </data>
+  <data name="SMTP port:" xml:space="preserve">
+    <value>Port SMTP:</value>
+  </data>
+  <data name="SMTP user:" xml:space="preserve">
+    <value>Użytkownik SMTP:</value>
+  </data>
+  <data name="Starting reputation:" xml:space="preserve">
+    <value>Reputacja startowa:</value>
+  </data>
+  <data name="Subject:" xml:space="preserve">
+    <value>Temat:</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
+  <data name="System name:" xml:space="preserve">
+    <value>Nazwa systemu:</value>
+  </data>
+  <data name="Tag:" xml:space="preserve">
+    <value>Tag:</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tagi</value>
+  </data>
+  <data name="terms of service" xml:space="preserve">
+    <value>regulamin</value>
+  </data>
+  <data name="Terms of service:" xml:space="preserve">
+    <value>Regulamin:</value>
+  </data>
+  <data name="The comment is required." xml:space="preserve">
+    <value>Komentarz jest wymagany.</value>
+  </data>
+  <data name="The comment must be a maximum of 2000 characters." xml:space="preserve">
+    <value>Komentarz musi mieć maksymalnie 2000 znaków.</value>
+  </data>
+  <data name="The country phone code is required." xml:space="preserve">
+    <value>Kod kraju jest wymagany.</value>
+  </data>
+  <data name="The country phone code must have 1-3 digits and be preceded by a '+' sign." xml:space="preserve">
+    <value>Kod kraju musi składać się z 1-3 cyft oraz być poprzedzony znakiem '+'.</value>
+  </data>
+  <data name="The email address must be between 5 and 320 characters long." xml:space="preserve">
+    <value>Adres e-mail musi mieć od 5 do 320 znaków.</value>
+  </data>
+  <data name="The email auth code is required." xml:space="preserve">
+    <value>Kod autoryzacji email jest wymagany.</value>
+  </data>
+  <data name="The email is required." xml:space="preserve">
+    <value>Email jest wymagany.</value>
+  </data>
+  <data name="The format or country code of your phone number is not supported." xml:space="preserve">
+    <value>Format lub kod kraju twojego numeru nie jest wspierany.</value>
+  </data>
+  <data name="The message is required." xml:space="preserve">
+    <value>Wiadomość jest wymagana.</value>
+  </data>
+  <data name="The message must be a maximum of 1000 characters." xml:space="preserve">
+    <value>Wiadomość musi mieć maksymalnie 1000 znaków.</value>
+  </data>
+  <data name="The password confirmation is required." xml:space="preserve">
+    <value>Potwierdzenie hasła jest wymagane.</value>
+  </data>
+  <data name="The password is required." xml:space="preserve">
+    <value>Hasło jest wymagane.</value>
+  </data>
+  <data name="The password must be between 8 and 64 characters long." xml:space="preserve">
+    <value>Hasło musi mieć od 8 do 64 znaków.</value>
+  </data>
+  <data name="The phone number is required." xml:space="preserve">
+    <value>Numer telefonu jest wymagany.</value>
+  </data>
+  <data name="The phone number must have 4-12 digits." xml:space="preserve">
+    <value>Numer telefonu musi mieć od 4 do 12 cyfr.</value>
+  </data>
+  <data name="The provided username already exists. Please choose another one." xml:space="preserve">
+    <value>Podana nazwa użytkownika już istnieje. Proszę wybrać inną.</value>
+  </data>
+  <data name="The reason must be a maximum of 5000 characters." xml:space="preserve">
+    <value>Powód musi mieć maksymalnie 5000 znaków.</value>
+  </data>
+  <data name="The SMS auth code is required." xml:space="preserve">
+    <value>Kod autoryzacji SMS jest wymagany.</value>
+  </data>
+  <data name="The title max length is 200 and the content max length is 2000." xml:space="preserve">
+    <value>Maksymalna długość tytułu to 200, a maksymalna długość treści to 2000.</value>
+  </data>
+  <data name="The username is required." xml:space="preserve">
+    <value>Nazwa użytkownika jest wymagana.</value>
+  </data>
+  <data name="The username must be between 4 and 20 characters long." xml:space="preserve">
+    <value>Nazwa użytkownika musi mieć od 4 do 20 znaków.</value>
+  </data>
+  <data name="Title and content cannot be empty." xml:space="preserve">
+    <value>Tytuł i treść nie mogą być puste.</value>
+  </data>
+  <data name="Title:" xml:space="preserve">
+    <value>Tytuł:</value>
+  </data>
+  <data name="Type:" xml:space="preserve">
+    <value>Typ:</value>
+  </data>
+  <data name="Unban user" xml:space="preserve">
+    <value>Odbanuj użytkownika</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Użytkownik</value>
+  </data>
+  <data name="User deleted successfully." xml:space="preserve">
+    <value>Użytkownik usunięty pomyślnie.</value>
+  </data>
+  <data name="User successfully banned." xml:space="preserve">
+    <value>Użytkownik zbanowany pomyślnie.</value>
+  </data>
+  <data name="User unbanned." xml:space="preserve">
+    <value>Użytkownik odbanowany.</value>
+  </data>
+  <data name="Username and reason are required." xml:space="preserve">
+    <value>Nazwa użytkownika i powód są wymagane.</value>
+  </data>
+  <data name="Username is required." xml:space="preserve">
+    <value>Nazwa użytkownika jest wymagana.</value>
+  </data>
+  <data name="Username:" xml:space="preserve">
+    <value>Nazwa użytkownika:</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Tak</value>
+  </data>
+  <data name="You are banned. For more information please contact the website administrator." xml:space="preserve">
+    <value>Jesteś zbanowany. Aby uzyskać więcej informacji, skontaktuj się z administratorem serwisu.</value>
+  </data>
+  <data name="Your email" xml:space="preserve">
+    <value>Twój email</value>
+  </data>
+  <data name="Your new email" xml:space="preserve">
+    <value>Twój nowy email</value>
+  </data>
+  <data name="Your new password" xml:space="preserve">
+    <value>Twoje nowe hasło</value>
+  </data>
+  <data name="Your number" xml:space="preserve">
+    <value>Twój numer</value>
+  </data>
+  <data name="Your password" xml:space="preserve">
+    <value>Twoje hasło</value>
+  </data>
+  <data name="Your username" xml:space="preserve">
+    <value>Twoja nazwa użytkownika</value>
+  </data>
+  <data name="{0} km" xml:space="preserve">
+    <value>{0} km</value>
+  </data>
+  <data name="New post" xml:space="preserve">
+    <value>Nowy post</value>
+  </data>
 </root>

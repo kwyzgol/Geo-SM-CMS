@@ -198,8 +198,8 @@
   <data name="Change phone number" xml:space="preserve">
     <value>Change phone number</value>
   </data>
-  <data name="Change your language:" xml:space="preserve">
-    <value>Change your language:</value>
+  <data name="Change your language" xml:space="preserve">
+    <value>Change your language</value>
   </data>
   <data name="Check reports" xml:space="preserve">
     <value>Check reports</value>
@@ -490,7 +490,7 @@
     <value>New phone number:</value>
   </data>
   <data name="New post" xml:space="preserve">
-	  <value>New post</value>
+    <value>New post</value>
   </data>
   <data name="No available verification option." xml:space="preserve">
     <value>No available verification option.</value>

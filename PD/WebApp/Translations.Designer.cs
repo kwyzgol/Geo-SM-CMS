@@ -314,11 +314,11 @@ namespace WebApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change your language:.
+        ///   Looks up a localized string similar to Change your language.
         /// </summary>
-        public static string Change_your_language_ {
+        public static string Change_your_language {
             get {
-                return ResourceManager.GetString("Change your language:", resourceCulture);
+                return ResourceManager.GetString("Change your language", resourceCulture);
             }
         }
         
