@@ -18,6 +18,7 @@ jobs:
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      PD_GHCR_TOKEN: ${{ secrets.PD_GHCR_TOKEN }}
   
   Deploy:
     uses: kwyzgol/PD/.github/workflows/deploy_ssh.yml@main
