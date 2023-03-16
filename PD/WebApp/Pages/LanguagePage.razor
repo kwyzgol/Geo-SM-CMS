@@ -5,7 +5,7 @@
 <PageTitle>@Translations!["Language change"] - @Cms.System?.SystemName</PageTitle>
 
 <div class="content-item triple-padding header-center">
-    <h1>@Translations!["Change your language:"]</h1>
+    <h1>@Translations!["Change your language"] <Icon Name="language" /></h1>
     <select @bind="CurrentCulture">
         @foreach (var culture in SupportedCultures)
         {
