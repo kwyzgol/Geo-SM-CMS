@@ -685,8 +685,11 @@ button.selected {
 
     .place:hover {
         background-color: var(--cms-color-main);
-        color: var(--cms-font-main);
     }
+
+        .place:hover > p {
+            color: var(--cms-font-main);
+        }
 
     .place:active {
         background-color: var(--background-color);
@@ -694,6 +697,7 @@ button.selected {
 
     .place > p {
         margin-bottom: 0;
+        color: var(--font-color);
     }
 
 #localization-search {
@@ -832,6 +836,7 @@ button.selected {
         flex: 1;
         overflow: hidden;
         width: 100px;
+        margin-left: var(--cms-margin-space);
     }
 
         #user-profile > div > h1 {
@@ -1092,13 +1097,13 @@ h3 {
         margin: var(--cms-margin-space);
     }
 
-.user-info > div > * {
-    margin: var(--cms-margin-space);
-}
+    .user-info > div > * {
+        margin: var(--cms-margin-space);
+    }
 
-.user-info > div {
-    text-align: left;
-}
+    .user-info > div {
+        text-align: left;
+    }
 
 .ban-history {
     display: flex;
@@ -1112,13 +1117,13 @@ h3 {
         margin: var(--cms-margin-space);
     }
 
-.ban-history > .content-item-2 {
-    text-align: left;
-}
-
-    .ban-history > .content-item-2 > p {
-        margin: var(--cms-margin-space);
+    .ban-history > .content-item-2 {
+        text-align: left;
     }
+
+        .ban-history > .content-item-2 > p {
+            margin: var(--cms-margin-space);
+        }
 
 .edit-user-modal {
     display: flex;
