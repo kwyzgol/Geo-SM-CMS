@@ -2,7 +2,7 @@
 
 @page "/admin/edit-tos"
 
-<PageTitle>Edit TOS - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Edit TOS"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -14,12 +14,12 @@
     <div class="content-item width75 triple-padding column">
 
         <label>
-            Terms of service:
+            @Translations!["Terms of service:"]
             <textarea rows=14 @bind="@_tos"></textarea>
         </label>
 
         <button class="normal-button triple-padding" @onclick="@Change">
-            Change
+            @Translations!["Change"]
         </button>
     </div>
 }

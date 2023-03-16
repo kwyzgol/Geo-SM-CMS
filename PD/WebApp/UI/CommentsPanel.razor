@@ -4,16 +4,16 @@
 {
     <div class="content-item width75 triple-padding">
         
-        <h3>Comments</h3>
+        <h3>@Translations!["Comments"]</h3>
 
         @if (IsLoggedIn())
         {
             <div class="content-item-2 comment-create">
                 <EditForm Model="@_comment" OnValidSubmit="@CreateComment">
-                    <label for="comment-input">Create a new comment:</label>
+                    <label for="comment-input">@Translations!["Create a new comment:"]</label>
                     <div class="message-input">
                         <textarea id="comment-input" @bind="_comment.Content" rows=3></textarea>
-                        <button type="submit">Create</button>
+                        <button type="submit">@Translations!["Create"]</button>
                     </div>
                 </EditForm>
             </div>
@@ -26,7 +26,7 @@
         
         @if(Comments.Count == 0)
         {
-            <p>No comments yet.</p>
+            <p>@Translations!["No comments yet."]</p>
         }
 
         @if (_canLoad && Comments.Count != 0)
@@ -35,7 +35,7 @@
                 <button class="normal-button triple-padding"
                         disabled="@(!_canLoad)"
                 @onclick="@LoadComments">
-                    Load more
+                    @Translations!["Load more"]
                 </button>
             </span>
         }

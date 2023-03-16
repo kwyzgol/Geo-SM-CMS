@@ -36,6 +36,9 @@
     <EmbeddedResource Update="Translations.en.resx">
       <DependentUpon>Translations.resx</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Update="Translations.pl.resx">
+      <DependentUpon>Translations.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="Translations.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Translations.Designer.cs</LastGenOutput>

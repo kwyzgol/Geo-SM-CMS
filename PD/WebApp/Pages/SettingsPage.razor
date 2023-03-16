@@ -2,50 +2,50 @@
 
 @page "/settings"
 
-<PageTitle>Settings - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Settings"] - @Cms.System?.SystemName</PageTitle>
 
 @if (CurrentPage is { LoginInfo.IsLogged: true })
 {
     <div id="settings-header" class="content-item header-center width75">
-        <h1>Settings <Icon Name="settings" /></h1>
+        <h1>@Translations!["Settings"] <Icon Name="settings" /></h1>
 
         @if (IsLoggedIn(Role.Admin))
         {
             <div class="content-item-2 header-center">
-                <h2 class="standard-margin">Admin <Icon Name="engineering" /></h2>
+                <h2 class="standard-margin">@Translations!["Admin"] <Icon Name="engineering"/></h2>
                 <div class="settings-options-container">
 
-                    <NavigationItem Text="Change logo"
-                            IconName="image"
-                            UriPath="/admin/change-logo" />
+                    <NavigationItem Text=@Translations!["Change logo"]
+                                    IconName="image"
+                                    UriPath="/admin/change-logo"/>
 
-                    <NavigationItem Text="Change colors"
-                            IconName="palette"
-                            UriPath="/admin/change-colors" />
+                    <NavigationItem Text=@Translations!["Change colors"]
+                                    IconName="palette"
+                                    UriPath="/admin/change-colors"/>
 
-                    <NavigationItem Text="Edit CMS settings"
-                            IconName="edit"
-                            UriPath="/admin/cms-settings" />
+                    <NavigationItem Text=@Translations!["Edit CMS settings"]
+                                    IconName="edit"
+                                    UriPath="/admin/cms-settings"/>
 
-                    <NavigationItem Text="Edit Terms of Service"
-                            IconName="edit"
-                            UriPath="/admin/edit-tos" />
+                    <NavigationItem Text=@Translations!["Edit Terms of Service"]
+                                    IconName="edit"
+                                    UriPath="/admin/edit-tos"/>
 
-                    <NavigationItem Text="Edit users"
-                            IconName="edit"
-                            UriPath="/admin/edit-users" />
+                    <NavigationItem Text=@Translations!["Edit users"]
+                                    IconName="edit"
+                                    UriPath="/admin/edit-users"/>
 
-                    <NavigationItem Text="Edit contact"
-                            IconName="edit"
-                            UriPath="/admin/edit-contact" />
+                    <NavigationItem Text=@Translations!["Edit contact"]
+                                    IconName="edit"
+                                    UriPath="/admin/edit-contact"/>
 
-                    <NavigationItem Text="Send email"
-                            IconName="email"
-                            UriPath="/admin/send-email" />
+                    <NavigationItem Text=@Translations!["Send email"]
+                                    IconName="email"
+                                    UriPath="/admin/send-email"/>
 
-                    <NavigationItem Text="Edit allowed phone numbers"
-                            IconName="call"
-                            UriPath="/admin/edit-phones" />
+                    <NavigationItem Text=@Translations!["Edit allowed phone numbers"]
+                                    IconName="call"
+                                    UriPath="/admin/edit-phones"/>
 
                 </div>
             </div>
@@ -54,18 +54,18 @@
         @if (IsLoggedIn(Role.Moderator))
         {
             <div class="content-item-2 header-center">
-                <h2>Moderator <Icon Name="manage_accounts" /></h2>
+                <h2>@Translations!["Moderator"] <Icon Name="manage_accounts" /></h2>
                 <div class="settings-options-container">
 
-                    <NavigationItem Text="Check Reports"
+                    <NavigationItem Text=@Translations!["Check reports"]
                             IconName="search"
                             UriPath="/moderator/check-reports" />
 
-                    <NavigationItem Text="Ban user"
+                    <NavigationItem Text=@Translations!["Ban user"]
                             IconName="person_off"
                             UriPath="/moderator/ban-user" />
 
-                    <NavigationItem Text="Unban user"
+                    <NavigationItem Text=@Translations!["Unban user"]
                             IconName="person"
                             UriPath="/moderator/unban-user" />
 
@@ -76,18 +76,18 @@
         @if (IsLoggedIn(Role.FactChecker))
         {
             <div class="content-item-2 header-center">
-                <h2>Fact checker <Icon Name="person_search" /></h2>
+                <h2>@Translations!["Fact checker"] <Icon Name="person_search" /></h2>
                 <div class="settings-options-container">
 
-                    <NavigationItem Text="Check Reports"
+                    <NavigationItem Text=@Translations!["Check reports"]
                             IconName="search"
                             UriPath="/fact-checker/check-reports" />
 
-                    <NavigationItem Text="New Fact"
+                    <NavigationItem Text=@Translations!["New fact"]
                             IconName="add_box"
                             UriPath="/fact-checker/new-fact" />
 
-                    <NavigationItem Text="Delete Fact"
+                    <NavigationItem Text=@Translations!["Delete fact"]
                             IconName="delete"
                             UriPath="/fact-checker/delete-fact" />
 
@@ -98,20 +98,20 @@
         @if (IsLoggedIn(Role.User))
         {
             <div class="content-item-2 header-center">
-                <h2>User <Icon Name="person" /></h2>
+                <h2>@Translations!["User"] <Icon Name="person" /></h2>
                 <div class="settings-options-container">
 
-                    <NavigationItem Text="Change avatar"
+                    <NavigationItem Text=@Translations!["Change avatar"]
                             IconName="image"
                             UriPath="/user/change-avatar" />
 
-                    <NavigationItem Text="Change password"
+                    <NavigationItem Text=@Translations!["Change password"]
                             IconName="edit_square"
                             UriPath="/user/change-password" />
 
                     @if (Cms.Auth?.Type is AuthType.Email or AuthType.EmailAndSms)
                     {
-                        <NavigationItem Text="Change email"
+                        <NavigationItem Text=@Translations!["Change email"]
                             IconName="mail"
                             UriPath="/user/change-email" />
                     }
@@ -119,16 +119,16 @@
 
                     @if (Cms.Auth?.Type is AuthType.Sms or AuthType.EmailAndSms)
                     {
-                        <NavigationItem Text="Change phone"
+                        <NavigationItem Text=@Translations!["Change phone number"]
                             IconName="call"
                             UriPath="/user/change-phone" />
                     }
 
-                    <NavigationItem Text="Login History"
+                    <NavigationItem Text=@Translations!["Login history"]
                             IconName="history"
                             UriPath="/user/sessions" />
 
-                    <NavigationItem Text="Delete account"
+                    <NavigationItem Text=@Translations!["Delete account"]
                             IconName="delete"
                             UriPath="javascript:void(0)" 
                             @onclick="@DeleteAccount" />
@@ -143,7 +143,7 @@
 
     private async Task DeleteAccount()
     {
-        var confirmation = Modal.Show<Modals.ConfirmModal>("");
+        var confirmation = Modal!.Show<Modals.ConfirmModal>("");
         var confirmationResult = await confirmation.Result;
 
         if (confirmationResult.Cancelled)

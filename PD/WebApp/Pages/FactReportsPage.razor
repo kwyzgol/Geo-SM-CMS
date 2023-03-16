@@ -2,7 +2,7 @@
 
 @page "/fact-checker/check-reports"
 
-<PageTitle>Fact checker reports - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Fact checker reports"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsLoggedIn(Role.FactChecker))
 {

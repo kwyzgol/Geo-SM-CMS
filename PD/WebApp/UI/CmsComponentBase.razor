@@ -29,10 +29,9 @@
                     if (reCaptchaResult.Equals(false))
                     {
                         var parameters = new ModalParameters()
-                            .Add("Message", "" +
-                                            "Could not determine if you are human." +
-                                            "Please refresh the page, " +
-                                            "try again or contact the website administrator.");
+                            .Add("Message", Translations!["Could not determine if you are human. " + 
+                                                          "Please refresh the page, " + 
+                                                          "try again or contact the website administrator."].ToString());
                         if (Modal != null)
                         {
                             var errorModal = Modal.Show<ErrorModal>("", parameters);

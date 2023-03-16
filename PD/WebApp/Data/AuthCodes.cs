@@ -10,31 +10,29 @@ public abstract class AuthCodes
 
 public class AuthCodeEmail : AuthCodes
 {
-    [Required(ErrorMessage = "The email auth code is required.")]
-    [RegularExpression("^[1-9]{1}[0-9]{5}$",
-        ErrorMessage = "Invalid email auth code format.")]
+    [Required(ErrorMessageResourceType = typeof(Translations), ErrorMessageResourceName = "The_email_auth_code_is_required_")]
+    [RegularExpression("^[1-9]{1}[0-9]{5}$", ErrorMessageResourceType = typeof(Translations),
+        ErrorMessageResourceName = "Invalid_email_auth_code_format_")]
     public override string CodeEmail { get; set; } = "";
 }
 
 public class AuthCodeSms : AuthCodes
 {
-    [Required(ErrorMessage = "The SMS auth code is required.")]
-    [RegularExpression("^[1-9]{1}[0-9]{5}$",
-        ErrorMessage = "Invalid SMS auth code format.")]
+    [Required(ErrorMessageResourceType = typeof(Translations), ErrorMessageResourceName = "The_SMS_auth_code_is_required_")]
+    [RegularExpression("^[1-9]{1}[0-9]{5}$", ErrorMessageResourceType = typeof(Translations),
+        ErrorMessageResourceName = "Invalid_SMS_auth_code_format_")]
     public override string CodeSms { get; set; } = "";
 }
 
 public class AuthCodesBoth : AuthCodes
 {
-    [Required(ErrorMessage = "The email auth code is required.")]
+    [Required(ErrorMessageResourceType = typeof(Translations), ErrorMessageResourceName = "The_email_auth_code_is_required_")]
     [RegularExpression("^[1-9]{1}[0-9]{5}$",
-        ErrorMessage = "Invalid email auth code format.")]
+        ErrorMessageResourceType = typeof(Translations), ErrorMessageResourceName = "Invalid_email_auth_code_format_")]
     public override string CodeEmail { get; set; } = "";
 
-    [Required(ErrorMessage = "The SMS auth code is required.")]
+    [Required(ErrorMessageResourceType = typeof(Translations), ErrorMessageResourceName = "The_SMS_auth_code_is_required_")]
     [RegularExpression("^[1-9]{1}[0-9]{5}$",
-        ErrorMessage = "Invalid SMS auth code format.")]
+        ErrorMessageResourceType = typeof(Translations), ErrorMessageResourceName = "Invalid_SMS_auth_code_format_")]
     public override string CodeSms { get; set; } = "";
 }
-
-

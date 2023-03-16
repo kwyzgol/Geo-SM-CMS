@@ -1,20 +1,20 @@
 ﻿@inherits CmsModalBase
 
-<h1 class="font-color-map"><Icon Name="map" /> Choose a location</h1>
+<h1 class="font-color-map"><Icon Name="map" /> @Translations!["Choose a location"]</h1>
 
 <div class="center-content" id="localization-search">
     <form onsubmit="@Search">
 
         <span class="one-row">
             <input @bind="@SearchedPlace"
-                   Placeholder="Search for a place"
+                   Placeholder=@Translations!["Search for a place"]
                    disabled="@IsSearching"
                    type="search"
                    class="search-input" />
             <button class="search-button"
                     type="submit"
                     disabled="@IsSearching">
-                Search
+                @Translations!["Search"]
             </button>
         </span>
 
@@ -25,7 +25,7 @@
             @foreach (var place in Places)
             {
                 <div class="place" @onclick="() => ChoosePlace(place)">
-                    <p><b>Place:</b> @place.Description</p>
+                    <p><b>@Translations!["Place:"]</b> @place.Description</p>
                 </div>
             }
         </div>
@@ -37,7 +37,7 @@
     <span class="center-content">
         <div class="content-item width90">
             <label>
-                Distance: @($"{Distance / 1000.0} km")
+                @Translations!["Distance:"] @(Translations["{0} km", Distance / 1000.0])
                 <input type="range"
                        min="100"
                        max="500000"
@@ -62,10 +62,10 @@
 
 <div class="grid">
     <button onclick="@Confirm" disabled="@(!_selected)">
-        <Icon Name="done" Class="icon-font-header" /> Confirm
+        <Icon Name="done" Class="icon-font-header" /> @Translations!["Confirm"]
     </button>
     <button onclick="@Cancel">
-        <Icon Name="close" Class="icon-font-header" /> Cancel
+        <Icon Name="close" Class="icon-font-header" /> @Translations!["Cancel"]
     </button>
 </div>
 

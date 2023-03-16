@@ -2,26 +2,26 @@
 
 @page "/profile/{username}"
 
-<PageTitle> Profile: @Username - @Cms.System?.SystemName</PageTitle>
+<PageTitle> @Translations!["Profile:"] @Username - @Cms.System?.SystemName</PageTitle>
 
 @if (_canShow && Username != null)
 {
     @if (IsLoggedIn() || IsNotLoggedIn())
     {
-        <div id="user-profile" class="content-item width75">
-            <img src="img/@_avatar" />
-            <div>
-                <h1>@Username</h1>
-                <a href="message/@Username" class="no-decoration">
-                    <button>
-                        <Icon Name="mail" />
-                        Send a message
-                    </button>
-                </a>
-            </div>
-        </div>
+                        <div id="user-profile" class="content-item width75">
+                            <img src="img/@_avatar" />
+                            <div>
+                                <h1>@Username</h1>
+                                <a href="message/@Username" class="no-decoration">
+                                    <button>
+                                        <Icon Name="mail" />
+                        @Translations!["Send a message"]
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
 
-        <PostsLoader Username="@Username" />
+                        <PostsLoader Username="@Username" />
     }
 
 }

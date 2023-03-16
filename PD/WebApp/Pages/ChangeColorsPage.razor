@@ -2,7 +2,7 @@
 
 @page "/admin/change-colors"
 
-<PageTitle>Change colors - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Change colors"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -14,17 +14,17 @@
     <div class="content-item width75 triple-padding column">
 
         <label>
-            Main color:
+            @Translations!["Main color:"]
             <input type="color" @bind="@_mainColor">
         </label>
 
         <label>
-            Font color for main color:
+            @Translations!["Font color for main color:"]
             <input type="color" @bind="_mainColorFont">
         </label>
 
         <button class="normal-button triple-padding" @onclick="@Change">
-            Change
+            @Translations!["Change"]
         </button>
     </div>
 }

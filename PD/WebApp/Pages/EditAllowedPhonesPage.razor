@@ -2,7 +2,7 @@
 
 @page "/admin/edit-phones"
 
-<PageTitle>Edit allowed phone numbers - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Edit allowed phone numbers"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -17,29 +17,29 @@
         {
             <div class="content-item-2 phone-allowed fit">
                 <div>
-                    <p><b>Country code:</b> @allowedPhone.CountryCode</p>
-                    <p><b>Max numbers:</b> @allowedPhone.MaxNumbers</p>
+                    <p><b>@Translations!["Country code:"]</b> @allowedPhone.CountryCode</p>
+                    <p><b>@Translations!["Max numbers:"]</b> @allowedPhone.MaxNumbers</p>
                 </div>
                 <div>
-                    <button class="normal-button triple-padding" @onclick="@(async() => await Delete(allowedPhone))">
-                        Delete
+                    <button class="normal-button triple-padding" @onclick="@(async () => await Delete(allowedPhone))">
+                        @Translations!["Delete"]
                     </button>
                 </div>
             </div>
         }
 
         <label>
-            Country code:
+            @Translations!["Country code:"]
             <input type="text" @bind="@_countryCode">
         </label>
 
         <label>
-            Max numbers:
+            @Translations!["Max numbers:"]
             <input type="number" @bind="@_maxNumbers">
         </label>
 
         <button class="normal-button triple-padding" @onclick="@Add">
-            Add
+            @Translations!["Add"]
         </button>
     </div>
 }
@@ -59,7 +59,7 @@
                 if (_countryCode.Length > 4 || _countryCode.StartsWith("+").Equals(false) || _maxNumbers == 0)
                 {
                     var parameters = new ModalParameters()
-                        .Add("Message", "Invalid data format.");
+                        .Add("Message", Translations!["Invalid data format."].ToString());
                     Modal?.Show<InfoModal>("", parameters);
                     return;
                 }

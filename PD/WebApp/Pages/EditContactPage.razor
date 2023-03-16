@@ -2,7 +2,7 @@
 
 @page "/admin/edit-contact"
 
-<PageTitle>Edit contact - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Edit contact"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -14,12 +14,12 @@
     <div class="content-item width75 triple-padding column">
 
         <label>
-            Contact:
+            @Translations!["Contact:"]
             <textarea rows=14 @bind="@_contact"></textarea>
         </label>
 
         <button class="normal-button triple-padding" @onclick="@Change">
-            Change
+            @Translations!["Change"]
         </button>
     </div>
 }

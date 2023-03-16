@@ -6,12 +6,12 @@
 
 <div class="content-item width75 header-center triple-padding">
 
-    <h1>Tags <Icon Name="tag" /></h1>
+    <h1>@Translations!["Tags"] <Icon Name="tag" /></h1>
 
     <div id="tags-container" class="center-content">
         @if (_allTags.Count == 0)
         {
-            <p>Tags not found.</p>
+            <p>@Translations!["No tags found."]</p>
         }
         else
         {
@@ -24,11 +24,11 @@
         }
     </div>
 
-        <button id="tags-button" class="normal-button triple-padding"
-                disabled="@(!CanProceed)"
-                @onclick="@Submit">
-        Show (count: @_selectedTags.Count) <Icon Name="arrow_forward" />
-        </button>
+    <button id="tags-button" class="normal-button triple-padding"
+            disabled="@(!CanProceed)"
+            @onclick="@Submit">
+        @Translations["Show (count: {0})", _selectedTags.Count] <Icon Name="arrow_forward"/>
+    </button>
 
 </div>
 

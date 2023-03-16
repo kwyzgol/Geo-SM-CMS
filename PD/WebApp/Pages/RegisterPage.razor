@@ -1,8 +1,11 @@
-﻿@inherits CmsPageBase
+﻿@using Google.Protobuf.WellKnownTypes
+@using Microsoft.AspNetCore.Components.Forms
+@using WebApp.UI
+@inherits CmsPageBase
 
 @page "/register"
 
-<PageTitle>Registration - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Registration"] - @Cms.System?.SystemName</PageTitle>
 
 @if (CurrentPage is { LoginInfo.IsLogged: true })
 {
@@ -12,64 +15,64 @@
 @if (Stage == FormStage.Form)
 {
     <div class="content-item width75 header-center paragraph-center triple-padding">
-        <h1>Registration <Icon Name="person_add" /></h1>
+            <h1>@Translations!["Registration"] <Icon Name="person_add" /></h1>
 
         <EditForm Model="@NewUser" OnValidSubmit="@Submit">
             <label>
-                Username:
+                @Translations!["Username:"]
                 <InputText @bind-Value="NewUser.Username"
-                           Placeholder="Your username"
-                           disabled="@(!_canProceed)" />
+                           Placeholder=@Translations!["Your username"]
+                           disabled="@(!_canProceed)"/>
             </label>
 
             <label>
-                Password:
+                @Translations!["Password:"]
                 <InputText @bind-Value="NewUser.Password"
                            type="password"
-                           Placeholder="Your password"
-                           disabled="@(!_canProceed)" />
+                           Placeholder=@Translations!["Your password"]
+                           disabled="@(!_canProceed)"/>
             </label>
 
             <label>
-                Confirm Password:
+                @Translations!["Confirm Password:"]
                 <InputText @bind-Value="NewUser.ConfirmPassword"
                            type="password"
-                           Placeholder="Your password"
-                           disabled="@(!_canProceed)" />
+                           Placeholder=@Translations!["Your password"]
+                           disabled="@(!_canProceed)"/>
             </label>
 
             @if (Cms.Auth is { Type: AuthType.Email or AuthType.EmailAndSms })
             {
                 <label>
-                    Email:
+                    @Translations!["Email:"]
                     <InputText @bind-Value="NewUser.Email"
-                               Placeholder="Your email"
-                               disabled="@(!_canProceed)" />
+                               Placeholder=@Translations!["Your email"]
+                               disabled="@(!_canProceed)"/>
                 </label>
             }
 
             @if (Cms.Auth is { Type: AuthType.Sms or AuthType.EmailAndSms })
             {
                 <label>
-                    Phone number:
+                    @Translations!["Phone number:"]
                     <div class="grid phone-container">
                         <InputText class="phone-country"
-                           @bind-Value="NewUser.PhoneCountry"
+                                   @bind-Value="NewUser.PhoneCountry"
                                    Placeholder="+00"
                                    type="tel"
-                                   disabled="@(!_canProceed)" />
+                                   disabled="@(!_canProceed)"/>
                         <InputText class="phone-number"
-                           @bind-Value="NewUser.PhoneNumber"
-                                   Placeholder="Your number"
+                                   @bind-Value="NewUser.PhoneNumber"
+                                   Placeholder=@Translations!["Your number"]
                                    type="tel"
-                                   disabled="@(!_canProceed)" />
+                                   disabled="@(!_canProceed)"/>
                     </div>
                 </label>
             }
 
             <label>
                 <InputCheckbox @bind-Value="NewUser.TermsOfService" disabled="@(!_canProceed)" />
-                I accept the <NavLink href="/tos" class="tos-link">terms of service</NavLink>
+                @Translations!["I accept the"] <NavLink href="/tos" class="tos-link">@Translations!["terms of service"]</NavLink>
             </label>
 
             <br />
@@ -78,7 +81,7 @@
                 <button type="submit"
                         class="normal-button triple-padding"
                         disabled="@(!_canProceed)">
-                    Register
+                    @Translations!["Register"]
                 </button>
             </span>
 
@@ -90,7 +93,7 @@
 @if (Stage == FormStage.Processing)
 {
     <div class="paragraph-center">
-        <p>Please, wait. Operation in progress.</p>
+        <p>@Translations!["Please, wait. Operation in progress."]</p>
     </div>
 }
 @if (Stage == FormStage.Auth && _userId != null)
@@ -134,9 +137,8 @@
                 if (Modal != null)
                 {
                     var parameters = new ModalParameters()
-                        .Add("Message", "" +
-                                        "The provided username already exists. " +
-                                        "Please choose another one.");
+                        .Add("Message", Translations!["The provided username already exists. " +
+                                        "Please choose another one."].ToString());
                     Modal.Show<InfoModal>("", parameters);
                 }
                 _canProceed = true;
@@ -164,9 +166,8 @@
                     if (Modal != null)
                     {
                         var parameters = new ModalParameters()
-                            .Add("Message", "" +
-                                            "An account with this email address already exists. " +
-                                            "Please choose another one.");
+                            .Add("Message", Translations!["An account with this email address already exists. " +
+                                            "Please choose another one."].ToString());
                         Modal.Show<InfoModal>("", parameters);
                     }
                     _canProceed = true;
@@ -196,8 +197,8 @@
                     if (Modal != null)
                     {
                         var parameters = new ModalParameters()
-                            .Add("Message", "" + 
-                                            "The format or country code of your phone number is not supported.");
+                            .Add("Message", 
+                                Translations!["The format or country code of your phone number is not supported."].ToString());
                         Modal.Show<InfoModal>("", parameters);
                     }
                     _canProceed = true;
@@ -212,9 +213,8 @@
                     if (Modal != null)
                     {
                         var parameters = new ModalParameters()
-                            .Add("Message", "" +
-                                            "An account with this phone number already exists. " +
-                                            "Please choose another one.");
+                            .Add("Message", Translations!["An account with this phone number already exists. " +
+                                            "Please choose another one."].ToString());
                         Modal.Show<InfoModal>("", parameters);
                     }
                     _canProceed = true;

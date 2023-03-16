@@ -2,7 +2,7 @@
 
 @page "/tos"
 
-<PageTitle>Terms of service - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Terms of service"] - @Cms.System?.SystemName</PageTitle>
 
 <div class="content-item width75 header-center paragraph-justify triple-padding">
     @((MarkupString)(Cms.System?.TermsOfService ?? ""))

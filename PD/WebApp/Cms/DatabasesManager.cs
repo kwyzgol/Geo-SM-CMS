@@ -1,7 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Crypto.Tls;
-
-namespace WebApp.Cms;
+﻿namespace WebApp.Cms;
 
 public class DatabasesManager
 {

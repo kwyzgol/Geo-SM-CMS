@@ -2,14 +2,14 @@
 
 @page "/language"
 
-<PageTitle>Language change - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Language change"] - @Cms.System?.SystemName</PageTitle>
 
 <div class="content-item triple-padding header-center">
-    <h1>Change your language:</h1>
+    <h1>@Translations!["Change your language:"]</h1>
     <select @bind="CurrentCulture">
         @foreach (var culture in SupportedCultures)
         {
-            <option value="@culture">@culture.DisplayName</option>
+                <option value="@culture">@culture.DisplayName</option>
         }
     </select>
 </div>

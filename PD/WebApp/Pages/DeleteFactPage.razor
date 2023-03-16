@@ -2,7 +2,7 @@
 
 @page "/fact-checker/delete-fact"
 
-<PageTitle>Delete fact - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Delete fact"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsLoggedIn(Role.FactChecker))
 {

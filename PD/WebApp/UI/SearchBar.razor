@@ -7,14 +7,14 @@
 
             <span class="one-row">
                 <input @bind="@_searchedValue"
-                       Placeholder="@(Type == SearchType.All ? "Search for a post, @user or #tag.": "")"
+                       Placeholder="@(Type == SearchType.All ? Translations!["Search for a post, @user or #tag."]: "")"
                        disabled="@_isSearching"
                        type="search"
                        class="search-input" />
                 <button class="search-button"
                         type="submit"
                         disabled="@_isSearching">
-                    Search
+                    @Translations!["Search"]
                 </button>
             </span>
 

@@ -2,7 +2,7 @@
 
 @page "/user/change-email"
 
-<PageTitle>Change email - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Change email"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -14,15 +14,15 @@
     <div class="content-item width75 triple-padding column">
         <EditForm Model="@EmailValidation" OnValidSubmit="@Change">
             <label>
-                New email:
+                @Translations!["New email:"]
                 <InputText @bind-Value="@EmailValidation.Email"
                            type="text"
-                           Placeholder="Your new email" />
+                           Placeholder=@Translations!["Your new email"] />
             </label>
 
 
             <button type="submit" class="normal-button triple-padding">
-                Change
+                @Translations!["Change"]
             </button>
 
             <DataAnnotationsValidator />
@@ -45,7 +45,7 @@
                 if (Modal != null)
                 {
                     var parameters = new ModalParameters()
-                        .Add("Message", "Email changed.");
+                        .Add("Message", Translations!["Email changed."].ToString());
                     var modal = Modal.Show<InfoModal>("", parameters);
                     var getResponse = await modal.Result;
                 }

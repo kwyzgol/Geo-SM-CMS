@@ -4,26 +4,26 @@
 {
     <div class="content-item width75 header-center paragraph-center triple-padding">
 
-        <h1>Access verification <Icon Name="verified_user" /></h1>
+        <h1>@Translations!["Access verification"] <Icon Name="verified_user" /></h1>
 
         <EditForm Model="AuthCodes" OnValidSubmit="@Submit">
             @if (_type is AuthType.Email or AuthType.EmailAndSms)
             {
                 <label>
-                    Email code:
+                    @Translations!["Email code:"]
                     <InputText @bind-Value="@AuthCodes.CodeEmail"
-                               Placeholder="Enter code"
-                               disabled="@(!_canProceed)" />
+                               Placeholder=@Translations!["Enter code"]
+                               disabled="@(!_canProceed)"/>
                 </label>
             }
 
             @if (_type is AuthType.Sms or AuthType.EmailAndSms)
             {
                 <label>
-                    SMS code:
+                    @Translations!["SMS code:"]
                     <InputText @bind-Value="@AuthCodes.CodeSms"
-                               Placeholder="Enter code"
-                               disabled="@(!_canProceed)" />
+                               Placeholder=@Translations!["Enter code"]
+                               disabled="@(!_canProceed)"/>
                 </label>
             }
 
@@ -33,13 +33,13 @@
                 <button type="button"
                         class="normal-button triple-padding"
                         disabled="@(!_canProceed || !_canSend)"
-                    @onclick="@SendCodes">
-                    @($"Send again{TimeLabel}")
+                        @onclick="@SendCodes">
+                    @Translations!["Send again{0}", TimeLabel]
                 </button>
                 <button type="submit"
                         class="normal-button triple-padding"
                         disabled="@(!_canProceed)">
-                    Submit
+                    @Translations!["Submit"]
                 </button>
             </span>
 
@@ -53,14 +53,14 @@
 {
     <div class="content-item width75 header-center paragraph-center triple-padding">
 
-        <h1>Change password <Icon Name="edit" /></h1>
+        <h1>@Translations!["Change password"] <Icon Name="edit" /></h1>
 
         <EditForm Model="PasswordValidation" OnValidSubmit="@ChangePassword">
 
             <label>
-                New password:
+            @Translations!["New password:"]
                 <InputText @bind-Value="@PasswordValidation.Password"
-                           Placeholder="Enter code"
+                           Placeholder=@Translations!["Enter new password"]
                            disabled="@(!_canProceed)" />
             </label>
 
@@ -70,7 +70,7 @@
                 <button type="submit"
                         class="normal-button triple-padding"
                         disabled="@(!_canProceed)">
-                    Change
+                    @Translations!["Change"]
                 </button>
             </span>
 
@@ -123,9 +123,9 @@
                         if (Modal != null)
                         {
                             var parameters = new ModalParameters()
-                                .Add("Message", "" +
-                                                "You are banned. " +
-                                                "For more information please contact the website administrator.");
+                                .Add("Message", 
+                                    Translations!["You are banned. " +
+                                    "For more information please contact the website administrator."].ToString());
                             var errorModal = Modal.Show<ErrorModal>("", parameters);
                             var response = await errorModal.Result;
                         }
@@ -291,7 +291,7 @@
                         if (Modal != null)
                         {
                             var parameters = new ModalParameters()
-                                .Add("Message", "No available verification option.");
+                                .Add("Message", Translations!["No available verification option."].ToString());
                             var infoModal = Modal.Show<InfoModal>("", parameters);
                             var response = await infoModal.Result;
                         }
@@ -310,9 +310,7 @@
             else
             {
                 var parameters = new ModalParameters()
-                    .Add("Message", "" +
-                                    "Invalid code. " +
-                                    "Please try again.");
+                    .Add("Message", Translations!["Invalid code. Please try again."].ToString());
                 if (Modal != null)
                 {
                     var errorModal = Modal.Show<InfoModal>("", parameters);
@@ -461,7 +459,7 @@
             if (Modal != null)
             {
                 var parameters = new ModalParameters()
-                    .Add("Message", "Password changed successfully.");
+                    .Add("Message", Translations!["Password changed successfully."].ToString());
                 var infoModal = Modal.Show<InfoModal>("", parameters);
                 var response = await infoModal.Result;
             }

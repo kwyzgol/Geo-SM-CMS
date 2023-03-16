@@ -3,39 +3,39 @@
 <div id="page-left" class="mobile-menu-closed">
     <nav id="navigation">
 
-        <NavigationItem Text=" Main page"
+        <NavigationItem Text="@($" {Translations!["Main page"]}")"
                         IconName="home"
                         UriPath="/" />
 
         @if (IsLoggedIn())
         {
-            <NavigationItem Text=" Messages"
+            <NavigationItem Text="@($" {Translations!["Messages"]}")"
                         IconName="chat"
                         UriPath="/messages" />
         }
 
-        <NavigationItem Text=" Tags"
+        <NavigationItem Text="@($" {Translations!["Tags"]}")"
                         IconName="tag"
                         UriPath="/tags" />
 
         @if (IsLoggedIn())
         {
 
-            <NavigationItem Text=" New Post"
+            <NavigationItem Text="@($" {Translations!["New post"]}")"
                         IconName="post_add"
                         UriPath="/new-post" />
 
-            <NavigationItem Text=" Settings"
+            <NavigationItem Text="@($" {Translations!["Settings"]}")"
                         IconName="settings"
                         UriPath="/settings" />
 
         }
 
-        <NavigationItem Text=" Language"
+        <NavigationItem Text="@($" {Translations!["Language"]}")"
                         IconName="language"
                         UriPath="/language" />
 
-        <NavigationItem Text="Contact"
+        <NavigationItem Text="@($" {Translations!["Contact"]}")"
                         IconName="contact_support"
                         UriPath="/contact" />
 

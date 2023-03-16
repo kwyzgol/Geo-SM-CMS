@@ -4,18 +4,23 @@ namespace WebApp.Data;
 
 public class UserAccessModel : DatabaseConnected
 {
-    [Required(ErrorMessage = "The username is required.")]
+    [Required(ErrorMessageResourceType = typeof(Translations), ErrorMessageResourceName = "The_username_is_required_")]
     [StringLength(maximumLength: 20,
         MinimumLength = 4,
-        ErrorMessage = "The username must be between 4 and 20 characters long.")]
+        ErrorMessageResourceType = typeof(Translations),
+        ErrorMessageResourceName = "The_username_must_be_between_4_and_20_characters_long_")]
     [RegularExpression("^[A-Za-z0-9_.]{4,20}$",
-        ErrorMessage = "Available characters for the username: A-Z, a-z, 0-9, ._")]
+        ErrorMessageResourceType = typeof(Translations),
+        ErrorMessageResourceName = "Available_characters_for_the_username_")]
     public string? Username { get; set; }
 
-    [Required(ErrorMessage = "The password is required.")]
-    [StringLength(64, MinimumLength = 8, ErrorMessage = "The password must be between 8 and 64 characters long.")]
+    [Required(ErrorMessageResourceType = typeof(Translations), ErrorMessageResourceName = "The_password_is_required_")]
+    [StringLength(64, MinimumLength = 8, 
+        ErrorMessageResourceType = typeof(Translations),
+        ErrorMessageResourceName = "The_password_must_be_between_8_and_64_characters_long_")]
     [RegularExpression("^[A-Za-z0-9!@$%^&*<>_.,?-]{8,64}$",
-        ErrorMessage = "Available characters for the password: A-Z, a-z, 0-9, !@$%^&*<>_.,?-")]
+        ErrorMessageResourceType = typeof(Translations), 
+        ErrorMessageResourceName = "Available_characters_for_the_password_")]
     [DataType(DataType.Password)]
     public string? Password { get; set; }
 

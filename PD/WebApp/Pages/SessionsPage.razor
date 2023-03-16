@@ -2,7 +2,7 @@
 
 @page "/user/sessions"
 
-<PageTitle>Login history - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Login history"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -13,10 +13,10 @@
 {
     <div class="content-item width75 triple-padding column">
 
-        <h1>Latest login history <Icon Name="history" /></h1>
+            <h1>@Translations!["Latest login history"] <Icon Name="history" /></h1>
         <span class="center-content">
             <button class="normal-button triple-padding" @onclick="@RevokeAll">
-                Log out of all sessions
+                @Translations!["Log out of all sessions"]
             </button>
         </span>
 
@@ -94,5 +94,4 @@
             await Logout();
         }
     }
-
 }

@@ -5,7 +5,7 @@
     <div class="delete-content-container" @onclick="@Delete">
         <button>
             <Icon Name="delete" Class="icon-font-header" />
-            <span class="delete-button-label">Delete</span>
+            <span class="delete-button-label">@Translations!["Delete"]</span>
         </button>
     </div>
 }
@@ -26,7 +26,7 @@
         if ((AuthorId.Equals((long?)(CurrentPage?.LoginInfo.UserId)) || IsLoggedIn(Role.Moderator))
             && ContentId != null && CurrentPage != null && CurrentPage.LoginInfo.AccessToken != null)
         {
-            var confirmModal = Modal.Show<ConfirmModal>();
+            var confirmModal = Modal!.Show<ConfirmModal>();
             var confirmResult = await confirmModal.Result;
 
             if (confirmResult.Confirmed.Equals(false))

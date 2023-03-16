@@ -2,7 +2,7 @@
 
 @page "/admin/change-logo"
 
-<PageTitle>Change logo - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Change logo"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -14,14 +14,14 @@
     <div class="content-item width75 triple-padding column">
 
         <label>
-            New logo:
+            @Translations!["New logo:"]
             <InputFile @bind-Value="@_file"
                    OnChange="ImageSelected"
                        accept=".png, .jpg, .jpeg" />
         </label>
 
         <button class="normal-button triple-padding" @onclick="@Change">
-            Change
+            @Translations!["Change"]
         </button>
     </div>
 }
@@ -59,7 +59,7 @@
 
                     var parameters = new ModalParameters()
                         .Add("Message",
-                            "Error occurred during the file upload.");
+                            Translations!["Error occurred during the file upload."].ToString());
                     var modal = Modal?.Show<ErrorModal>("", parameters);
 
                     _file = null;
@@ -84,7 +84,7 @@
                 else
                 {
                     var parameters = new ModalParameters()
-                        .Add("Message", "Invalid file type. The file won't be uploaded.");
+                        .Add("Message", Translations!["Invalid file type. The file won't be uploaded."].ToString());
                     var modal = Modal?.Show<InfoModal>("", parameters);
                     await InvokeAsync(StateHasChanged);
                 }

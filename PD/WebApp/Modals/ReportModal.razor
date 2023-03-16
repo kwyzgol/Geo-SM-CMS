@@ -1,18 +1,18 @@
 ﻿@inherits CmsModalBase
 
-<h1 class="font-color-report"><Icon Name="report" /> Content report</h1>
+<h1 class="font-color-report"><Icon Name="report" /> @Translations!["Content report"]</h1>
 
 <div class="report-input-container">
     <div class="content-item-2">
         @if (ContentType == Content.Post)
         {
-            <label for="report-type">Select report type:</label>
+            <label for="report-type">@Translations!["Select report type:"]</label>
             <select @bind="@Type" id="report-type">
-                <option value="@ReportType.Moderator">Inappropriate or forbidden content.</option>
-                <option value="@ReportType.FactChecker">Disinformation, manipulation or false information.</option>
+                <option value="@ReportType.Moderator">@Translations!["Inappropriate or forbidden content."]</option>
+                <option value="@ReportType.FactChecker">@Translations!["Disinformation, manipulation or false information."]</option>
             </select>
         }
-        <label for="report-input">Please, provide a reason for your report:</label>
+        <label for="report-input">@Translations!["Please, provide a reason for your report:"]</label>
         <textarea @bind="Reason" id="report-input" rows=4 disabled="@(!_canEdit)"></textarea>
     </div>
 </div>
@@ -21,10 +21,10 @@
 
 <div class="grid">
     <button disabled="@(!_canEdit)" @onclick="@Send">
-        <Icon Name="done" Class="icon-font-header" /> Send
+        <Icon Name="done" Class="icon-font-header" /> @Translations!["Send"]
     </button>
     <button disabled="@(!_canEdit)" @onclick="@Cancel">
-        <Icon Name="close" Class="icon-font-header" /> Cancel
+        <Icon Name="close" Class="icon-font-header" /> @Translations!["Cancel"]
     </button>
 </div>
 
@@ -53,7 +53,7 @@
             if (Reason.Length > 5000)
             {
                 var parameters = new ModalParameters()
-                    .Add("Message", "The reason must be a maximum of 5000 characters.");
+                    .Add("Message", @Translations!["The reason must be a maximum of 5000 characters."].ToString());
                 Modal?.Show<ErrorModal>("", parameters);
                 _canEdit = true;
                 return;

@@ -1,6 +1,4 @@
-﻿using Org.BouncyCastle.Crypto.Tls;
-
-namespace WebApp.Data;
+﻿namespace WebApp.Data;
 
 public class ReportModel : DatabaseConnected
 {

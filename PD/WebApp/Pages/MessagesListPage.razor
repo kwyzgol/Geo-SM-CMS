@@ -2,7 +2,7 @@
 
 @page "/messages"
 
-<PageTitle> Latest messages - @Cms.System?.SystemName</PageTitle>
+<PageTitle> @Translations!["Latest messages"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -12,10 +12,10 @@
 @if (_canShow && IsLoggedIn())
 {
     <div class="content-item width75 header-center paragraph-center triple-padding">
-        <h1>Latest messages <Icon Name="chat" /></h1>
+        <h1>@Translations!["Latest messages"] <Icon Name="chat" /></h1>
         @if (_users.Count == 0)
         {
-            <p>No conversations found.</p>
+                    <p>@Translations!["No conversations found."]</p>
         }
         else
         {

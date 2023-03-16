@@ -49,7 +49,7 @@
 
                 <p>
                     <b>@Translations!["Type:"] </b>
-                    @(ReportType == Data.ReportType.Moderator ?
+                    @(ReportType == Data.ReportType.Moderator ? 
                         Translations!["Inappropriate or forbidden content."] :
                         Translations!["Disinformation, manipulation or false information."])
                 </p>
@@ -107,7 +107,8 @@
                 _canGet = true;
                 if (Modal != null)
                 {
-                    var parameters = new ModalParameters().Add("Message", "No reports.");
+                    var parameters = new ModalParameters()
+                        .Add("Message", Translations!["No reports."].ToString());
                     var infoModal = Modal.Show<InfoModal>("", parameters);
                 }
                 await InvokeAsync(StateHasChanged);

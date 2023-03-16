@@ -7,7 +7,7 @@
         <div class="report-content-container" @onclick="@Report">
             <button>
                 <Icon Name="report" Class="icon-font-header" />
-                <span class="report-button-label">Report</span>
+                <span class="report-button-label">@Translations!["Report"]</span>
             </button>
         </div>
 
@@ -40,7 +40,8 @@
             {
                 if (reportResult.Data?.ToString() == "Success")
                 {
-                    var infoParameters = new ModalParameters().Add("Message", "Report successfully created.");
+                    var infoParameters = new ModalParameters().Add("Message",
+                        Translations!["Report successfully created."].ToString());
                     var infoModal = Modal.Show<InfoModal>("", infoParameters);
                 }
                 else
@@ -48,7 +49,6 @@
                     Modal.Show<ErrorModal>();
                 }
             }
-
         }
     }
 }

@@ -2,13 +2,13 @@
 
 <div class="one-row">
     <button onclick="@ShowModal" class="location-button @(Selected ? "location-selected" : "")">
-        @(Selected ? $"Localization: " +
+        @(Selected ? $"{Translations!["Localization:"]} " +
                      $"[{GeoPoint?.Latitude.ToString("F")}, " +
                      $"{GeoPoint?.Longitude.ToString("F")}]" +
-                     $"{(Type == LocationType.Distance ? $", Distance: [{GeoPoint.Meters/1000.0} km]" : "")}"
-            : "Choose a location")
+                         $"{(Type == LocationType.Distance ? $", {Translations!["Distance:"]} [{GeoPoint.Meters / 1000.0} km]" : "")}"
+            : Translations!["Choose a location"])
     </button>
-    <button @onclick="@Reset" disabled="@(!Selected)" class="location-button reset-button">Reset</button>
+    <button @onclick="@Reset" disabled="@(!Selected)" class="location-button reset-button">@Translations!["Reset"]</button>
 </div>
 
 @code

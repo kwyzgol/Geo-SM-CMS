@@ -2,7 +2,7 @@
 
 @page "/login"
 
-<PageTitle>Log in - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Log in"] - @Cms.System?.SystemName</PageTitle>
 
 @if (CurrentPage is { LoginInfo.IsLogged: true })
 {
@@ -12,26 +12,28 @@
 @if (Stage == FormStage.Form)
 {
     <div class="content-item width75 header-center paragraph-center triple-padding">
-        <h1>Log in <Icon Name="person" /></h1>
+        <h1>@Translations!["Log in"] <Icon Name="person" /></h1>
 
         <EditForm Model="@UserAccess" OnValidSubmit="@Submit">
             <label>
-                Username:
+                @Translations!["Username:"]
                 <InputText @bind-Value="@UserAccess.Username"
-                           Placeholder="Your username"
-                           disabled="@(!_canProceed)" />
+                           Placeholder=@Translations!["Your username"]
+                           disabled="@(!_canProceed)"/>
             </label>
 
             <label>
-                Password:
+            @Translations!["Password:"]
                 <InputText @bind-Value="@UserAccess.Password"
                            type="password"
-                           Placeholder="Your password"
+                           Placeholder=@Translations!["Your password"]
                            disabled="@(!_canProceed)" />
             </label>
 
             <span class="center-content">
-                <NavLink href="/reset-password" class="tos-link">Forgot your password? Change it now.</NavLink>
+                <NavLink href="/reset-password" class="tos-link">
+                    @Translations!["Forgot your password? Change it now."]
+                </NavLink>
             </span>
 
             <br />
@@ -40,7 +42,7 @@
                 <button type="submit"
                         class="normal-button triple-padding"
                         disabled="@(!_canProceed)">
-                    Log in
+                    @Translations!["Log in"]
                 </button>
             </span>
 
@@ -50,7 +52,7 @@
 @if (Stage == FormStage.Processing)
 {
     <div class="paragraph-center">
-        <p>Please, wait. Operation in progress.</p>
+            <p>@Translations!["Please, wait. Operation in progress."]</p>
     </div>
 }
 @if (Stage == FormStage.Auth && _userId != null)
@@ -88,7 +90,7 @@
                 if (Modal != null)
                 {
                     var parameters = new ModalParameters()
-                        .Add("Message", "Incorrect login data.");
+                        .Add("Message", Translations!["Incorrect login data."].ToString());
                     var infoModal = Modal.Show<InfoModal>("", parameters);
                 }
                 _canProceed = true;

@@ -2,7 +2,7 @@
 
 @page "/admin/send-email"
 
-<PageTitle>Send email - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Send email"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -14,22 +14,22 @@
     <div class="content-item width75 triple-padding column">
 
         <label>
-            Receiver:
+            @Translations!["Receiver:"]
             <input type="text" @bind="@_customEmail.Recipient">
         </label>
-
+        
         <label>
-            Subject:
+            @Translations!["Subject:"]
             <input type="text" @bind="@_customEmail.CustomSubject">
         </label>
 
         <label>
-            Message:
+            @Translations!["Message:"]
             <textarea rows=4 @bind="@_customEmail.CustomBody"></textarea>
         </label>
-
+        
         <button class="normal-button triple-padding" @onclick="@Send">
-            Send
+            @Translations!["Send"]
         </button>
     </div>
 }
@@ -49,7 +49,7 @@
                 if (Modal != null)
                 {
                     var parameters = new ModalParameters()
-                        .Add("Message", "Email sent.");
+                        .Add("Message", Translations!["Email sent."].ToString());
                     var modal = Modal.Show<InfoModal>("", parameters);
                     _customEmail.Recipient = "";
                     _customEmail.CustomSubject = "";
@@ -61,7 +61,7 @@
                 if (Modal != null)
                 {
                     var parameters = new ModalParameters()
-                        .Add("Message", "Error occurred. Email not sent.");
+                        .Add("Message", Translations!["Error occurred. Email not sent."].ToString());
                     var modal = Modal.Show<ErrorModal>("", parameters);
                 }
             }

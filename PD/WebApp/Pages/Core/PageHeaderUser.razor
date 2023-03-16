@@ -5,17 +5,17 @@
     <div id="header-user-panel">
         <button @onclick="@Search">
             <Icon Name="search" Class="icon-font-header" />
-            <span class="mobile-hidden">Search</span>
+            <span class="mobile-hidden">@Translations!["Search"]</span>
         </button>
 
         <button @onclick="@Login">
             <Icon Name="person" Class="icon-font-header" />
-            <span class="mobile-hidden">Log in</span>
+            <span class="mobile-hidden">@Translations!["Log in"]</span>
         </button>
 
         <button @onclick="@Register">
             <Icon Name="person_add" Class="icon-font-header" />
-            <span class="mobile-hidden">Register</span>
+            <span class="mobile-hidden">@Translations!["Register"]</span>
         </button>
     </div>
 }
@@ -23,7 +23,7 @@ else
 {
     <button @onclick="@Search">
         <Icon Name="search" Class="icon-font-header" />
-        <span class="mobile-hidden">Search</span>
+        <span class="mobile-hidden">@Translations!["Search"]</span>
     </button>
 
     <UserPlate Username="@CurrentPage.LoginInfo.Username"
@@ -32,7 +32,7 @@ else
     
     <button @onclick="@Logout">
         <Icon Name="logout" Class="icon-font-header" />
-        <span class="mobile-hidden">Log out</span>
+        <span class="mobile-hidden">@Translations!["Log out"]</span>
     </button>
 }
 

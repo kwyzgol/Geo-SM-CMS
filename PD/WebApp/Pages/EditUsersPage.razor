@@ -2,7 +2,7 @@
 
 @page "/admin/edit-users"
 
-<PageTitle>Edit users - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Edit users"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsLoggedIn(Role.Admin))
 {
@@ -24,7 +24,7 @@
 
             @if (SearchBar.SearchedUsers.Count == 0)
             {
-                <p>No users found.</p>
+                                <p>@Translations!["No users found."]</p>
             }
         }
     }

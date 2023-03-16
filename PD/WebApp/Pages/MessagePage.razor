@@ -2,7 +2,7 @@
 
 @page "/message/{username}"
 
-<PageTitle> Messages: @Username - @Cms.System?.SystemName</PageTitle>
+<PageTitle> @Translations!["Messages:"] @Username - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -18,7 +18,7 @@
 
         <span class="center-content">
             <button id="load-messages" class="normal-button triple-padding" @onclick="@Load">
-                Load more
+                @Translations!["Load more"]
             </button>
         </span>
 
@@ -50,7 +50,7 @@
         <EditForm Model="@Message" OnValidSubmit="@SendMessage">
             <div class="message-input">
                 <textarea @bind="Message.Content" onkeydown="TextAreaEnter(event)" rows=2 id="message-textarea"></textarea>
-                <button type="submit" id="send-message">Send</button>
+                    <button type="submit" id="send-message">@Translations!["Send"]</button>
             </div>
         </EditForm>
     </div>
@@ -252,5 +252,4 @@
             await InvokeAsync(StateHasChanged);
         }
     }
-
 }

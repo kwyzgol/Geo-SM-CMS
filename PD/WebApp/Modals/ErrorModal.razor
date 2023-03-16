@@ -1,13 +1,13 @@
 ﻿@inherits CmsModalBase
 
-<h1 class="font-color-error"><Icon Name="warning" /> Error</h1>
+<h1 class="font-color-error"><Icon Name="warning" /> @Translations!["Error"]</h1>
 <p>@ErrorMessage</p>
 
 @code {
     private string ErrorMessage => 
         string.IsNullOrEmpty(Message) ? 
-            "An unexpected error has occurred. " +
-            "Please try again later or contact the website administrator." : 
+            @Translations!["An unexpected error has occurred. " +
+            "Please try again later or contact the website administrator."] : 
             Message;
 
 }

@@ -4,16 +4,16 @@
 {
     <div class="content-item width75 triple-padding">
         <label>
-            Post id:
+            @Translations!["Post id:"]
             <input type="number"
                    min="0"
-                   @bind="@PostId" />
+                   @bind="@PostId"/>
         </label>
 
         <br />
-
+        
         <button class="normal-button triple-padding" @onclick="@DeleteFact">
-            Delete fact
+            @Translations!["Delete fact"]
         </button>
 
     </div>
@@ -36,7 +36,8 @@
                 return;
             }
 
-            var parameters = new ModalParameters().Add("Message", "Fact deleted.");
+            var parameters = new ModalParameters()
+                .Add("Message", Translations!["Fact deleted."].ToString());
 
             Modal?.Show<InfoModal>("", parameters);
 

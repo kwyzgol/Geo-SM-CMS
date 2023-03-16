@@ -4,21 +4,21 @@
 {
     <div class="content-item width75 triple-padding">
         <label>
-            Post id:
+            @Translations!["Post id:"]
             <input type="number"
                    min="0"
-               @bind="@PostId" />
+                   @bind="@PostId" />
         </label>
 
         <label>
-            Fact:
+            @Translations!["Fact:"]
             <textarea rows=4 @bind="@Fact"></textarea>
         </label>
 
         <br />
 
         <button class="normal-button triple-padding" @onclick="@AddFact">
-            Add fact
+            @Translations!["Add fact"]
         </button>
 
     </div>
@@ -49,7 +49,7 @@
                 return;
             }
 
-            var parameters = new ModalParameters().Add("Message", "Fact added.");
+            var parameters = new ModalParameters().Add("Message", Translations!["Fact added."].ToString());
 
             Modal?.Show<InfoModal>("", parameters);
 

@@ -2,7 +2,7 @@
 
 @page "/moderator/check-reports"
 
-<PageTitle>Moderator reports - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Moderator reports"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsLoggedIn(Role.Moderator))
 {

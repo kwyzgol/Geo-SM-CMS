@@ -2,7 +2,7 @@
 
 @page "/moderator/ban-user"
 
-<PageTitle>Ban user - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Ban user"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsLoggedIn(Role.Moderator))
 {

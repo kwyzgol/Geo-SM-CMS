@@ -5,9 +5,10 @@ namespace WebApp.Data;
 public class MessageModel : DatabaseConnected
 {
     public ulong MessageId { get; set; } = 0;
-    [Required(ErrorMessage = "The message is required.")]
+    [Required(ErrorMessageResourceType = typeof(Translations), ErrorMessageResourceName = "The_message_is_required_")]
     [StringLength(maximumLength: 1000,
-        ErrorMessage = "The message must be a maximum of 1000 characters.")]
+        ErrorMessageResourceType = typeof(Translations), 
+        ErrorMessageResourceName = "The_message_must_be_a_maximum_of_1000_characters_")]
     public string Content { get; set; } = "";
     public ulong SenderId { get; set; } = 0;
     public ulong ReceiverId { get; set; } = 0;

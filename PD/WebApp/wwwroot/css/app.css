@@ -153,7 +153,10 @@ html {
     padding: var(--cms-padding-space);
     border-radius: var(--cms-border-radius);
     margin: var(--cms-margin-space);
-    width: var(--cms-nav-item-width);
+    min-width: var(--cms-nav-item-width);
+    flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
 }
 
     .nav-item:hover {
@@ -171,7 +174,10 @@ html {
         background-color: var(--cms-color-main);
         color: var(--cms-font-main);
         margin: var(--cms-margin-space);
-        width: var(--cms-nav-item-width);
+        min-width: var(--cms-nav-item-width);
+        flex-wrap: nowrap;
+        display: flex;
+        align-items: center;
     }
 
 #page-right {

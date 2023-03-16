@@ -1,16 +1,16 @@
 ﻿@inherits CmsModalBase
 
-<h1 class="font-color-confirm"><Icon Name="help" /> Confirmation</h1>
+<h1 class="font-color-confirm"><Icon Name="help" /> @Translations!["Confirmation"]</h1>
 <p>@ConfirmMessage</p>
 <div class="grid">
-    <button onclick="@Confirm"><Icon Name="done" Class="icon-font-header"/> Yes</button>
-    <button onclick="@Cancel"><Icon Name="close" Class="icon-font-header"/> Cancel</button>
+    <button onclick="@Confirm"><Icon Name="done" Class="icon-font-header" /> @Translations!["Yes"]</button>
+    <button onclick="@Cancel"><Icon Name="close" Class="icon-font-header" /> @Translations!["Cancel"]</button>
 </div>
 
 
 @code {
     private string ConfirmMessage =>
-        string.IsNullOrEmpty(Message) ? "Are you sure?" : Message;
+        string.IsNullOrEmpty(Message) ? Translations!["Are you sure?"] : Message;
 
     private async Task Confirm() => await BlazoredModal.CloseAsync(ModalResult.Ok());
     private async Task Cancel() => await BlazoredModal.CancelAsync();

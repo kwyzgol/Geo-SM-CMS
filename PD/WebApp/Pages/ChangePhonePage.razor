@@ -2,7 +2,7 @@
 
 @page "/user/change-phone"
 
-<PageTitle>Change phone number - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["Change phone number"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -14,22 +14,22 @@
     <div class="content-item width75 triple-padding column">
         <EditForm Model="@PhoneValidation" OnValidSubmit="@Change">
             <label>
-                New phone number:
+                @Translations!["New phone number:"]
                 <div class="grid phone-container">
                     <InputText class="phone-country"
-                           @bind-Value="PhoneValidation.PhoneCountry"
+                               @bind-Value="PhoneValidation.PhoneCountry"
                                Placeholder="+00"
-                               type="tel" />
+                               type="tel"/>
                     <InputText class="phone-number"
-                           @bind-Value="PhoneValidation.PhoneNumber"
-                               Placeholder="Your number"
-                               type="tel" />
+                               @bind-Value="PhoneValidation.PhoneNumber"
+                               Placeholder=@Translations!["Your number"]
+                               type="tel"/>
                 </div>
             </label>
 
 
             <button type="submit" class="normal-button triple-padding">
-                Change
+                @Translations!["Change"]
             </button>
 
             <DataAnnotationsValidator />
@@ -52,8 +52,8 @@
                 if (Modal != null)
                 {
                     var parameters = new ModalParameters()
-                        .Add("Message", "" + 
-                                        "The format or country code of your phone number is not supported.");
+                        .Add("Message", 
+                            Translations!["The format or country code of your phone number is not supported."].ToString());
                     Modal.Show<InfoModal>("", parameters);
                 }
                 return;
@@ -67,7 +67,7 @@
                 if (Modal != null)
                 {
                     var parameters = new ModalParameters()
-                        .Add("Message", "Phone number changed.");
+                        .Add("Message", Translations!["Phone number changed."].ToString());
                     var modal = Modal.Show<InfoModal>("", parameters);
                     var getResponse = await modal.Result;
                 }

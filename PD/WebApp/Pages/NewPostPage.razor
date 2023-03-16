@@ -2,7 +2,7 @@
 
 @page "/new-post"
 
-<PageTitle>New post - @Cms.System?.SystemName</PageTitle>
+<PageTitle>@Translations!["New post"] - @Cms.System?.SystemName</PageTitle>
 
 @if (IsNotLoggedIn())
 {
@@ -15,33 +15,33 @@
     {
         <div class="content-item width75 header-center paragraph-center triple-padding">
 
-            <h1>New post <Icon Name="post_add" /></h1>
+                    <h1>@Translations!["New post"] <Icon Name="post_add" /></h1>
 
             <label>
-                Title:
+                @Translations!["Title:"]
                 <input type="text"
                        autofocus
                        disabled="@(!_canProceed)"
-               @bind="@Post.Title" />
+                       @bind="@Post.Title"/>
             </label>
 
             <label>
-                Content:
+                @Translations!["Content:"]
                 <textarea rows=4
                           disabled="@(!_canProceed)"
                   @bind="@Post.Content"></textarea>
             </label>
 
             <label>
-                Image:
+                @Translations!["Image:"]
                 <InputFile @bind-Value="@_file"
-                   OnChange="ImageSelected"
-                           accept=".png, .jpg, .jpeg" />
+                           OnChange="ImageSelected"
+                           accept=".png, .jpg, .jpeg"/>
             </label>
 
             <label>
-                Location:
-                <LocationButton @ref="@_location" />
+                @Translations!["Location:"]
+                <LocationButton @ref="@_location"/>
             </label>
 
             <br />
@@ -49,8 +49,8 @@
             <span class="center-content">
                 <button class="normal-button triple-padding"
                         disabled="@(!_canProceed)"
-                @onclick="@Submit">
-                    Create
+                        @onclick="@Submit">
+                    @Translations!["Create"]
                 </button>
             </span>
 
@@ -59,7 +59,7 @@
     @if (Stage == FormStage.Processing)
     {
         <div class="paragraph-center">
-            <p>Please, wait. Operation in progress.</p>
+            <p>@Translations!["Please, wait. Operation in progress."]</p>
         </div>
     }
 }
@@ -85,7 +85,7 @@
             if (string.IsNullOrWhiteSpace(Post.Content) || string.IsNullOrWhiteSpace(Post.Title))
             {
                 var parameters = new ModalParameters()
-                    .Add("Message", "Title and content cannot be empty.");
+                    .Add("Message", Translations!["Title and content cannot be empty."].ToString());
                 var modal = Modal?.Show<InfoModal>("", parameters);
                 _canProceed = true;
                 Stage = FormStage.Form;
@@ -96,8 +96,8 @@
             if (Post.Content.Length > 2000 || Post.Title.Length > 200)
             {
                 var parameters = new ModalParameters()
-                    .Add("Message",
-                        "The title max length is 200 and the content max length is 2000.");
+                    .Add("Message", 
+                        Translations!["The title max length is 200 and the content max length is 2000."].ToString());
                 var modal = Modal?.Show<InfoModal>("", parameters);
                 _canProceed = true;
                 Stage = FormStage.Form;
@@ -123,8 +123,8 @@
                     Console.WriteLine(e.Message);
 
                     var parameters = new ModalParameters()
-                        .Add("Message",
-                            "Error occurred during the file upload.");
+                        .Add("Message", 
+                            Translations!["Error occurred during the file upload."].ToString());
                     var modal = Modal?.Show<ErrorModal>("", parameters);
 
                     _file = null;
@@ -136,7 +136,7 @@
             }
             else
             {
-                Post.Img = Post.Img = $"core/content.png";
+                Post.Img = "core/content.png";
             }
 
             List<string> tags = Post.Content
@@ -202,7 +202,7 @@
                 else
                 {
                     var parameters = new ModalParameters()
-                        .Add("Message", "Invalid file type. The file won't be uploaded.");
+                        .Add("Message", Translations!["Invalid file type. The file won't be uploaded."].ToString());
                     var modal = Modal?.Show<InfoModal>("", parameters);
                     await InvokeAsync(StateHasChanged);
                 }

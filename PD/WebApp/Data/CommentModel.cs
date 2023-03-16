@@ -10,9 +10,10 @@ public class CommentModel : DatabaseConnected
     public string Avatar { get; set; } = "core/user.png";
     public DateTime Date { get; set; } = DateTime.UtcNow;
 
-    [Required(ErrorMessage = "The comment is required.")]
-    [StringLength(maximumLength: 2000,
-        ErrorMessage = "The comment must be a maximum of 2000 characters.")]
+    [Required(ErrorMessageResourceType = typeof(Translations), ErrorMessageResourceName = "The_comment_is_required_")]
+    [StringLength(maximumLength: 2000, 
+        ErrorMessageResourceType = typeof(Translations), 
+        ErrorMessageResourceName = "The_comment_must_be_a_maximum_of_2000_characters_")]
     public string Content { get; set; } = "";
 
     public bool IsValid

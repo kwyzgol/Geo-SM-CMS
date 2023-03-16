@@ -2,100 +2,104 @@
 
 @if (Type == PostType.Mini)
 {
-    <div class="post">
-        
-        <DeleteButton ContentType="Data.Content.Post"
-                      ContentId="@((long?)PostId)"
-                      AuthorId="@((long?)AuthorId)" />
-        
-        <ReportButton ContentType="Data.Content.Post"
+        <div class="post">
+
+            <DeleteButton ContentType="Data.Content.Post"
                       ContentId="@((long?)PostId)"
                       AuthorId="@((long?)AuthorId)" />
 
-        <div class="ui-post">
-            <div class="ui-post-vote-picture">
-                <div class="ui-post-vote">
-                    <button class='@(SelectedUp ? "selected" : "")' disabled="@(!_canSelect)" @onclick="@UpVote">
-                        <Icon Name="arrow_drop_up" />
-                    </button>
-                    <span class="ui-post-counter">@Counter</span>
-                    <button class="@(SelectedDown ? "selected" : "")" disabled="@(!_canSelect)" @onclick="@DownVote">
-                        <Icon Name="arrow_drop_down" />
-                    </button>
+            <ReportButton ContentType="Data.Content.Post"
+                      ContentId="@((long?)PostId)"
+                      AuthorId="@((long?)AuthorId)" />
+
+            <div class="ui-post">
+                <div class="ui-post-vote-picture">
+                    <div class="ui-post-vote">
+                        <button class='@(SelectedUp ? "selected" : "")' disabled="@(!_canSelect)" @onclick="@UpVote">
+                            <Icon Name="arrow_drop_up" />
+                        </button>
+                        <span class="ui-post-counter">@Counter</span>
+                        <button class="@(SelectedDown ? "selected" : "")" disabled="@(!_canSelect)" @onclick="@DownVote">
+                            <Icon Name="arrow_drop_down" />
+                        </button>
+                    </div>
+                    <a href="/post/@PostId">
+                        <img src="@($"img/{Img}")" class="ui-post-picture" />
+                    </a>
                 </div>
-                <a href="/post/@PostId">
-                    <img src="@($"img/{Img}")" class="ui-post-picture" />
-                </a>
-            </div>
-            <div class="ui-post-text">
-                <a class="no-decoration" href="/post/@PostId">
-                    <h5 class="ui-post-header">@Title</h5>
-                </a>
-                <p class="ui-post-author">by <a href="/profile/@Author">@Author</a>, date: @Date UTC</p>
-                <a class="no-decoration" href="/post/@PostId">
-                    <p class="ui-post-content">@_content</p>
-                </a>
+                <div class="ui-post-text">
+                    <a class="no-decoration" href="/post/@PostId">
+                        <h5 class="ui-post-header">@Title</h5>
+                    </a>
+                    <p class="ui-post-author">
+                        @Translations!["by"] <a href="/profile/@Author">@Author</a>, @Translations!["date:"] @Date UTC
+                    </p>
+                    <a class="no-decoration" href="/post/@PostId">
+                        <p class="ui-post-content">@_content</p>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
 }
 @if (Type == PostType.Full)
 {
     @if (BlockSearchEngines)
     {
-        <HeadContent>
-            <meta name="robots" content="noindex, nofollow" />
-        </HeadContent>
+                <HeadContent>
+                    <meta name="robots" content="noindex, nofollow" />
+                </HeadContent>
     }
     else
     {
-        <HeadContent>
-            <meta name="robots" content="index, follow" />
-        </HeadContent>
+                <HeadContent>
+                    <meta name="robots" content="index, follow" />
+                </HeadContent>
     }
 
     @if (string.IsNullOrEmpty(Fact) == false)
     {
-        <div id="fact" class="post-full">
-            <h2>Fact-checked information <Icon Name="check_circle" /></h2>
-            <p class="ui-post-content-full">@Fact</p>
-        </div>
-    }
-    <div class="post-full">
-
-        <DeleteButton ContentType="Data.Content.Post"
-                  ContentId="@((long?)PostId)"
-                  AuthorId="@((long?)AuthorId)" />
-
-        <ReportButton ContentType="Data.Content.Post"
-                  ContentId="@((long?)PostId)"
-                  AuthorId="@((long?)AuthorId)" />
-
-        <div class="ui-post">
-            <div class="ui-post-vote-picture-full">
-                <div class="ui-post-vote">
-                    <button class='@(SelectedUp ? "selected" : "")' disabled="@(!_canSelect)" @onclick="@UpVote">
-                        <Icon Name="arrow_drop_up"/>
-                    </button>
-                    <span class="ui-post-counter">@Counter</span>
-                    <button class='@(SelectedDown ? "selected" : "")' disabled="@(!_canSelect)" @onclick="@DownVote">
-                        <Icon Name="arrow_drop_down"/>
-                    </button>
+                <div id="fact" class="post-full">
+                    <h2>@Translations!["Fact-checked information"] <Icon Name="check_circle" /></h2>
+                    <p class="ui-post-content-full">@Fact</p>
                 </div>
-            </div>
-            <div class="ui-post-text">
-                <h5 class="ui-post-header-full">@Title</h5>
-                <p class="ui-post-author">by <a href="/profile/@Author">@Author</a>, date: @Date UTC</p>
-                <p class="ui-post-content-full">@_content</p>
+    }
+        <div class="post-full">
+
+            <DeleteButton ContentType="Data.Content.Post"
+                  ContentId="@((long?)PostId)"
+                  AuthorId="@((long?)AuthorId)" />
+
+            <ReportButton ContentType="Data.Content.Post"
+                  ContentId="@((long?)PostId)"
+                  AuthorId="@((long?)AuthorId)" />
+
+            <div class="ui-post">
+                <div class="ui-post-vote-picture-full">
+                    <div class="ui-post-vote">
+                        <button class='@(SelectedUp ? "selected" : "")' disabled="@(!_canSelect)" @onclick="@UpVote">
+                            <Icon Name="arrow_drop_up"/>
+                        </button>
+                        <span class="ui-post-counter">@Counter</span>
+                        <button class='@(SelectedDown ? "selected" : "")' disabled="@(!_canSelect)" @onclick="@DownVote">
+                            <Icon Name="arrow_drop_down"/>
+                        </button>
+                    </div>
+                </div>
+                <div class="ui-post-text">
+                    <h5 class="ui-post-header-full">@Title</h5>
+                    <p class="ui-post-author">
+                    @Translations!["by"] <a href="/profile/@Author">@Author</a>, @Translations!["date:"] @Date UTC
+                    </p>
+                    <p class="ui-post-content-full">@_content</p>
                 @if (Img.Equals("core/content.png") == false)
                 {
-                    <div class="picture-center">
-                        <img src=@($"img/{Img}") class="ui-post-picture-full"/>
-                    </div>
+                            <div class="picture-center">
+                                <img src=@($"img/{Img}") class="ui-post-picture-full"/>
+                            </div>
                 }
+                </div>
             </div>
         </div>
-    </div>
 }
 
 @code
@@ -183,18 +187,18 @@
         string? accessToken = CurrentPage?.LoginInfo.AccessToken;
 
         PostModel post = new PostModel()
-        {
-            PostId = (long)PostId,
-            AuthorId = (long)AuthorId,
-            Author = Author,
-            Title = Title,
-            Content = Content,
-            Img = Img,
-            Date = Date,
-            Counter = Counter,
-            Fact = Fact,
-            BlockSearchEngines = BlockSearchEngines
-        };
+            {
+                PostId = (long)PostId,
+                AuthorId = (long)AuthorId,
+                Author = Author,
+                Title = Title,
+                Content = Content,
+                Img = Img,
+                Date = Date,
+                Counter = Counter,
+                Fact = Fact,
+                BlockSearchEngines = BlockSearchEngines
+            };
 
         if (_canSelect && UserModel.IsActive(accessToken).Equals(false))
         {
@@ -251,18 +255,18 @@
         string? accessToken = CurrentPage?.LoginInfo.AccessToken;
 
         PostModel post = new PostModel()
-        {
-            PostId = (long)PostId,
-            AuthorId = (long)AuthorId,
-            Author = Author,
-            Title = Title,
-            Content = Content,
-            Img = Img,
-            Date = Date,
-            Counter = Counter,
-            Fact = Fact,
-            BlockSearchEngines = BlockSearchEngines
-        };
+            {
+                PostId = (long)PostId,
+                AuthorId = (long)AuthorId,
+                Author = Author,
+                Title = Title,
+                Content = Content,
+                Img = Img,
+                Date = Date,
+                Counter = Counter,
+                Fact = Fact,
+                BlockSearchEngines = BlockSearchEngines
+            };
 
         if (_canSelect && UserModel.IsActive(accessToken).Equals(false))
         {

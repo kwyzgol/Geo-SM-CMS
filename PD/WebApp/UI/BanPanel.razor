@@ -4,20 +4,20 @@
 {
     <div class="content-item width75 triple-padding">
         <label>
-            Username:
+            @Translations!["Username:"]
             <input type="text"
-               @bind="@Username"
-                   autofocus />
+                   @bind="@Username"
+                   autofocus/>
         </label>
 
         <label>
-            Reason:
+            @Translations!["Reason:"]
             <input type="text"
                @bind="@Reason" />
         </label>
 
         <label>
-            Days:
+            @Translations!["Days:"]
             <input type="number"
                    min="1"
                @bind="@Days" />
@@ -26,7 +26,7 @@
         <br />
 
         <button class="normal-button triple-padding" @onclick="@BanUser">
-            Ban user
+            @Translations!["Ban user"]
         </button>
 
     </div>
@@ -48,7 +48,7 @@
             if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Reason))
             {
                 var parameters = new ModalParameters()
-                    .Add("Message", "Username and reason are required.");
+                    .Add("Message", Translations!["Username and reason are required."].ToString());
                 Modal?.Show<InfoModal>("", parameters);
                 return;
             }
@@ -64,7 +64,7 @@
             if (ReportLoader == null)
             {
                 var parameters = new ModalParameters()
-                    .Add("Message", "User successfully banned.");
+                    .Add("Message", Translations!["User successfully banned."].ToString());
                 Modal?.Show<InfoModal>("", parameters);
                 Username = "";
                 Reason = "";

@@ -4,7 +4,7 @@
 {
     <div class="content-item width75 triple-padding">
         <label>
-            Username:
+            @Translations!["Username:"]
             <input type="text"
                @bind="@Username"
                    autofocus />
@@ -13,7 +13,7 @@
         <br />
 
         <button class="normal-button triple-padding" @onclick="@UnBanUser">
-            Unban user
+            @Translations!["Unban user"]
         </button>
 
     </div>
@@ -30,7 +30,7 @@
             if (string.IsNullOrWhiteSpace(Username))
             {
                 var parametersInfo = new ModalParameters()
-                    .Add("Message", "Username is required.");
+                    .Add("Message", Translations!["Username is required."].ToString());
                 Modal?.Show<InfoModal>("", parametersInfo);
                 return;
             }
@@ -44,7 +44,7 @@
             }
 
             var parametersSuccess = new ModalParameters()
-                .Add("Message", "User unbanned.");
+                .Add("Message", Translations!["User unbanned."].ToString());
             Modal?.Show<InfoModal>("", parametersSuccess);
             Username = "";
         }
