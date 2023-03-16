@@ -11,9 +11,9 @@
 
 @if (IsLoggedIn())
 {
-    <div class="content-item width75 triple-padding column">
+    <div class="content-item width75 triple-padding column header-center">
 
-            <h1>@Translations!["Latest login history"] <Icon Name="history" /></h1>
+        <h1>@Translations!["Latest login history"] <Icon Name="history" /></h1>
         <span class="center-content">
             <button class="normal-button triple-padding" @onclick="@RevokeAll">
                 @Translations!["Log out of all sessions"]
@@ -22,14 +22,14 @@
 
 
         <br />
-        
+
         <div class="login-records-list">
             @foreach (var record in _loginHistory)
-        {
-            <div class="content-item-2 @(record.Item2 ? "message-sender-color" : "")">
-                <p>@record.Item1 UTC @(record.Item2 ? "(current)": "")</p>
-            </div>
-        }
+            {
+                <div class="content-item-2 @(record.Item2 ? "message-sender-color" : "")">
+                    <p>@record.Item1 UTC @(record.Item2 ? "(current)" : "")</p>
+                </div>
+            }
         </div>
     </div>
 }
