@@ -24,12 +24,12 @@ public class UserAccessModel : DatabaseConnected
     [DataType(DataType.Password)]
     public string? Password { get; set; }
 
-    public virtual bool IsValid
+    public bool IsValid
     {
         get
         {
             var validationContext = new ValidationContext(this);
-            return Validator.TryValidateObject(this, validationContext, null);
+            return Validator.TryValidateObject(this, validationContext, null, true);
         }
     }
 

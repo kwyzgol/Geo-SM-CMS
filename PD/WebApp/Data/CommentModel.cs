@@ -21,7 +21,7 @@ public class CommentModel : DatabaseConnected
         get
         {
             var validationContext = new ValidationContext(this);
-            return Validator.TryValidateObject(this, validationContext, null);
+            return Validator.TryValidateObject(this, validationContext, null, true);
         }
     }
 

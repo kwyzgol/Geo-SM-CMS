@@ -45,7 +45,7 @@ public class RegistrationModel : DatabaseConnected
         get
         {
             var validationContext = new ValidationContext(this);
-            return Validator.TryValidateObject(this, validationContext, null);
+            return Validator.TryValidateObject(this, validationContext, null, true);
         }
     }
 
@@ -95,7 +95,7 @@ public class RegistrationModelEmail : RegistrationModel
         get
         {
             var validationContext = new ValidationContext(this);
-            return Validator.TryValidateObject(this, validationContext, null);
+            return Validator.TryValidateObject(this, validationContext, null, true);
         }
     }
 }
@@ -120,7 +120,7 @@ public class RegistrationModelSms : RegistrationModel
         get
         {
             var validationContext = new ValidationContext(this);
-            return Validator.TryValidateObject(this, validationContext, null);
+            return Validator.TryValidateObject(this, validationContext, null, true);
         }
     }
 }
@@ -156,7 +156,7 @@ public class RegistrationModelBoth : RegistrationModel
         get
         {
             var validationContext = new ValidationContext(this);
-            return Validator.TryValidateObject(this, validationContext, null);
+            return Validator.TryValidateObject(this, validationContext, null, true);
         }
     }
 }
@@ -178,7 +178,7 @@ public class PasswordValidation
         get
         {
             var validationContext = new ValidationContext(this);
-            return Validator.TryValidateObject(this, validationContext, null);
+            return Validator.TryValidateObject(this, validationContext, null, true);
         }
     }
 }
@@ -200,7 +200,7 @@ public class UsernameValidation
         get
         {
             var validationContext = new ValidationContext(this);
-            return Validator.TryValidateObject(this, validationContext, null);
+            return Validator.TryValidateObject(this, validationContext, null, true);
         }
     }
 }
@@ -223,7 +223,7 @@ public class EmailValidation
         get
         {
             var validationContext = new ValidationContext(this);
-            return Validator.TryValidateObject(this, validationContext, null);
+            return Validator.TryValidateObject(this, validationContext, null, true);
         }
     }
 }
@@ -247,11 +247,7 @@ public class PhoneValidation
         get
         {
             var validationContext = new ValidationContext(this);
-            return Validator.TryValidateObject(this, validationContext, null);
+            return Validator.TryValidateObject(this, validationContext, null, true);
         }
     }
 }
-
-/*
- * TODO testy walidacji
- */
