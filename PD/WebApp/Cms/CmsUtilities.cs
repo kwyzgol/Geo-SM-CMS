@@ -1,4 +1,5 @@
 ﻿namespace WebApp.Cms;
+
 public static class CmsUtilities
 {
     public static Role RoleToEnum(string role)
@@ -95,27 +96,6 @@ public static class CmsUtilities
     }
 
     public static string AuthTypeToString(AuthType authType)
-    {
-        switch (authType)
-        {
-            case AuthType.None:
-                return "none";
-
-            case AuthType.Email:
-                return "email";
-
-            case AuthType.Sms:
-                return "sms";
-
-            case AuthType.EmailAndSms:
-                return "email and sms";
-
-            default:
-                return "none";
-        }
-    }
-
-    public static string RoleToString(AuthType authType)
     {
         switch (authType)
         {
