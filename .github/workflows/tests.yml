@@ -6,11 +6,19 @@ env:
   DOTNET_VERSION: '6.0.401'
 
 jobs: 
-  Unit_tests:
+  Tests:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+    - name: Setup Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install docker-compose-plugin
+    - name: Setup databases
+      run: |
+        docker compose -f ./PD/docker-compose.yml up -d mysql
+        docker compose -f ./PD/docker-compose.yml up -d neo4j
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:

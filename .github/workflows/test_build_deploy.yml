@@ -9,12 +9,12 @@ on:
       - v**
 
 jobs:
-  # Tests:
-    # uses: kwyzgol/PD/.github/workflows/tests.yml@main
+  Tests:
+    uses: kwyzgol/PD/.github/workflows/tests.yml@main
   
   Create_images_and_publish:
     uses: kwyzgol/PD/.github/workflows/create_images.yml@main
-    # needs: Tests
+    needs: Tests
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
