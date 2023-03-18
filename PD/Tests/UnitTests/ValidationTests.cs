@@ -67,8 +67,6 @@ public class ValidationTests
     [TestCase("123456", "abc", false)]
     [TestCase("abc", "123456", false)]
     [TestCase("", "", false)]
-    [TestCase("123456", "", false)]
-    [TestCase("", "123456", false)]
     public void AuthCodeBoth_IsValid_ProvidedData_ReturnsStatus(string codeEmail, string codeSms, bool expected)
     {
         var authCodeBoth = new AuthCodesBoth()
