@@ -35,4 +35,4 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
     - name: Run tests
-      run: dotnet test "./PD/Tests"
+      run: dotnet test "./PD/Tests" -t
