@@ -1018,6 +1018,57 @@ public class DatabasesManager
         }
     }
 
+    public async Task<OperationResult> ClearDatabases()
+    {
+        try
+        {
+            // Connection settings - MySql
+            string mySqlConnStr = $"server={_mysqlHostname};" +
+                                  $"user={_mysqlUser};" +
+                                  $"database={_mysqlDatabase};" +
+                                  $"port=3306;" +
+                                  $"password={_mysqlPassword}";
+            MySqlConnection mySqlConnection = new MySqlConnection(mySqlConnStr);
+
+            // Connection settings - Neo4j
+            Uri neo4jUri = new Uri($"neo4j://{_neo4jHostname}");
+            var neo4jDriver = GraphDatabase.Driver(neo4jUri,
+                AuthTokens.Basic(_neo4jUser, _neo4jPassword));
+
+            // Connection start - MySql
+            mySqlConnection.Open();
+
+            // Connection start - Neo4j
+            var neo4jSession = neo4jDriver.AsyncSession();
+
+            MySqlCommand cmd = new MySqlCommand("", mySqlConnection);
+            
+            cmd.CommandText = "DROP DATABASE IF EXISTS db";
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "CREATE DATABASE db";
+            cmd.ExecuteNonQuery();
+
+            string queryDropIndexTag = "DROP INDEX tagIndex IF EXISTS";
+            string queryDropIndexTitle = "DROP INDEX titleIndex IF EXISTS";
+            string queryDropIndexUsername = "DROP INDEX usernameIndex IF EXISTS";
+
+            await neo4jSession.RunAsync(queryDropIndexTag);
+            await neo4jSession.RunAsync(queryDropIndexTitle);
+            await neo4jSession.RunAsync(queryDropIndexUsername);
+            await neo4jSession.RunAsync("MATCH (n) DETACH DELETE n");
+
+            await CloseConnection(neo4jSession, neo4jDriver, mySqlConnection);
+            return new OperationResult(true);
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return new OperationResult(false, "Error");
+        }
+    }
+
     // SETTINGS
 
     public OperationResult GetSettings(GeneralSettings settings, AuthManager auth, ReCaptchaManager reCaptcha)
@@ -1482,7 +1533,7 @@ public class DatabasesManager
                 cmd.CommandText = "INSERT INTO events(type, valid_time, user_id) " +
                                   "VALUES(@type, @valid_time, @user_id)";
                 cmd.Parameters.AddWithValue("@type", "registration");
-                
+
                 cmd.Parameters.AddWithValue("@valid_time", DateTime.UtcNow.AddHours(24));
                 cmd.Parameters.AddWithValue("@user_id", userId);
                 cmd.ExecuteNonQuery();
@@ -4663,7 +4714,7 @@ public class DatabasesManager
                     return new OperationResult(true, "Empty");
                 }
                 cmd.Parameters.Clear();
-                
+
 
                 cmd.CommandText = "UPDATE reports SET status = 'locked', moderator_id = @moderator_id " +
                                   "WHERE report_id = @report_id";
@@ -4692,7 +4743,7 @@ public class DatabasesManager
                     report.Status = (string)reader["status"];
                     report.Type = CmsUtilities.ReportTypeToEnum((string)reader["type"]);
                     report.Content = (string)reader["content"];
-                    
+
                     var reportCreatorId = reader["report_creator"];
                     if (reportCreatorId != DBNull.Value)
                     {
@@ -4835,7 +4886,7 @@ public class DatabasesManager
                 cmd.Parameters.AddWithValue("@report_id", reportId);
                 cmd.Parameters.AddWithValue("@moderator_id", user.UserId);
                 cmd.ExecuteNonQuery();
-                
+
                 mySqlTransaction.Commit();
                 mySqlConnection.Close();
                 return new OperationResult(true);
@@ -4873,7 +4924,7 @@ public class DatabasesManager
             List<BanModel> banHistory = new List<BanModel>();
 
             MySqlCommand cmd = new MySqlCommand("", mySqlConnection);
-            
+
             cmd.CommandText = "SELECT * FROM ban_history " +
                               "WHERE user_id = @user_id";
             cmd.Parameters.AddWithValue("@user_id", user.UserId);
