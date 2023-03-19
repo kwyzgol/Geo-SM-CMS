@@ -3,7 +3,7 @@ name: Renew SSL certificate
 on:
   workflow_dispatch:
   schedule:
-  - cron: '0 9 1 * *'
+  - cron: '0 3 * * 1'
 
 jobs: 
   SSL_certificate_renewal:
