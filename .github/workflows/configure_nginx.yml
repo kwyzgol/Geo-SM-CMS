@@ -24,8 +24,6 @@ jobs:
         password: ${{ secrets.VPS_PASSWORD }}
         port: ${{ secrets.VPS_PORT }}
         script: |
-          sudo apt-get update
-          sudo apt-get install docker-compose-plugin
           git clone https://github.com/kwyzgol/PD.git
           mkdir pd-nginx
           mv ./PD/Nginx\ sample\ configuration/* ./pd-nginx/
