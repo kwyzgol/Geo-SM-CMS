@@ -21,6 +21,7 @@ services:
       - neo4j
     # EDIT volumes:
     # EDIT  - PLACEHOLDER_WEBAPP_PATH:/app/wwwroot/img
+    # EDIT  - pd-webapp-data-protection-keys:/root/.aspnet/DataProtection-Keys
     networks:
       - pd-network
 
@@ -62,7 +63,6 @@ services:
       - NEO4J_PLUGINS=["apoc"]
     # EDIT volumes:
     # EDIT  - PLACEHOLDER_NEO4J_PATH:/data
-    # EDIT  - pd-webapp-data-protection-keys:/root/.aspnet/DataProtection-Keys
     networks:
       - pd-network
 
