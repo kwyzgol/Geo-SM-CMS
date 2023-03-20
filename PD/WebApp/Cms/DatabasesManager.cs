@@ -42,60 +42,6 @@ public class DatabasesManager
         DatabaseConnected.DatabasesBase = this;
     }
 
-    public async Task<OperationResult> SampleRequest()
-    {
-        // START
-        try
-        {
-            // Connection settings - MySql
-            string mySqlConnStr = $"server={_mysqlHostname};" +
-                                  $"user={_mysqlUser};" +
-                                  $"database={_mysqlDatabase};" +
-                                  $"port=3306;" +
-                                  $"password={_mysqlPassword}";
-            MySqlConnection mySqlConnection = new MySqlConnection(mySqlConnStr);
-
-            // Connection settings - Neo4j
-            Uri neo4jUri = new Uri($"neo4j://{_neo4jHostname}");
-            var neo4jDriver = GraphDatabase.Driver(neo4jUri,
-                AuthTokens.Basic(_neo4jUser, _neo4jPassword));
-
-            // Connection start - MySql
-            mySqlConnection.Open();
-            MySqlTransaction mySqlTransaction = mySqlConnection.BeginTransaction();
-
-            // Connection start - Neo4j
-            var neo4jSession = neo4jDriver.AsyncSession();
-            var neo4jTransaction = await neo4jSession.BeginTransactionAsync();
-
-            try
-            {
-                // REQUESTS
-
-                mySqlTransaction.Commit();
-                await neo4jTransaction.CommitAsync();
-
-                await CloseConnection(neo4jSession, neo4jDriver, mySqlConnection);
-                return new OperationResult(true);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                mySqlTransaction.Rollback();
-                await neo4jTransaction.RollbackAsync();
-
-                await CloseConnection(neo4jSession, neo4jDriver, mySqlConnection);
-                return new OperationResult(false, "Error");
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-            return new OperationResult(false, "Error");
-        }
-        // END
-    }
-
     public async Task<OperationResult> TestConnection()
     {
         try
@@ -1043,10 +989,10 @@ public class DatabasesManager
 
             MySqlCommand cmd = new MySqlCommand("", mySqlConnection);
             
-            cmd.CommandText = "DROP DATABASE IF EXISTS db";
+            cmd.CommandText = $"DROP DATABASE IF EXISTS {_mysqlDatabase}";
             cmd.ExecuteNonQuery();
 
-            cmd.CommandText = "CREATE DATABASE db";
+            cmd.CommandText = $"CREATE DATABASE {_mysqlDatabase}";
             cmd.ExecuteNonQuery();
 
             string queryDropIndexTag = "DROP INDEX tagIndex IF EXISTS";
@@ -3872,7 +3818,6 @@ public class DatabasesManager
     }
 
     public OperationResult GetMessages(ulong user1, ulong user2, ulong? maxId = null)
-
     {
         try
         {
