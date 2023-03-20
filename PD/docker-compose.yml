@@ -66,6 +66,9 @@ services:
     networks:
       - pd-network
 
+volumes:
+  pd-webapp-data-protection-keys:
+
 networks:
   pd-network:
     driver: bridge
