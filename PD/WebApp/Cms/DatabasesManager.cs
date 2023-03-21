@@ -1701,12 +1701,12 @@ public class DatabasesManager
                               "FROM users " +
                               "WHERE user_id=@user_id;";
             cmd.Parameters.AddWithValue("@user_id", id);
-            string? userStatus = (string?)cmd.ExecuteScalar();
-            bool status = userStatus != null;
+            string? userAuthType = (string?)cmd.ExecuteScalar();
+            bool status = userAuthType != null;
             if (status)
             {
                 mySqlConnection.Close();
-                return new OperationResult(true, "", CmsUtilities.AuthTypeToEnum(userStatus!));
+                return new OperationResult(true, "", CmsUtilities.AuthTypeToEnum(userAuthType!));
             }
             else
             {
@@ -2229,6 +2229,7 @@ public class DatabasesManager
                 MySqlCommand cmd = new MySqlCommand("", mySqlConnection, mySqlTransaction);
                 cmd.CommandText = "DELETE FROM access_tokens WHERE value = @value";
                 cmd.Parameters.AddWithValue("@value", accessToken);
+                cmd.ExecuteNonQuery();
 
                 mySqlTransaction.Commit();
 
