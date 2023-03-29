@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="WebApp.Cms.AuthHub">
+    <Position X="0.5" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>EAAABAAAAAAAQAAAAAAAEIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cms\AuthHub.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Cms.MessageHub">
+    <Position X="4.25" Y="0.5" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAACAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cms\MessageHub.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="WebApp.Data.Role" Collapsed="true">
+    <Position X="5.5" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAIAAAAQAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.SearchType" Collapsed="true">
+    <Position X="7.25" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAgAAAAAAAAAAAACAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.Content" Collapsed="true">
+    <Position X="5.5" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAACAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.ReportType" Collapsed="true">
+    <Position X="3.75" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.AuthType" Collapsed="true">
+    <Position X="3.75" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAQAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.PostType" Collapsed="true">
+    <Position X="2" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAACA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.ViewMode" Collapsed="true">
+    <Position X="9" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.FormStage" Collapsed="true">
+    <Position X="7.25" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAABEAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.AuthPanelMode" Collapsed="true">
+    <Position X="2" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.LocationType" Collapsed="true">
+    <Position X="9" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

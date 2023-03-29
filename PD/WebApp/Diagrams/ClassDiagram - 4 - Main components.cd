@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="WebApp.Pages.Core.IndexPageRedirect" Collapsed="true">
+    <Position X="7" Y="10" Width="1.75" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="9.846" />
+        <Point X="7.875" Y="9.846" />
+        <Point X="7.875" Y="10" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Core\IndexPageRedirect.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.Core.NavigationMenu" Collapsed="true">
+    <Position X="7" Y="4" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="3.846" />
+        <Point X="7.75" Y="3.846" />
+        <Point X="7.75" Y="4" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Core\NavigationMenu.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.Core.NotFoundRedirect" Collapsed="true">
+    <Position X="4" Y="12" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="12.346" />
+        <Point X="4" Y="12.346" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Core\NotFoundRedirect.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.Core.PageFooter" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.711" Y="2.312" />
+        <Point X="3.711" Y="2.312" />
+        <Point X="4" Y="2.312" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Core\PageFooter.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.Core.PageHeader" Collapsed="true">
+    <Position X="4" Y="3" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="3.346" />
+        <Point X="4" Y="3.346" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Core\PageHeader.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.Core.PageHeaderUser" Collapsed="true">
+    <Position X="4" Y="5" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="5.346" />
+        <Point X="4" Y="5.346" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Core\PageHeaderUser.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.Core.ReCaptchaClient" Collapsed="true">
+    <Position X="4" Y="6" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="6.346" />
+        <Point X="4" Y="6.346" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Core\ReCaptchaClient.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.AuthPanel" Collapsed="true">
+    <Position X="4" Y="7" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="7.346" />
+        <Point X="4" Y="7.346" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\AuthPanel.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.BanPanel" Collapsed="true">
+    <Position X="4" Y="9" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="9.346" />
+        <Point X="4" Y="9.346" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\BanPanel.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.CmsComponentBase" Collapsed="true">
+    <Position X="1" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\CmsComponentBase.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.CommentsPanel" Collapsed="true">
+    <Position X="7" Y="2" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="1.625" />
+        <Point X="7.75" Y="1.625" />
+        <Point X="7.75" Y="2" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\CommentsPanel.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.DeleteButton" Collapsed="true">
+    <Position X="7" Y="8" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="7.846" />
+        <Point X="7.75" Y="7.846" />
+        <Point X="7.75" Y="8" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\DeleteButton.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.DeleteFactPanel" Collapsed="true">
+    <Position X="7" Y="6" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="5.846" />
+        <Point X="7.75" Y="5.846" />
+        <Point X="7.75" Y="6" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\DeleteFactPanel.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.FactPanel" Collapsed="true">
+    <Position X="7" Y="11" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="10.846" />
+        <Point X="7.75" Y="10.846" />
+        <Point X="7.75" Y="11" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\FactPanel.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.LocationButton" Collapsed="true">
+    <Position X="4" Y="4" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="4.346" />
+        <Point X="4" Y="4.346" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\LocationButton.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.Post" Collapsed="true">
+    <Position X="4" Y="8" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="8.346" />
+        <Point X="4" Y="8.346" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Post.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.PostsLoader" Collapsed="true">
+    <Position X="4" Y="10" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="10.346" />
+        <Point X="4" Y="10.346" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\PostsLoader.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.ReportButton" Collapsed="true">
+    <Position X="4" Y="11" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="11.346" />
+        <Point X="4" Y="11.346" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\ReportButton.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.ReportLoader" Collapsed="true">
+    <Position X="7" Y="9" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="8.846" />
+        <Point X="7.75" Y="8.846" />
+        <Point X="7.75" Y="9" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\ReportLoader.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.SearchBar" Collapsed="true">
+    <Position X="7" Y="3" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="2.846" />
+        <Point X="7.75" Y="2.846" />
+        <Point X="7.75" Y="3" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\SearchBar.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.UnBanPanel" Collapsed="true">
+    <Position X="7" Y="7" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="6.846" />
+        <Point X="7.75" Y="6.846" />
+        <Point X="7.75" Y="7" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\UnBanPanel.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.UserPlate" Collapsed="true">
+    <Position X="7" Y="5" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="2.312" />
+        <Point X="3.125" Y="2.312" />
+        <Point X="3.125" Y="4.846" />
+        <Point X="7.75" Y="4.846" />
+        <Point X="7.75" Y="5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\UserPlate.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

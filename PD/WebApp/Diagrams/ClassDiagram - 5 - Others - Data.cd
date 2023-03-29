@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="WebApp.Data.BanModel">
+    <Position X="4" Y="3.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>BAAACABAAAAAAAIAAQAAAAgAAAABAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Data\BanModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Data.GeoPointModel">
+    <Position X="7.25" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAIAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Data\GeoPointModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Data.OperationResult">
+    <Position X="1.25" Y="0.5" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAQAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Data\OperationResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Data.PhoneAllowed">
+    <Position X="6.25" Y="0.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAQAAAAAACAAAAQgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\PhoneAllowed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Data.ReCaptchaResponse">
+    <Position X="1.25" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAgCAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\ReCaptchaResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Data.SmtpAccessData">
+    <Position X="1.25" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAACAAACAACAAAAAAAAAAA=</HashCode>
+      <FileName>Data\SmtpAccessData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="WebApp.Data.Role" Collapsed="true">
+    <Position X="5.5" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAIAAAAQAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.SearchType" Collapsed="true">
+    <Position X="7.25" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAgAAAAAAAAAAAACAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.Content" Collapsed="true">
+    <Position X="5.5" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAACAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.ReportType" Collapsed="true">
+    <Position X="3.75" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.AuthType" Collapsed="true">
+    <Position X="3.75" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAQAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.PostType" Collapsed="true">
+    <Position X="2" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAACA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.ViewMode" Collapsed="true">
+    <Position X="9" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.FormStage" Collapsed="true">
+    <Position X="7.25" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAABEAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.AuthPanelMode" Collapsed="true">
+    <Position X="2" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="WebApp.Data.LocationType" Collapsed="true">
+    <Position X="9" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

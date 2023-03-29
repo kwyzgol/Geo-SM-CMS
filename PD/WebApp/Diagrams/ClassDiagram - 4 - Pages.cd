@@ -1,0 +1,621 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="WebApp.Pages.Core.CmsPageBase" Collapsed="true">
+    <Position X="1" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.UI.CmsComponentBase" FixedFromPoint="true">
+      <Path>
+        <Point X="1.75" Y="2.691" />
+        <Point X="1.75" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Core\CmsPageBase.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.Core.LoadPage" Collapsed="true">
+    <Position X="11" Y="5.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.252" Y="3.625" />
+        <Point X="3.252" Y="2.997" />
+        <Point X="10.625" Y="2.997" />
+        <Point X="10.625" Y="5.562" />
+        <Point X="11" Y="5.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Core\LoadPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.TosPage" Collapsed="true">
+    <Position X="11" Y="8.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.247" Y="3.625" />
+        <Point X="3.247" Y="2.988" />
+        <Point X="10.625" Y="2.988" />
+        <Point X="10.625" Y="8.625" />
+        <Point X="11" Y="8.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\TosPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.AdminSettingsPage" Collapsed="true">
+    <Position X="1" Y="5.25" Width="1.75" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.214" Y="3.625" />
+        <Point X="3.214" Y="5.562" />
+        <Point X="2.75" Y="5.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\AdminSettingsPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.BanUserPage" Collapsed="true">
+    <Position X="8.5" Y="5.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.233" Y="3.625" />
+        <Point X="3.233" Y="2.982" />
+        <Point X="7.992" Y="2.982" />
+        <Point X="7.992" Y="5.562" />
+        <Point X="8.5" Y="5.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\BanUserPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.ChangeAvatarPage" Collapsed="true">
+    <Position X="8.25" Y="9.25" Width="1.75" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.265" Y="3.625" />
+        <Point X="3.265" Y="2.981" />
+        <Point X="7.997" Y="2.981" />
+        <Point X="7.997" Y="9.562" />
+        <Point X="8.25" Y="9.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ChangeAvatarPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.ChangeColorsPage" Collapsed="true">
+    <Position X="8.5" Y="3.25" Width="1.75" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.236" Y="3.625" />
+        <Point X="3.236" Y="2.988" />
+        <Point X="8.008" Y="2.988" />
+        <Point X="8.008" Y="3.562" />
+        <Point X="8.5" Y="3.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ChangeColorsPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.ChangeEmailPage" Collapsed="true">
+    <Position X="6" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.244" Y="3.625" />
+        <Point X="3.244" Y="2.985" />
+        <Point X="5.612" Y="2.985" />
+        <Point X="5.612" Y="3.625" />
+        <Point X="6" Y="3.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ChangeEmailPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.ChangeLogoPage" Collapsed="true">
+    <Position X="3.5" Y="4.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.25" Y="3.625" />
+        <Point X="3.25" Y="4.625" />
+        <Point X="3.5" Y="4.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ChangeLogoPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.ChangePasswordPage" Collapsed="true">
+    <Position X="3.5" Y="6.25" Width="1.75" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.245" Y="3.625" />
+        <Point X="3.245" Y="6.596" />
+        <Point X="3.5" Y="6.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ChangePasswordPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.ChangePhonePage" Collapsed="true">
+    <Position X="3.5" Y="9.25" Width="1.75" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.225" Y="3.625" />
+        <Point X="3.225" Y="9.596" />
+        <Point X="3.5" Y="9.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ChangePhonePage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.ContactPage" Collapsed="true">
+    <Position X="6" Y="5.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.263" Y="3.625" />
+        <Point X="3.263" Y="3.006" />
+        <Point X="5.642" Y="3.006" />
+        <Point X="5.642" Y="5.596" />
+        <Point X="6" Y="5.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ContactPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.DeleteFactPage" Collapsed="true">
+    <Position X="6" Y="8.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.255" Y="3.625" />
+        <Point X="3.255" Y="3.006" />
+        <Point X="5.609" Y="3.006" />
+        <Point X="5.609" Y="8.596" />
+        <Point X="6" Y="8.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\DeleteFactPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.EditAllowedPhonesPage" Collapsed="true">
+    <Position X="6" Y="10.25" Width="2" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.271" Y="3.625" />
+        <Point X="3.271" Y="2.972" />
+        <Point X="5.62" Y="2.972" />
+        <Point X="5.62" Y="10.596" />
+        <Point X="6" Y="10.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\EditAllowedPhonesPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.EditContactPage" Collapsed="true">
+    <Position X="1" Y="6.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.244" Y="3.625" />
+        <Point X="3.244" Y="6.562" />
+        <Point X="2.5" Y="6.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\EditContactPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.EditTosPage" Collapsed="true">
+    <Position X="8.5" Y="6.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.265" Y="3.625" />
+        <Point X="3.265" Y="3.016" />
+        <Point X="8" Y="3.016" />
+        <Point X="8" Y="6.625" />
+        <Point X="8.5" Y="6.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\EditTosPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.EditUsersPage" Collapsed="true">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.241" Y="3.625" />
+        <Point X="3.241" Y="3.001" />
+        <Point X="10.625" Y="3.001" />
+        <Point X="10.625" Y="3.625" />
+        <Point X="11" Y="3.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\EditUsersPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.FactReportsPage" Collapsed="true">
+    <Position X="11" Y="6.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.269" Y="3.625" />
+        <Point X="3.269" Y="3.019" />
+        <Point X="10.636" Y="3.019" />
+        <Point X="10.636" Y="6.596" />
+        <Point X="11" Y="6.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\FactReportsPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.IndexPage" Collapsed="true">
+    <Position X="1" Y="4.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.232" Y="3.625" />
+        <Point X="3.232" Y="4.625" />
+        <Point X="2.5" Y="4.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\IndexPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.LanguagePage" Collapsed="true">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.5" Y="3.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\LanguagePage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.LoginPage" Collapsed="true">
+    <Position X="3.5" Y="7.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.21" Y="3.625" />
+        <Point X="3.21" Y="7.596" />
+        <Point X="3.5" Y="7.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\LoginPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.MessagePage" Collapsed="true">
+    <Position X="6" Y="9.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.261" Y="3.625" />
+        <Point X="3.261" Y="2.972" />
+        <Point X="5.614" Y="2.972" />
+        <Point X="5.614" Y="9.596" />
+        <Point X="6" Y="9.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\MessagePage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.MessagesListPage" Collapsed="true">
+    <Position X="6" Y="6.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.258" Y="3.625" />
+        <Point X="3.258" Y="3.004" />
+        <Point X="5.635" Y="3.004" />
+        <Point X="5.635" Y="6.596" />
+        <Point X="6" Y="6.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\MessagesListPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.ModeratorReportsPage" Collapsed="true">
+    <Position X="3.5" Y="10.25" Width="2" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.234" Y="3.625" />
+        <Point X="3.234" Y="10.596" />
+        <Point X="3.5" Y="10.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ModeratorReportsPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.NewFactPage" Collapsed="true">
+    <Position X="1" Y="9.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.216" Y="3.625" />
+        <Point X="3.216" Y="9.562" />
+        <Point X="2.5" Y="9.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\NewFactPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.NewPostPage" Collapsed="true">
+    <Position X="1" Y="7.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.237" Y="3.625" />
+        <Point X="3.237" Y="7.562" />
+        <Point X="2.5" Y="7.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\NewPostPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.NotFoundPage" Collapsed="true">
+    <Position X="8.5" Y="7.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.245" Y="3.625" />
+        <Point X="3.245" Y="3.029" />
+        <Point X="7.984" Y="3.029" />
+        <Point X="7.984" Y="7.562" />
+        <Point X="8.5" Y="7.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\NotFoundPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.PostPage" Collapsed="true">
+    <Position X="11" Y="4.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.231" Y="3.625" />
+        <Point X="3.231" Y="3.01" />
+        <Point X="10.625" Y="3.01" />
+        <Point X="10.625" Y="4.562" />
+        <Point X="11" Y="4.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\PostPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.ProfilePage" Collapsed="true">
+    <Position X="11" Y="9.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.254" Y="3.625" />
+        <Point X="3.254" Y="3.007" />
+        <Point X="10.609" Y="3.007" />
+        <Point X="10.609" Y="9.596" />
+        <Point X="11" Y="9.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ProfilePage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.RegisterPage" Collapsed="true">
+    <Position X="11" Y="7.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.236" Y="3.625" />
+        <Point X="3.236" Y="3.011" />
+        <Point X="10.625" Y="3.011" />
+        <Point X="10.625" Y="7.625" />
+        <Point X="11" Y="7.625" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\RegisterPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.ResetPasswordPage" Collapsed="true">
+    <Position X="3.5" Y="5.25" Width="1.75" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.231" Y="3.625" />
+        <Point X="3.231" Y="5.596" />
+        <Point X="3.5" Y="5.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\ResetPasswordPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.SearchPage" Collapsed="true">
+    <Position X="3.5" Y="8.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.244" Y="3.625" />
+        <Point X="3.244" Y="8.596" />
+        <Point X="3.5" Y="8.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\SearchPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.SendEmailPage" Collapsed="true">
+    <Position X="6" Y="4.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.227" Y="3.625" />
+        <Point X="3.227" Y="3.008" />
+        <Point X="5.611" Y="3.008" />
+        <Point X="5.611" Y="4.596" />
+        <Point X="6" Y="4.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\SendEmailPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.SessionsPage" Collapsed="true">
+    <Position X="6" Y="7.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.263" Y="3.625" />
+        <Point X="3.263" Y="3.003" />
+        <Point X="5.622" Y="3.003" />
+        <Point X="5.622" Y="7.562" />
+        <Point X="6" Y="7.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\SessionsPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.SettingsPage" Collapsed="true">
+    <Position X="1" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.238" Y="3.625" />
+        <Point X="3.238" Y="10.596" />
+        <Point X="2.5" Y="10.596" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\SettingsPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.TagPage" Collapsed="true">
+    <Position X="1" Y="8.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.226" Y="3.625" />
+        <Point X="3.226" Y="8.562" />
+        <Point X="2.5" Y="8.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\TagPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.TagsPage" Collapsed="true">
+    <Position X="8.5" Y="4.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.241" Y="3.625" />
+        <Point X="3.241" Y="2.99" />
+        <Point X="7.998" Y="2.99" />
+        <Point X="7.998" Y="4.562" />
+        <Point X="8.5" Y="4.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\TagsPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.Pages.UnbanUserPage" Collapsed="true">
+    <Position X="8.5" Y="8.25" Width="1.5" />
+    <InheritanceLine Type="WebApp.Pages.Core.CmsPageBase" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="3.625" />
+        <Point X="3.253" Y="3.625" />
+        <Point X="3.253" Y="2.998" />
+        <Point X="7.987" Y="2.998" />
+        <Point X="7.987" Y="8.562" />
+        <Point X="8.5" Y="8.562" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\UnbanUserPage.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApp.UI.CmsComponentBase" Collapsed="true">
+    <Position X="1" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\CmsComponentBase.razor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
