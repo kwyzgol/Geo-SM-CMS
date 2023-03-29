@@ -12,7 +12,7 @@ on:
         required: true
 
 jobs:
-  Image_creation_and_publication:
+  Image_creation:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
