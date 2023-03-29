@@ -9,12 +9,12 @@ on:
       - v**
 
 jobs:
-  Tests:
+  Test:
     uses: kwyzgol/PD/.github/workflows/tests.yml@main
   
-  Create_images_and_publish:
+  Build:
     uses: kwyzgol/PD/.github/workflows/create_images.yml@main
-    needs: Tests
+    needs: Test
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -22,7 +22,7 @@ jobs:
   
   Deploy:
     uses: kwyzgol/PD/.github/workflows/deploy_ssh.yml@main
-    needs: Create_images_and_publish
+    needs: Build
     secrets:
       VPS_HOST: ${{ secrets.VPS_HOST }}
       VPS_USERNAME: ${{ secrets.VPS_USERNAME }}
