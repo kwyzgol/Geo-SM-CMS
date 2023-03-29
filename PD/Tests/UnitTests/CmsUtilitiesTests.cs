@@ -15,9 +15,7 @@ public class CmsUtilitiesTests
     {
         var result = CmsUtilities.RoleToEnum(param);
 
-        //Assert.AreEqual(expected, result);
-
-        Assert.Fail();
+        Assert.AreEqual(expected, result);
     }
 
     [Test]
