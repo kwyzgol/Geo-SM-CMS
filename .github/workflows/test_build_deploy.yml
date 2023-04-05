@@ -12,7 +12,7 @@ jobs:
   Test:
     uses: kwyzgol/PD/.github/workflows/tests.yml@main
   
-  Build:
+  Build_WebApp:
     uses: kwyzgol/PD/.github/workflows/create_images.yml@main
     needs: Test
     secrets:
@@ -20,9 +20,13 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       PD_GHCR_TOKEN: ${{ secrets.PD_GHCR_TOKEN }}
   
+  Build_MobileAuth:
+    uses: kwyzgol/PD/.github/workflows/create_apk.yml@main
+    needs: Test
+
   Deploy:
     uses: kwyzgol/PD/.github/workflows/deploy_ssh.yml@main
-    needs: Build
+    needs: Build_WebApp
     secrets:
       VPS_HOST: ${{ secrets.VPS_HOST }}
       VPS_USERNAME: ${{ secrets.VPS_USERNAME }}
