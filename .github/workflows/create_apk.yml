@@ -1,0 +1,30 @@
+name: Create .apk file
+
+on: [workflow_dispatch, workflow_call]
+
+env:
+  DOTNET_VERSION: '6.0.401'
+
+jobs:
+  APK_creation:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Install workloads
+      run: |
+          dotnet workload install android
+          dotnet workload install maui
+    - name: Restore dependiencies
+      run: dotnet restore "./PD/MobileAuth"
+    - name: Build
+      run: dotnet build "./PD/MobileAuth" -c Release -f net6.0-android --no-restore
+    - name: Upload .apk file
+      uses: actions/upload-artifact@v3
+      with:
+        name: MobileAuth.apk
+        path: ./PD/MobileAuth/bin/Release/net6.0-android/android/MobileAuth.apk
