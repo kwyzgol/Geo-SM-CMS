@@ -23,8 +23,10 @@ jobs:
       run: dotnet restore "./PD/MobileAuth"
     - name: Build
       run: dotnet build "./PD/MobileAuth" -c Release -f net6.0-android --no-restore
+    - name: Rename .apk file
+      run: mv ./PD/MobileAuth/bin/Release/net6.0-android/com.kwyzgol.mobileauth-Signed.apk ./PD/MobileAuth/bin/Release/net6.0-android/MobileAuth.apk
     - name: Upload .apk file
       uses: actions/upload-artifact@v3
       with:
         name: MobileAuth.apk
-        path: ./PD/MobileAuth/bin/Release/net6.0-android/com.kwyzgol.mobileauth-Signed.apk
+        path: ./PD/MobileAuth/bin/Release/net6.0-android/MobileAuth.apk
