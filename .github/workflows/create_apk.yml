@@ -27,4 +27,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: MobileAuth.apk
-        path: ./PD/MobileAuth/bin/Release/net6.0-android/android/MobileAuth.apk
+        path: ./PD/MobileAuth/bin/Release/net6.0-android/android/com.kwyzgol.mobileauth-Signed.apk
