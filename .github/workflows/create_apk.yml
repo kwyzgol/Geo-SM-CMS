@@ -18,7 +18,7 @@ jobs:
     - name: Install workloads
       run: |
           dotnet workload install android
-          dotnet workload install maui
+          dotnet workload install maui-android
     - name: Restore dependiencies
       run: dotnet restore "./PD/MobileAuth"
     - name: Build
