@@ -20,7 +20,7 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       PD_GHCR_TOKEN: ${{ secrets.PD_GHCR_TOKEN }}
   
-  Build_MobileAuth:
+  Build_MobileApp:
     uses: kwyzgol/PD/.github/workflows/create_apk.yml@main
     needs: Test
 
