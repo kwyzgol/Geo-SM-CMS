@@ -807,4 +807,7 @@
   <data name="New post" xml:space="preserve">
     <value>New post</value>
   </data>
+  <data name="current" xml:space="preserve">
+	  <value>current</value>
+  </data>
 </root>

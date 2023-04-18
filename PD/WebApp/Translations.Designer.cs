@@ -468,6 +468,15 @@ namespace WebApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to current.
+        /// </summary>
+        public static string current {
+            get {
+                return ResourceManager.GetString("current", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to date:.
         /// </summary>
         public static string date_ {

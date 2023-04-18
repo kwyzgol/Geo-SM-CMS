@@ -27,7 +27,7 @@
             @foreach (var record in _loginHistory)
             {
                 <div class="content-item-2 @(record.Item2 ? "message-sender-color" : "")">
-                    <p>@record.Item1 UTC @(record.Item2 ? "(current)" : "")</p>
+                    <p>@record.Item1 UTC @(record.Item2 ? $"({Translations["current"]})" : "")</p>
                 </div>
             }
         </div>

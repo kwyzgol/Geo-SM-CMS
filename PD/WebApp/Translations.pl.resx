@@ -163,10 +163,10 @@
     <value>Zmieniono awatar.</value>
   </data>
   <data name="Ban history" xml:space="preserve">
-    <value>Historia banów</value>
+	  <value>Historia blokad</value>
   </data>
   <data name="Ban user" xml:space="preserve">
-    <value>Zbanuj użytkownika</value>
+	  <value>Zablokuj użytkownika</value>
   </data>
   <data name="Best in 24h" xml:space="preserve">
     <value>Najlepsze w ciągu 24 godzin</value>
@@ -337,10 +337,10 @@
     <value>Dodano fakt.</value>
   </data>
   <data name="Fact checker" xml:space="preserve">
-    <value>Fact checker</value>
+	  <value>Weryfikator treści</value>
   </data>
   <data name="Fact checker reports" xml:space="preserve">
-    <value>Zgłoszenia Fact checkera</value>
+	  <value>Zgłoszenia weryfikatora treści</value>
   </data>
   <data name="Fact deleted." xml:space="preserve">
     <value>Usunięto fakt.</value>
@@ -436,7 +436,7 @@
     <value>Uczyń administratorem</value>
   </data>
   <data name="Make fact checker" xml:space="preserve">
-    <value>Uczyń fact checkerem</value>
+	  <value>Uczyń weryfikatorem treści</value>
   </data>
   <data name="Make moderator" xml:space="preserve">
     <value>Uczyń moderatorem</value>
@@ -754,7 +754,7 @@
     <value>Typ:</value>
   </data>
   <data name="Unban user" xml:space="preserve">
-    <value>Odbanuj użytkownika</value>
+	  <value>Odblokuj użytkownika</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>Użytkownik</value>
@@ -763,10 +763,10 @@
     <value>Użytkownik usunięty pomyślnie.</value>
   </data>
   <data name="User successfully banned." xml:space="preserve">
-    <value>Użytkownik zbanowany pomyślnie.</value>
+	  <value>Użytkownik zablokowany pomyślnie.</value>
   </data>
   <data name="User unbanned." xml:space="preserve">
-    <value>Użytkownik odbanowany.</value>
+	  <value>Użytkownik odblokowany.</value>
   </data>
   <data name="Username and reason are required." xml:space="preserve">
     <value>Nazwa użytkownika i powód są wymagane.</value>
@@ -781,7 +781,7 @@
     <value>Tak</value>
   </data>
   <data name="You are banned. For more information please contact the website administrator." xml:space="preserve">
-    <value>Jesteś zbanowany. Aby uzyskać więcej informacji, skontaktuj się z administratorem serwisu.</value>
+	  <value>Jesteś zablokowany. Aby uzyskać więcej informacji, skontaktuj się z administratorem serwisu.</value>
   </data>
   <data name="Your email" xml:space="preserve">
     <value>Twój email</value>
@@ -806,5 +806,8 @@
   </data>
   <data name="New post" xml:space="preserve">
     <value>Nowy post</value>
+  </data>
+  <data name="current" xml:space="preserve">
+	  <value>bieżące</value>
   </data>
 </root>
