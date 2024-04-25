@@ -24,6 +24,17 @@
   - SSL certificate renewal,
   - Nginx server configuration.
 - The entire system uses **Docker** containers for seamless component communication.
+### Main technologies used:
+- .NET 6,
+- Blazor (Server and Hybrid),
+- NUnit,
+- SignalR,
+- BCrypt.Net-Next,
+- Blazored.Modal,
+- MySQL database,
+- Neo4j database,
+- Leaflet,
+- Docker.
 
 ## Features
 
@@ -127,7 +138,7 @@ After successful installation and launch of the app, a dialog box may appear req
 | ``VPS_PORT``                        | The connection port for the SSH protocol.                     |
 | ``VPS_USERNAME``                    | The username of the computer's user.                  |
 
-### Example diagram of the ``Test, build and deploy`` execution (CI-CT-CD pipeline)
+### Example diagrams of the ``Test, build and deploy`` executions (CI-CT-CD pipeline)
 ![ci-ct-cd-workflows](./README_img/ci-ct-cd_workflow.jpg)
 
 ## Sample screenshots
